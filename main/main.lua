@@ -5,19 +5,24 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-    Title = 'Blackout Privet | Infinte Yeild ++ | '..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+    Title = 'Infinte Yeild ++ v0.0.3 | '..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
     Center = true, 
     AutoShow = true,
 })
 
 local Tabs = {
-    player = Window:AddTab('Local PLayer'),
-    Visuals = Window:AddTab('Visuals'),
+    player = Window:AddTab('Plr'),
+    Visuals = Window:AddTab('Visual'),
     i2 = Window:AddTab(''),
     i3 = Window:AddTab(''),
     ['UI Settings'] = Window:AddTab('UI Settings'),
 }
 
+function r15(plr)
+	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+		return true
+	end
+end
 
 local Player = Tabs.player:AddLeftGroupbox('Player')
 local Player2 = Tabs.player:AddRightGroupbox('Others')
@@ -228,6 +233,34 @@ local destroytools = Player2:AddButton('Destroy All Tools', function()
     end
 end)
 
+local noanims = Player2:AddButton('Disable Anims', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+	local CAS = game:GetService("ContextActionService")
+	local FA = "freezeMovement"
+	CAS:BindAction(
+		FA,
+		function()
+			return Enum.ContextActionResult.Sink
+		end,
+		false,
+		unpack(Enum.PlayerActions:GetEnumItems())
+	)
+	wait()
+	CAS:UnbindAction(FA)
+	wait()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+	game.Players.LocalPlayer.Character.Animate.Disabled = true
+end)
+local yesanims = noanims:AddButton('Enable Anims', function()
+	game.Players.LocalPlayer.Character.Animate.Disabled = false
+end)
+local disableanims = Player2:AddButton('Freeze Anims', function()
+    game.Players.LocalPlayer.Character.Animate.Disabled = true
+end)
+local enableanims = disableanims:AddButton('UnFreeze Anims', function()
+    game.Players.LocalPlayer.Character.Animate.Disabled = false
+end)
+
 local lp = game.Players.LocalPlayer
 
 game:GetService("RunService").Stepped:Connect(function()
@@ -302,6 +335,93 @@ Toggles.clicktp:OnChanged(function()
         end
     end)
 end)
+
+Player:AddInput('flyspeed', {
+    Default = '150',
+    Numeric = true,
+    Finished = true,
+    Text = 'Fly Speed',
+    Tooltip = 'Set fly speed',
+    Placeholder = 'Value', 
+})
+
+Player:AddToggle('fly', {
+    Text = 'Fly | X to fly',
+    Default = false,
+    Tooltip = 'Un-toggling fly when toggle value\nis true can cause script to break',
+})
+Toggles.fly:OnChanged(function()
+    _G.Speed = Options.flyspeed.Value
+	_G.Key = Enum.KeyCode.X
+
+	local UIS = game:GetService("UserInputService")
+	local OnRender = game:GetService("RunService").RenderStepped
+
+	local Player = game:GetService("Players").LocalPlayer
+	local Character = Player.Character or Player.CharacterAdded:Wait()
+
+	local Camera = workspace.CurrentCamera
+	local Root = Character:WaitForChild("HumanoidRootPart")
+
+	local C1, C2, C3;
+	local penisNIggers1 = {Flying = false, Forward = false, Backward = false, Left = false, Right = false}
+	C1 = UIS.InputBegan:Connect(function(Input)
+    	if Input.UserInputType == Enum.UserInputType.Keyboard then
+        	if Input.KeyCode == _G.Key and Toggles.fly.Value == true then
+            	penisNIggers1.Flying = not penisNIggers1.Flying
+            	Root.Anchored = penisNIggers1.Flying
+        	elseif Input.KeyCode == Enum.KeyCode.W then
+            	penisNIggers1.Forward = true
+        	elseif Input.KeyCode == Enum.KeyCode.S then
+            	penisNIggers1.Backward = true
+        	elseif Input.KeyCode == Enum.KeyCode.A then
+            	penisNIggers1.Left = true
+        	elseif Input.KeyCode == Enum.KeyCode.D then
+            	penisNIggers1.Right = true
+        	end
+    	end
+	end)
+
+	C2 = UIS.InputEnded:Connect(function(Input)
+    	if Input.UserInputType == Enum.UserInputType.Keyboard then
+        	if Input.KeyCode == Enum.KeyCode.W then
+            	penisNIggers1.Forward = false
+    	    elseif Input.KeyCode == Enum.KeyCode.S then
+    	        penisNIggers1.Backward = false
+    	    elseif Input.KeyCode == Enum.KeyCode.A then
+    	        penisNIggers1.Left = false
+    	    elseif Input.KeyCode == Enum.KeyCode.D then
+    	        penisNIggers1.Right = false
+    	    end
+    	end
+	end)
+
+	C3 = Camera:GetPropertyChangedSignal("CFrame"):Connect(function()
+		if penisNIggers1.Flying then
+    	    Root.CFrame = CFrame.new(Root.CFrame.Position, Root.CFrame.Position + Camera.CFrame.LookVector)
+    	end
+	end)
+
+	while Toggles.fly.Value == true do 
+    	local Delta = OnRender:Wait()
+    	if penisNIggers1.Flying then
+    	    if penisNIggers1.Forward then
+    	        Root.CFrame = Root.CFrame + (Camera.CFrame.LookVector * (Delta * _G.Speed))
+    	    end
+    	    if penisNIggers1.Backward then
+    	        Root.CFrame = Root.CFrame + (-Camera.CFrame.LookVector * (Delta * _G.Speed))
+    	    end
+    	    if penisNIggers1.Left then
+    	        Root.CFrame = Root.CFrame + (-Camera.CFrame.RightVector * (Delta * _G.Speed))
+    	    end
+    	    if penisNIggers1.Right then
+    	        Root.CFrame = Root.CFrame + (Camera.CFrame.RightVector * (Delta * _G.Speed))
+     	   end
+    	end
+	end
+end)
+
+
 
 local Global = getgenv and getgenv() or _G
 Player3:AddButton('Basic Bang', function() 
@@ -520,6 +640,129 @@ Player3:AddButton('Blowjob', function()
 	until Global.dancing == false
 end)
 
+Player2:AddButton('Enable SL', function()
+	game.Players.LocalPlayer.DevEnableMouseLock = true
+end)
+
+local sittt = Player2:AddButton('Sit', function()
+    speaker.Character:FindFirstChildOfClass("Humanoid").Sit = true
+end)
+local layyy = sittt:AddButton('lay', function()
+	local Human = speaker.Character and speaker.Character:FindFirstChildOfClass('Humanoid')
+	if not Human then
+		return
+	end
+	Human.Sit = true
+	task.wait(.1)
+	Human.RootPart.CFrame = Human.RootPart.CFrame * CFrame.Angles(math.pi * .5, 0, 0)
+	for _, v in ipairs(Human:GetPlayingAnimationTracks()) do
+		v:Stop()
+	end
+end)
+
+local nolimbs = Player2:AddButton('No Limbs', function()
+	if r15(speaker) then
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "RightUpperLeg" or
+				v.Name == "LeftUpperLeg" or
+				v.Name == "RightUpperArm" or
+				v.Name == "LeftUpperArm" then
+				v:Destroy()
+			end
+		end
+	else
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "Right Leg" or
+				v.Name == "Left Leg" or
+				v.Name == "Right Arm" or
+				v.Name == "Left Arm" then
+				v:Destroy()
+			end
+		end
+	end
+
+end)
+local nohead = nolimbs:AddButton('No Head', function()
+	local lp = game:GetService "Players".LocalPlayer
+	if lp.Character:FindFirstChild "Head" then
+    	local char = lp.Character
+    	char.Archivable = true
+    	local new = char:Clone()
+    	new.Parent = workspace
+    	lp.Character = new
+    	wait(2)
+    	local oldhum = char:FindFirstChildWhichIsA "Humanoid"
+    	local newhum = oldhum:Clone()
+    	newhum.Parent = char
+    	newhum.RequiresNeck = false
+    	oldhum.Parent = nil
+    	wait(2)
+    	lp.Character = char
+    new:Destroy()
+    wait(1)
+    newhum:GetPropertyChangedSignal("Health"):Connect(
+        function()
+            if newhum.Health <= 0 then
+                oldhum.Parent = lp.Character
+                wait(1)
+                oldhum:Destroy()
+            end
+        end)
+    workspace.CurrentCamera.CameraSubject = char
+    if char:FindFirstChild "Animate" then
+        char.Animate.Disabled = true
+        wait(.1)
+        char.Animate.Disabled = false
+    end
+    lp.Character:FindFirstChild "Head":Destroy()
+end
+if simulationradius then
+game:GetService("RunService").Heartbeat:Connect(function()
+setsimulationradius(1/0,1/0)
+end) end
+end)
+local noarms = Player2:AddButton('No Arms', function()
+	if r15(speaker) then
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "RightUpperArm" or
+				v.Name == "LeftUpperArm" then
+				v:Destroy()
+			end
+		end
+	else
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "Right Arm" or
+				v.Name == "Left Arm" then
+				v:Destroy()
+			end
+		end
+	end
+end)
+local nolegs = noarms:AddButton('No Legs', function()
+	if r15(speaker) then
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "RightUpperLeg" or
+				v.Name == "LeftUpperLeg" then
+				v:Destroy()
+			end
+		end
+	else
+		for i,v in pairs(speaker.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "Right Leg" or
+				v.Name == "Left Leg" then
+				v:Destroy()
+			end
+		end
+	end
+end)
+
+
 
 stuff:AddInput('MaxZoomDistance', {
     Default = game.Players.LocalPlayer.CameraMaxZoomDistance,
@@ -559,8 +802,8 @@ Library:OnUnload(function()
 end)
 
 
-local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
-local Credits = Tabs['UI Settings']:AddRightGroupbox('Credits')
+local MenuGroup = Tabs['UI Settings']:AddRightGroupbox('Menu')
+local Credits = Tabs['UI Settings']:AddLeftGroupbox('Credits')
 
 MenuGroup:AddToggle("Keybinds", { Text = "Show Keybinds Menu", Default = false }):OnChanged(function()
     Library.KeybindFrame.Visible = Toggles.Keybinds.Value
@@ -574,7 +817,7 @@ MenuGroup:AddButton('Copy Discord Invite', function()
 	setclipboard("https://discord.gg/NbUUucBXhq")
 	Library:Notify("Invite Copied to clipboard")
 end)
-MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'RShift', NoUI = true, Text = 'Menu keybind' }) 
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'RightControl', NoUI = true, Text = 'Menu keybind' }) 
 
 Credits:AddLabel('Vo  |  Lead Developer/Owner')
 Credits:AddLabel('AmokahFox  |  Made Invis Module')
