@@ -9,8 +9,6 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/
 
 ## Vo's Infinite Yeild 
 ```lua
-getgenv().TagVisible = false
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/main.lua"))()
 ```
 
