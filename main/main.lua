@@ -4,8 +4,6 @@ local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'SaveManager.lua'))()
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/whitelists/main/tags/tagloader.lua"))()
-
 local Window = Library:CreateWindow({
     Title = "Vo's Infinte Yeild v0.0.3 | "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
     Center = true, 
