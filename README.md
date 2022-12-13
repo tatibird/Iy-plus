@@ -32,7 +32,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-pl
 12/12/2022 v0.0.2
 ```ini
 [+] Basic bang
-[+] "Push-ups"
+[+] Push-ups
 [+] Bed Over
 [+] Lying down
 [+] Blowjob
