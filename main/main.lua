@@ -4,8 +4,10 @@ local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'SaveManager.lua'))()
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/whitelists/main/tags/tagloader.lua"))()
+
 local Window = Library:CreateWindow({
-    Title = 'Infinte Yeild ++ v0.0.3 | '..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+    Title = "Vo's Infinte Yeild v0.0.3 | "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
     Center = true, 
     AutoShow = true,
 })
@@ -15,7 +17,7 @@ local Tabs = {
     Visuals = Window:AddTab('Visual'),
     i2 = Window:AddTab(''),
     i3 = Window:AddTab(''),
-    ['UI Settings'] = Window:AddTab('UI Settings'),
+    ['UI Settings'] = Window:AddTab('UI'),
 }
 
 function r15(plr)
