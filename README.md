@@ -1,4 +1,4 @@
-# Vo's Infinite Yeild 
+# Unbounded Yeild
 
 this is my remake of [Infinite Yeild](https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source).
 
