@@ -3,7 +3,7 @@ local Libraryflags = Library.flags
 local Wait = Library.subs.Wait
 local player = Library.LP
 local speaker = game.Players.LocalPlayer
-
+local Lighting = game:GetService("Lighting")
 origsettings = {abt = Lighting.Ambient, oabt = Lighting.OutdoorAmbient, brt = Lighting.Brightness, time = Lighting.ClockTime, fe = Lighting.FogEnd, fs = Lighting.FogStart, gs = Lighting.GlobalShadows}
 
 function r15(plr)
@@ -791,7 +791,7 @@ local stun = Player4:AddToggle({
 		end
 	end
 })
-Lighting = game:GetService("Lighting")
+
 
 local lightstuff = Visuals1:CreateLabel({
 	Text = 'Lighting'
