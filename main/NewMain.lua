@@ -1,9 +1,11 @@
--- Pepsi's UI Library
 local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
 local Libraryflags = Library.flags
 local Wait = Library.subs.Wait
 local player = Library.LP
 local speaker = game.Players.LocalPlayer
+
+origsettings = {abt = Lighting.Ambient, oabt = Lighting.OutdoorAmbient, brt = Lighting.Brightness, time = Lighting.ClockTime, fe = Lighting.FogEnd, fs = Lighting.FogStart, gs = Lighting.GlobalShadows}
+
 function r15(plr)
 	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
 		return true
@@ -20,7 +22,7 @@ local Window = Library:CreateWindow({
 })
 
 local PlayerTab = Window:CreateTab({
-	Name = 'Plr'
+	Name = 'Player'
 })
 local VisualsTab = Window:CreateTab({
 	Name = 'Visuals'
@@ -35,7 +37,7 @@ local Player1 = PlayerTab:CreateSection({
 	Side = 'left'
 })
 local Player2 = PlayerTab:CreateSection({
-	Name = 'Tools',
+	Name = 'Stuff',
 	Side = 'Right'
 })
 local Player3 = PlayerTab:CreateSection({
@@ -44,6 +46,11 @@ local Player3 = PlayerTab:CreateSection({
 })
 local Player4 = PlayerTab:CreateSection({
 	Name = 'Others',
+	Side = 'Left'
+})
+
+local Visuals1 = VisualsTab:CreateSection({
+	Name = 'World',
 	Side = 'Left'
 })
 
@@ -185,7 +192,7 @@ local cframefloat = Player1:AddToggle({
 	Callback = function( state )
 		if ( state ) then
 			_G.cframefloat = true
-			Speed = 1
+			Speed = 2.4
 
 			You = game.Players.LocalPlayer.Name
 			UIS = game:GetService("UserInputService")
@@ -337,6 +344,9 @@ local fly = Player1:AddToggle({
 	end
 })
 
+local toollabel = Player2:CreateLabel({
+	Text = 'Tools'
+})
 
 local btools = Player2:AddButton({
 	Name = "Spawn BTools",
@@ -364,6 +374,71 @@ local destroytools = Player2:AddButton({
 		end
 	end
 })
+local droptools = Player2:AddButton({
+	Name = "Drop Tools",
+	Callback = function()
+		for i,v in pairs(Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				v.Parent = Players.LocalPlayer.Character
+			end
+		end
+		wait()
+		for i,v in pairs(Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				v.Parent = workspace
+			end
+		end
+	end
+})
+local tooldroptrue = Player2:AddButton({
+	Name = "Make Tools Droppable",
+	Callback = function()
+		if speaker.Character then
+			for _,obj in pairs(speaker.Character:GetChildren()) do
+				if obj:IsA("Tool") then
+					obj.CanBeDropped = true
+				end
+			end
+		end
+		if speaker:FindFirstChildOfClass("Backpack") then
+			for _,obj in pairs(speaker:FindFirstChildOfClass("Backpack"):GetChildren()) do
+				if obj:IsA("Tool") then
+					obj.CanBeDropped = true
+				end
+			end
+		end
+	end
+})
+
+local hatslable = Player2:CreateLabel({
+	Text = 'Hats'
+})
+
+local drophats = Player2:AddButton({
+	Name = "Drop Hats",
+	Callback = function()
+		if speaker.Character then
+			for _,v in pairs(speaker.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
+				v.Parent = workspace
+			end
+		end	
+	end
+})
+local deletehats = Player2:AddButton({
+	Name = "Destroy Hats",
+	Callback = function()
+		for i,v in next, speaker.Character:GetDescendants() do
+			if v:IsA("Accessory") then
+				for i,p in next, v:GetDescendants() do
+					if p:IsA("Weld") then
+						p:Destroy()
+					end
+				end
+			end
+		end
+	end
+})
+
 
 local animlable = Player3:CreateLabel({
 	Text = 'Animations'
@@ -372,7 +447,6 @@ local animlable = Player3:CreateLabel({
 local Disableanims = Player3:AddButton({
 	Name = "Disable Animations",
 	Callback = function()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 		local CAS = game:GetService("ContextActionService")
 		local FA = "freezeMovement"
 		CAS:BindAction(
@@ -383,8 +457,9 @@ local Disableanims = Player3:AddButton({
 			false,
 			unpack(Enum.PlayerActions:GetEnumItems())
 		)
-		wait()
+		wait(1.5)
 		CAS:UnbindAction(FA)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 		wait()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 		game.Players.LocalPlayer.Character.Animate.Disabled = true
@@ -698,6 +773,94 @@ local invis = Player4:AddButton({
 		invis1()
 	end
 })
+local stun = Player4:AddToggle({
+	Name = 'Stun',
+	Value = false,
+	Flag = 'stunfunni',
+	Locked = false,
+	Keybind = {
+		Flag = 'syuuf_stun',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			speaker.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+		else
+			speaker.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+		end
+	end
+})
+Lighting = game:GetService("Lighting")
+
+local lightstuff = Visuals1:CreateLabel({
+	Text = 'Lighting'
+})
+
+local fb1 = Visuals1:AddButton({
+	Name = "Full Bright",
+	Callback = function()
+		Lighting.Brightness = 2
+		Lighting.ClockTime = 14
+		Lighting.FogEnd = 100000
+		Lighting.GlobalShadows = false
+		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+	end
+})
+local nofog = Visuals1:AddButton({
+	Name = "No Fog",
+	Callback = function()
+		Lighting.FogEnd = 100000
+		for i,v in pairs(Lighting:GetDescendants()) do
+			if v:IsA("Atmosphere") then
+				v:Destroy()
+			end
+		end
+	end
+})
+local nofog = Visuals1:AddButton({
+	Name = "Disable Global Shadows",
+	Callback = function()
+		Lighting.GlobalShadows = false
+	end
+})
+local yesfog = Visuals1:AddButton({
+	Name = "Enable Global Shadows",
+	Callback = function()
+		Lighting.GlobalShadows = true
+	end
+})
+local restorelighting = Visuals1:AddButton({
+	Name = "Restore Lighting",
+	Callback = function()
+		Lighting.Ambient = origsettings.abt
+		Lighting.OutdoorAmbient = origsettings.oabt
+		Lighting.Brightness = origsettings.brt
+		Lighting.ClockTime = origsettings.time
+		Lighting.FogEnd = origsettings.fe
+		Lighting.FogStart = origsettings.fs
+		Lighting.GlobalShadows = origsettings.gs
+	end
+})
+
+
+local lightstuff = Visuals1:CreateLabel({
+	Text = 'World'
+})
+
+local day1 = Visuals1:AddButton({
+	Name = "Day",
+	Callback = function()
+		Lighting.ClockTime = 14
+	end
+})
+local night1 = Visuals1:AddButton({
+	Name = "Night",
+	Callback = function()
+		Lighting.ClockTime = 0
+	end
+})
+
 
 local Global = getgenv and getgenv() or _G
 local sex1 = Funny1:AddButton({
