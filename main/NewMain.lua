@@ -4,12 +4,17 @@ local Wait = Library.subs.Wait
 local player = Library.LP
 local speaker = game.Players.LocalPlayer
 local Lighting = game:GetService("Lighting")
+local Camera = workspace.CurrentCamera
 origsettings = {abt = Lighting.Ambient, oabt = Lighting.OutdoorAmbient, brt = Lighting.Brightness, time = Lighting.ClockTime, fe = Lighting.FogEnd, fs = Lighting.FogStart, gs = Lighting.GlobalShadows}
 
 function r15(plr)
 	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
 		return true
 	end
+end
+function getRoot(char)
+	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+	return rootPart
 end
 
 local Window = Library:CreateWindow({
@@ -53,6 +58,10 @@ local Visuals1 = VisualsTab:CreateSection({
 	Name = 'World',
 	Side = 'Left'
 })
+local Visuals2 = VisualsTab:CreateSection({
+	Name = 'Name Spoofer',
+	Side = 'Right'
+})
 
 local Funny1 = FunTab:CreateSection({
 	Name = 'Sex',
@@ -92,7 +101,7 @@ local jumpPower1 = Player1:AddTextbox({
 _G.noclip = false
 game:GetService("RunService").Stepped:Connect(function()
     if _G.noclip == true then
-		for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 			if v.Name == "Torso" or v.Name == "Head" or v.Name == "UpperTorso" or v.Name == "LowerTorso" or v.Name == "HumanoidRootPart" then
 				v.CanCollide = false
 			end
@@ -102,7 +111,7 @@ end)
 local noclip = Player1:AddToggle({
 	Name = 'NoClip',
 	Value = false,
-	Flag = 'noclip',
+	Flag = 'nocli243242424p',
 	Locked = false,
 	Keybind = {
 		Flag = 'noclip',
@@ -180,7 +189,7 @@ local flyjump = Player1:AddToggle({
 
 _G.cframefloat = false
 local cframefloat = Player1:AddToggle({
-	Name = 'CFrame Speed | Buggy',
+	Name = 'CFrame Speed',
 	Value = false,
 	Flag = 'cferaweflaot',
 	Locked = false,
@@ -344,6 +353,177 @@ local fly = Player1:AddToggle({
 	end
 })
 
+_G.freecam = false
+local dfcam = Player1:AddToggle({
+	Name = 'Free Cam | C to Freecam',
+	Value = false,
+	Flag = 'nhrtgdrgdfg',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			_G.freecam = true
+			ToggleKey = Enum.KeyCode.C
+			SprintKey = Enum.KeyCode.Tab
+
+			localPlayer = game.Players.LocalPlayer
+
+			Camera = game.Workspace.CurrentCamera
+			Mouse = localPlayer:GetMouse()
+
+			UserInputService = game:GetService("UserInputService")
+
+
+			movePosition = Vector2.new(0,0)
+			moveDirection = Vector3.new(0,0,0)
+
+			targetMovePosition = movePosition
+
+			Y_Sensitivity = 300;
+			X_Sensitivity = 300;
+
+			lastRightButtonDown = Vector2.new(0,0)
+			rightMouseButtonDown = false
+
+			targetFOV = 70
+
+			sprinting = false;
+			sprintingSpeed = 3;
+
+			keysDown = {}
+
+			moveKeys = {
+				[Enum.KeyCode.D] = Vector3.new(1,0,0),
+				[Enum.KeyCode.A] = Vector3.new(-1,0,0),
+				[Enum.KeyCode.S] = Vector3.new(0,0,1),
+				[Enum.KeyCode.W] = Vector3.new(0,0,-1),
+				[Enum.KeyCode.E] = Vector3.new(0,1,0),
+				[Enum.KeyCode.Q] = Vector3.new(0,-1,0)
+			}
+
+			Tween = function(a,b,t)
+				if t == 1 then
+					return b
+				else 
+					if tonumber(a) then
+						return a * (1-t) + (b*t)
+					else
+						return a:Lerp(b,t);
+					end
+				end
+			end
+
+			ClampVector3 = function(x,min,max)
+
+				return 
+				Vector3.new(
+					math.clamp(x.X,min.X,max.X),
+					math.clamp(x.Y,min.Y,max.Y),
+					math.clamp(x.Z,min.Z,max.Z)
+				)
+
+			end
+
+
+			UserInputService.InputChanged:connect(function(inputObject)
+				if inputObject.UserInputType == Enum.UserInputType.MouseMovement then
+					movePosition = movePosition + Vector2.new(inputObject.Delta.x,inputObject.Delta.y)
+				end
+			end)
+
+			CalculateMovement = function()
+				local newMovement = Vector3.new(0,0,0)
+				for i,v in pairs(keysDown) do
+					newMovement = newMovement + (moveKeys[i] or Vector3.new(0,0,0))
+				end
+				return newMovement
+			end
+
+			Round = function(num, numDecimalPlaces)
+				return math.floor((num/numDecimalPlaces) + .5)*numDecimalPlaces
+			end
+
+			Input = function(input,gameProcessed)
+				if moveKeys[input.KeyCode] then
+					if input.UserInputState == Enum.UserInputState.Begin then
+						keysDown[input.KeyCode] = true
+					elseif input.UserInputState == Enum.UserInputState.End then
+						keysDown[input.KeyCode] = nil
+					end
+				else
+					if input.UserInputState == Enum.UserInputState.Begin then
+						print(input.KeyCode)
+						if input.UserInputType == Enum.UserInputType.MouseButton2 then
+							rightMouseButtonDown = true
+							lastRightButtonDown = Vector2.new(Mouse.X,Mouse.Y)
+							UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+						elseif input.KeyCode == Enum.KeyCode.Z then
+							targetFOV = 20
+						elseif input.KeyCode == SprintKey then
+							sprinting = true
+						end
+					else
+						if input.UserInputType == Enum.UserInputType.MouseButton2 then
+							rightMouseButtonDown = false
+							UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+						elseif input.KeyCode == Enum.KeyCode.Z then
+							targetFOV = 70
+						elseif input.KeyCode == SprintKey then
+							sprinting = false
+						end
+					end
+				end
+			end
+ 
+			Mouse.WheelForward:connect(function()
+				Camera.CoordinateFrame = Camera.CoordinateFrame * CFrame.new(0,0,-5)
+			end)
+
+			Mouse.WheelBackward:connect(function()
+				Camera.CoordinateFrame = Camera.CoordinateFrame * CFrame.new(-0,0,5)
+			end)
+
+			UserInputService.InputBegan:connect(Input)
+			UserInputService.InputEnded:connect(Input)
+
+			local Toggled = false
+			game:GetService("UserInputService").InputBegan:connect(function(inputObject)
+				if inputObject.KeyCode == ToggleKey and _G.freecam == true then
+					Toggled = not Toggled
+					if Toggled then
+						Camera.CameraType = Enum.CameraType.Scriptable
+						game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+						game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true 
+					else
+						game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+						game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+						game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+						game.Workspace.CurrentCamera.CameraType = "Custom"
+					end
+				end
+			end)
+
+
+			game:GetService("RunService").RenderStepped:Connect(function()
+				if Toggled then
+					local mouseTarget = Mouse.Hit
+
+					targetMovePosition = movePosition
+					Camera.CoordinateFrame = CFrame.new(Camera.CoordinateFrame.p) * CFrame.fromEulerAnglesYXZ(-targetMovePosition.Y/Y_Sensitivity ,-targetMovePosition.X/X_Sensitivity, 0) * CFrame.new(CalculateMovement() * ((({[true]=sprintingSpeed})[sprinting]) or .5) )
+					Camera.FieldOfView = Tween(Camera.FieldOfView,targetFOV,.5)
+					if rightMouseButtonDown then
+						UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+						movePosition = movePosition - (lastRightButtonDown - Vector2.new(Mouse.X,Mouse.Y))
+						lastRightButtonDown = Vector2.new(Mouse.X,Mouse.Y)
+					end
+				end
+			end)
+		else
+			_G.freecam = false
+		end
+	end
+})
+
 local toollabel = Player2:CreateLabel({
 	Text = 'Tools'
 })
@@ -407,6 +587,22 @@ local tooldroptrue = Player2:AddButton({
 				end
 			end
 		end
+	end
+})
+local equiptools = Player2:AddButton({
+	Name = "Equip All Tools",
+	Callback = function()
+		for i,v in pairs(speaker:FindFirstChildOfClass("Backpack"):GetChildren()) do
+			if v:IsA("Tool") or v:IsA("HopperBin") then
+				v.Parent = speaker.Character
+			end
+		end
+	end
+})
+local unequiptools = Player2:AddButton({
+	Name = "Un-Equip Tools",
+	Callback = function()
+		speaker.Character:FindFirstChildOfClass('Humanoid'):UnequipTools()
 	end
 })
 
@@ -622,9 +818,54 @@ local nolegs = Player3:AddButton({
 	end
 })
 
+local mnorootes = Player3:AddButton({
+	Name = "No Root",
+	Callback = function()
+		if speaker.Character ~= nil then
+			local char = game.Players.LocalPlayer.Character
+			char.Parent = nil
+			char.HumanoidRootPart:Destroy()
+			char.Parent = workspace
+		end
+	end
+})
+local yesroot123 = Player3:AddButton({
+	Name = "Replace Root",
+	Callback = function()
+		if speaker.Character ~= nil and speaker.Character:FindFirstChild("HumanoidRootPart") then
+			local Char = speaker.Character
+			local OldParent = Char.Parent
+			local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+			local OldPos = HRP.CFrame
+			Char.Parent = game
+			local HRP1 = HRP:Clone()
+			HRP1.Parent = Char
+			HRP = HRP:Destroy()
+			HRP1.CFrame = OldPos
+			Char.Parent = OldParent
+		end
+	end
+})
+local split = Player3:AddButton({
+	Name = "Split Body",
+	Callback = function()
+		if r15(speaker) then
+			speaker.Character.UpperTorso.Waist:Destroy()
+		else
+			Library.Notify({
+				Text = "r15 Is required for this to work",
+				Duration = 6
+			})
+		end
+	end
+})
+
+
 local animlable = Player3:CreateLabel({
 	Text = 'States'
 })
+
+
 local godmode = Player4:AddButton({
 	Name = "GodMode",
 	Callback = function()
@@ -773,6 +1014,30 @@ local invis = Player4:AddButton({
 		invis1()
 	end
 })
+
+local nilchar = Player4:AddToggle({
+	Name = 'Nil Character',
+	Value = false,
+	Flag = 'nilchar1',
+	Locked = false,
+	Keybind = {
+		Flag = 'nilll1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			if speaker.Character ~= nil then
+				speaker.Character.Parent = nil
+			end
+		else
+			if speaker.Character ~= nil then
+				speaker.Character.Parent = workspace
+			end
+		end
+	end
+})
+
 local stun = Player4:AddToggle({
 	Name = 'Stun',
 	Value = false,
@@ -791,6 +1056,65 @@ local stun = Player4:AddToggle({
 		end
 	end
 })
+_G.spamstun = false
+local stun2 = Player4:AddToggle({
+	Name = 'Become Retarded',
+	Value = false,
+	Flag = 'stunfunni1',
+	Locked = false,
+	Keybind = {
+		Flag = 'syuufs_stun',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.spamstun = true
+			while _G.spamstun == true do
+				wait()
+				speaker.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+				wait(0.6)
+				speaker.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+			end
+		else
+			_G.spamstun = false
+		end
+	end
+})
+
+local funnyspin = Player4:AddToggle({
+	Name = 'Spin',
+	Value = false,
+	Flag = 'spinnn',
+	Locked = false,
+	Keybind = {
+		Flag = 'asf5ernugdf',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local spinSpeed = 20
+			for i,v in pairs(getRoot(speaker.Character):GetChildren()) do
+				if v.Name == "Spinning" then
+					v:Destroy()
+				end
+			end
+			local Spin = Instance.new("BodyAngularVelocity")
+			Spin.Name = "Spinning"
+			Spin.Parent = getRoot(speaker.Character)
+			Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+			Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
+		else
+			for i,v in pairs(getRoot(speaker.Character):GetChildren()) do
+				if v.Name == "Spinning" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+
 
 
 local lightstuff = Visuals1:CreateLabel({
@@ -858,6 +1182,25 @@ local night1 = Visuals1:AddButton({
 	Name = "Night",
 	Callback = function()
 		Lighting.ClockTime = 0
+	end
+})
+
+local nickspoofer = Visuals2:AddTextbox({
+	Name = 'Dislay Name',
+	Flag = "displayspfofokf",
+	Value = game.Players.LocalPlayer.DisplayName,
+	Multiline = true,
+	Callback = function( spooooooooof1 )
+		game.Players.LocalPlayer.DisplayName = spooooooooof1
+	end
+})
+local namespoofer = Visuals2:AddTextbox({
+	Name = 'User Name',
+	Flag = "displayspfofokf",
+	Value = game.Players.LocalPlayer.Name,
+	Multiline = true,
+	Callback = function( spefiyhg4sruhig2 )
+		game.Players.LocalPlayer.Name = spefiyhg4sruhig2
 	end
 })
 
