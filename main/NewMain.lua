@@ -20,7 +20,7 @@ end
 local Window = Library:CreateWindow({
 	Name = 'Unbounded Yeild',
 	Themeable = {
-		Info = 'Discord Server: VzYTJ7Y',
+		Info = 'Discord Server: NbUUucBXhq',
 		Credit = true,
 	},
 	DefaultTheme = shared.themename or '{"__Designer.Colors.main":"963fcc"}'
@@ -67,6 +67,15 @@ local Funny1 = FunTab:CreateSection({
 	Name = 'Sex',
 	Side = 'Left'
 })
+local Funny2 = FunTab:CreateSection({
+	Name = 'Coffeeware Scripts',
+	Side = 'Right'
+})
+local Funny3 = FunTab:CreateSection({
+	Name = 'FE Scripts',
+	Side = 'Right'
+})
+
 
 local Speed1 = Player1:AddTextbox({
 	Name = 'Modify Speed',
@@ -1209,190 +1218,224 @@ local Global = getgenv and getgenv() or _G
 local sex1 = Funny1:AddButton({
 	Name = "basic Bang",
 	Callback = function()
-		local number = "4966833843"
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			local number = "4966833843"
 
-		if Global.Dancing == true then
-			Global.Dancing = false
-		end
-	
-		local aaa = 'rbxassetid://' .. number
-	
-		if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua'))()
-		end
-	
-		local NeededAssets = game:GetObjects(aaa)[1]
-		local TweenService = game:GetService'TweenService'
-		if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-		if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-		local Joints = {
-			["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-			["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-			["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-			["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-			["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-			["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-			}
-		Global.dancing = true
-		local speed = 1
-		local keyframes = NeededAssets:GetKeyframes()
-		repeat
-			for ii,frame in pairs(keyframes) do
-				local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-				if keyframes[ii-1] then
-					task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-				end
-				for i,v in pairs(frame:GetDescendants()) do
-					if Joints[v.Name] then
-						TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+			if Global.Dancing == true then
+				Global.Dancing = false
+			end
+		
+			local aaa = 'rbxassetid://' .. number
+		
+			if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/sag/ReanimMain.lua'))()
+			end
+		
+			local NeededAssets = game:GetObjects(aaa)[1]
+			local TweenService = game:GetService'TweenService'
+			if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
+			if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
+			local Joints = {
+				["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
+				["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
+				["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
+				["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
+				["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
+				["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
+				}
+			Global.dancing = true
+			local speed = 1
+			local keyframes = NeededAssets:GetKeyframes()
+			repeat
+				for ii,frame in pairs(keyframes) do
+					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
+					if keyframes[ii-1] then
+						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
+					end
+					for i,v in pairs(frame:GetDescendants()) do
+						if Joints[v.Name] then
+							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+						end
 					end
 				end
-			end
-			task.wait(1/120)
-		until Global.dancing == false
+				task.wait(1/120)
+			until Global.dancing == false
+		end
 	end
 })
 local sex1 = Funny1:AddButton({
 	Name = "Pushups",
 	Callback = function()
-		local number = "4966881089"
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			local number = "4966881089"
 
-		if Global.Dancing == true then
-			Global.Dancing = false
-		end
-	
-		local aaa = 'rbxassetid://' .. number
-	
-		if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua'))()
-		end
-	
-		local NeededAssets = game:GetObjects(aaa)[1]
-		local TweenService = game:GetService'TweenService'
-		if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-		if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-		local Joints = {
-			["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-			["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-			["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-			["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-			["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-			["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-		}
-		Global.dancing = true
-		local speed = 1
-		local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
-		repeat
-			for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-				local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-				if keyframes[ii-1] then
-					task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-				end
-				for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-					if Joints[v.Name] then -- see if the part exists in the joint table
-						TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+			if Global.Dancing == true then
+				Global.Dancing = false
+			end
+		
+			local aaa = 'rbxassetid://' .. number
+		
+			if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/sag/ReanimMain.lua'))()
+			end
+		
+			local NeededAssets = game:GetObjects(aaa)[1]
+			local TweenService = game:GetService'TweenService'
+			if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
+			if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
+			local Joints = {
+				["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
+				["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
+				["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
+				["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
+				["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
+				["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
+			}
+			Global.dancing = true
+			local speed = 1
+			local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+			repeat
+				for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
+					if keyframes[ii-1] then
+						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
+					end
+					for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
+						if Joints[v.Name] then -- see if the part exists in the joint table
+							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+						end
 					end
 				end
-			end
-			task.wait(1/120)
-		until Global.dancing == false
+				task.wait(1/120)
+			until Global.dancing == false
+		end
 	end
 })
 local sex1 = Funny1:AddButton({
 	Name = "Bend Over",
 	Callback = function()
-		local number = "4966882047"
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			local number = "4966882047"
 
-		if Global.Dancing == true then
-			Global.Dancing = false
-		end
-	
-		local aaa = 'rbxassetid://' .. number
-	
-		if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua'))()
-		end
-	
-		local NeededAssets = game:GetObjects(aaa)[1]
-		local TweenService = game:GetService'TweenService'
-		if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-		if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-		local Joints = {
-			["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-			["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-			["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-			["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-			["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-			["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-		}
-		Global.dancing = true
-		local speed = 1
-		local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
-		repeat
-			for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-				local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-				if keyframes[ii-1] then
-					task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-				end
-				for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-					if Joints[v.Name] then -- see if the part exists in the joint table
-						TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+			if Global.Dancing == true then
+				Global.Dancing = false
+			end
+		
+			local aaa = 'rbxassetid://' .. number
+		
+			if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/sag/ReanimMain.lua'))()
+			end
+		
+			local NeededAssets = game:GetObjects(aaa)[1]
+			local TweenService = game:GetService'TweenService'
+			if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
+			if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
+			local Joints = {
+				["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
+				["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
+				["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
+				["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
+				["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
+				["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
+			}
+			Global.dancing = true
+			local speed = 1
+			local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+			repeat
+				for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
+					if keyframes[ii-1] then
+						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
+					end
+					for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
+						if Joints[v.Name] then -- see if the part exists in the joint table
+							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+						end
 					end
 				end
-			end
-			task.wait(1/120)
-		until Global.dancing == false
+				task.wait(1/120)
+			until Global.dancing == false
+		end
 	end
 })
 local sex1 = Funny1:AddButton({
 	Name = "lying Down",
 	Callback = function()
-		local number = "4966879039"
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			local number = "4966879039"
 
-		if Global.Dancing == true then
-			Global.Dancing = false
-		end
-	
-		local aaa = 'rbxassetid://' .. number
-	
-		if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua'))()
-		end
-	
-		local NeededAssets = game:GetObjects(aaa)[1]
-		local TweenService = game:GetService'TweenService'
-		if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-		if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-		local Joints = {
-			["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-			["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-			["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-			["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-			["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-			["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-		}
-		Global.dancing = true
-		local speed = 1
-		local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
-		repeat
-			for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-				local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-				if keyframes[ii-1] then
-					task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-				end
-				for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-					if Joints[v.Name] then -- see if the part exists in the joint table
-						TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+			if Global.Dancing == true then
+				Global.Dancing = false
+			end
+		
+			local aaa = 'rbxassetid://' .. number
+		
+			if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/sag/ReanimMain.lua'))()
+			end
+		
+			local NeededAssets = game:GetObjects(aaa)[1]
+			local TweenService = game:GetService'TweenService'
+			if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
+			if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
+			local Joints = {
+				["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
+				["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
+				["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
+				["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
+				["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
+				["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
+			}
+			Global.dancing = true
+			local speed = 1
+			local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+			repeat
+				for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
+					if keyframes[ii-1] then
+						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
+					end
+					for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
+						if Joints[v.Name] then -- see if the part exists in the joint table
+							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
+						end
 					end
 				end
-			end
-			task.wait(1/120)
-		until Global.dancing == false
+				task.wait(1/120)
+			until Global.dancing == false
+		end
 	end
 })
 local sex1 = Funny1:AddButton({
 	Name = "Blowjob",
 	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
 		local number = "4963373273"
 
 		if Global.Dancing == true then
@@ -1402,7 +1445,7 @@ local sex1 = Funny1:AddButton({
 		local aaa = 'rbxassetid://' .. number
 	
 		if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua'))()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/sag/ReanimMain.lua'))()
 		end
 	
 		local NeededAssets = game:GetObjects(aaa)[1]
@@ -1419,20 +1462,302 @@ local sex1 = Funny1:AddButton({
 		}
 		Global.dancing = true
 		local speed = 1
-		local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+		local keyframes = NeededAssets:GetKeyframes()
 		repeat
-			for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+			for ii,frame in pairs(keyframes) do 
 				local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
 				if keyframes[ii-1] then
 					task.wait((frame.Time - keyframes[ii-1].Time)*speed)
 				end
-				for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-					if Joints[v.Name] then -- see if the part exists in the joint table
+				for i,v in pairs(frame:GetDescendants()) do 
+					if Joints[v.Name] then 
 						TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
 					end
 				end
 			end
 			task.wait(1/120)
 		until Global.dancing == false
+		end
 	end
 })
+
+local neko1lolololololl = Funny2:AddButton({
+	Name = "Neko V4",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/nekov4.lua'))()
+		end
+	end
+})
+local nekov5loloolool = Funny2:AddButton({
+	Name = "Neko V5",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/nekov5.lua'))()
+		end
+	end
+})
+local RoadRogulollololole = Funny2:AddButton({
+	Name = "Road Rogue",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/roadrouge.lua'))()
+		end
+	end
+})
+
+local Katanarist10fgdg = Funny2:AddButton({
+	Name = "Katanarist",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/katanarist.lua'))()
+		end
+	end
+})
+
+local Ass3465assin = Funny2:AddButton({
+	Name = "Assassin",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/assassin.lua'))()
+		end
+	end
+})
+
+local idkwhatthisisStratoGlitcher = Funny2:AddButton({
+	Name = "Strato Glitcher",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/glitcher.lua'))()
+		end
+	end
+})
+
+local Studio_Dummy_q34V3 = Funny2:AddButton({
+	Name = "Studio Dummy V3",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/studiodummy.lua'))()
+		end
+	end
+})
+--[[
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+local  = Funny3:AddButton({
+	Name = "",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			
+		end
+	end
+})
+]]
