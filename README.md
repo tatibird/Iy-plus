@@ -9,7 +9,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/
 
 ## Vo's Infinite Yeild 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/NewMain.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/main.lua"))()
 ```
 
 # Changelog
@@ -84,4 +84,34 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-pl
 [+] Split Body
 [+] Display Name spoofer
 [+] User name spoofer
+```
+
+16/12/2022 v0.0.6
+```ini
+Fun | FE
+[+] Neko Scripts
+[+] Road Rouge
+[+] Katanarist
+[+] Ass Assassin
+[+] Strato glitcher
+[+] Studio Dummy V3
+```
+
+29/12/2022 v0.0.7
+```ini
+[*] fixed garvity toggle name
+[+] Swim
+[+] Freeze
+[+] Spin Speed
+
+[+] Xray
+[+] Show Invis parts
+
+[+] Waypoints
+
+[#] WayPointTransparency 
+[#] WayPointCanCollide 
+[#] WayPointAnchored 
+[#] Tween Mode
+[#] Tween Delay 
 ```
