@@ -35,6 +35,10 @@ local VisualsTab = Window:CreateTab({
 local FunTab = Window:CreateTab({
 	Name = 'Fun'
 })
+local MiscTab = Window:CreateTab({
+	Name = 'Misc'
+})
+
 
 
 local Player1 = PlayerTab:CreateSection({
@@ -76,6 +80,10 @@ local Funny3 = FunTab:CreateSection({
 	Side = 'Right'
 })
 
+local Misc1 = MiscTab:CreateSection({
+	Name = 'Waypoints',
+	Side = 'Left'
+})
 
 local Speed1 = Player1:AddTextbox({
 	Name = 'Modify Speed',
@@ -97,7 +105,7 @@ local jumpPower1 = Player1:AddTextbox({
 	end
 })
 
-local jumpPower1 = Player1:AddTextbox({
+local garv = Player1:AddTextbox({
 	Name = 'Modify Gravity',
 	Flag = "garvityworkspace",
 	Value = game.Workspace.Gravity,
@@ -111,7 +119,11 @@ _G.noclip = false
 game:GetService("RunService").Stepped:Connect(function()
     if _G.noclip == true then
 		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-			if v.Name == "Torso" or v.Name == "Head" or v.Name == "UpperTorso" or v.Name == "LowerTorso" or v.Name == "HumanoidRootPart" then
+			if v.Name == "Torso" or 
+			v.Name == "Head" or
+			v.Name == "UpperTorso" or 
+			v.Name == "LowerTorso" or 
+			v.Name == "HumanoidRootPart" then
 				v.CanCollide = false
 			end
 		end
@@ -132,6 +144,67 @@ local noclip = Player1:AddToggle({
 			_G.noclip = true
 		else
 			_G.noclip = false
+		end
+	end
+})
+
+local workspace = game.Workspace
+swimming = false
+local oldgrav = workspace.Gravity
+local swimbeat = nil
+
+local swim = Player1:AddToggle({
+	Name = 'Swim',
+	Value = false,
+	Flag = 'sdwinfishfudhsSWIM',
+	Locked = false,
+	Keybind = {
+		Flag = 'swinsd3rh7w98f',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			if not swimming and speaker and speaker.Character and speaker.Character:FindFirstChildWhichIsA("Humanoid") then
+				oldgrav = workspace.Gravity
+				workspace.Gravity = 0
+				local swimDied = function()
+					workspace.Gravity = oldgrav
+					swimming = false
+				end
+				local Humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+				gravReset = Humanoid.Died:Connect(swimDied)
+				local enums = Enum.HumanoidStateType:GetEnumItems()
+				table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+				for i, v in pairs(enums) do
+					Humanoid:SetStateEnabled(v, false)
+				end
+				Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+				swimbeat = RunService.Heartbeat:Connect(function()
+					pcall(function()
+						speaker.Character.HumanoidRootPart.Velocity = ((Humanoid.MoveDirection ~= Vector3.new() or UserInputService:IsKeyDown(Enum.KeyCode.Space)) and speaker.Character.HumanoidRootPart.Velocity or Vector3.new())
+					end)
+				end)
+				swimming = true
+			end
+		else
+			if speaker and speaker.Character and speaker.Character:FindFirstChildWhichIsA("Humanoid") then
+				workspace.Gravity = oldgrav
+				swimming = false
+				if gravReset then
+					gravReset:Disconnect()
+				end
+				if swimbeat ~= nil then
+					swimbeat:Disconnect()
+					swimbeat = nil
+				end
+				local Humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+				local enums = Enum.HumanoidStateType:GetEnumItems()
+				table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+				for i, v in pairs(enums) do
+					Humanoid:SetStateEnabled(v, true)
+				end
+			end
 		end
 	end
 })
@@ -1046,7 +1119,32 @@ local nilchar = Player4:AddToggle({
 		end
 	end
 })
+local freeze = Player4:AddToggle({
+	Name = 'Freeze',
+	Value = false,
+	Flag = 'freezeisfunni',
+	Locked = false,
+	Keybind = {
+		Flag = '4r8uijkfdfdgdfgdfg',
+		Mode = 'Toggle',
+	},
 
+	Callback = function( state )
+		if ( state ) then
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Anchored = true
+				end
+			end
+		else
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Anchored = false
+				end
+			end
+		end
+	end
+})
 local stun = Player4:AddToggle({
 	Name = 'Stun',
 	Value = false,
@@ -1065,6 +1163,7 @@ local stun = Player4:AddToggle({
 		end
 	end
 })
+
 _G.spamstun = false
 local stun2 = Player4:AddToggle({
 	Name = 'Become Retarded',
@@ -1091,6 +1190,7 @@ local stun2 = Player4:AddToggle({
 	end
 })
 
+getgenv().SpinSpeed = 20
 local funnyspin = Player4:AddToggle({
 	Name = 'Spin',
 	Value = false,
@@ -1103,7 +1203,6 @@ local funnyspin = Player4:AddToggle({
 
 	Callback = function( state )
 		if ( state ) then
-			local spinSpeed = 20
 			for i,v in pairs(getRoot(speaker.Character):GetChildren()) do
 				if v.Name == "Spinning" then
 					v:Destroy()
@@ -1113,7 +1212,7 @@ local funnyspin = Player4:AddToggle({
 			Spin.Name = "Spinning"
 			Spin.Parent = getRoot(speaker.Character)
 			Spin.MaxTorque = Vector3.new(0, math.huge, 0)
-			Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
+			Spin.AngularVelocity = Vector3.new(0,getgenv().SpinSpeed,0)
 		else
 			for i,v in pairs(getRoot(speaker.Character):GetChildren()) do
 				if v.Name == "Spinning" then
@@ -1124,7 +1223,17 @@ local funnyspin = Player4:AddToggle({
 	end
 })
 
-
+local Slider = Player4:AddSlider({
+	Name = 'Spin Speed',
+	Flag = "Sping_speed_value",
+	Value = 20,
+	Min = 10,
+	Max = 50,
+	Decimals = 1, -- 13.00
+	Callback = function( Spiin_speeed )
+		getgenv().SpinSpeed = Spiin_speeed
+	end
+})
 
 local lightstuff = Visuals1:CreateLabel({
 	Text = 'Lighting'
@@ -1193,6 +1302,74 @@ local night1 = Visuals1:AddButton({
 		Lighting.ClockTime = 0
 	end
 })
+
+local transparent = false
+function x(v)
+	if v then
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
+				i.LocalTransparencyModifier = 0.5
+			end
+		end
+	else
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
+				i.LocalTransparencyModifier = 0
+			end
+		end
+	end
+end
+local xray213324 = Visuals1:AddToggle({
+	Name = 'XRay',
+	Value = false,
+	Flag = 'xray2opruhies',
+	Locked = false,
+	Keybind = {
+		Flag = 'asfer45ernugdf',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			transparent = true
+			x(transparent)
+		else
+			transparent = false
+			x(transparent)
+		end
+	end
+})
+
+local shownParts = {}
+local invisparts = Visuals1:AddToggle({
+	Name = 'Show invis Parts',
+	Value = false,
+	Flag = 'infidsd87y',
+	Locked = false,
+	Keybind = {
+		Flag = 'asfr453eernugdf',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v:IsA("BasePart") and v.Transparency == 1 then
+					if not table.find(shownParts,v) then
+						table.insert(shownParts,v)
+					end
+					v.Transparency = 0
+				end
+			end
+		else
+			for i,v in pairs(shownParts) do
+				v.Transparency = 1
+			end
+			shownParts = {}
+		end
+	end
+})
+
 
 local nickspoofer = Visuals2:AddTextbox({
 	Name = 'Dislay Name',
@@ -1573,6 +1750,279 @@ local Studio_Dummy_q34V3 = Funny2:AddButton({
 			})
 		else
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/studiodummy.lua'))()
+		end
+	end
+})
+
+--// propertites
+getgenv().WayPointTransparency = 1
+getgenv().WayPointCanCollide = false
+getgenv().WayPointAnchored = true
+
+--// values
+getgenv().TweenModeIsActive = false
+getgenv().TweenDelay = 5
+
+local settingslabelwaypoint = Misc1:CreateLabel({
+	Text = 'Settings'
+})
+
+local Waypoints_visible = Misc1:AddSlider({
+	Name = 'Transparency',
+	Flag = "slide_in_transs_pussy",
+	Value = 0,
+	Min = 0,
+	Max = 1,
+	Decimals = 2,
+	Callback = function( trans )
+		getgenv().WayPointTransparency = trans
+	end
+})
+local Waypoints_CanCollide = Misc1:AddToggle({
+	Name = 'Can Collide',
+	Value = false,
+	Flag = 'CanCollideiudfg',
+	Locked = false,
+	Keybind = {
+		Flag = '4erf243',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			getgenv().WayPointCanCollide = true
+		else
+			getgenv().WayPointCanCollide = false
+		end
+	end
+})
+local Waypoints_Anchored = Misc1:AddToggle({
+	Name = 'Anchored',
+	Value = true,
+	Flag = 'Anchorediudfg',
+	Locked = true,
+	Keybind = {
+		Flag = '4erf3frds',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			getgenv().WayPointAnchored = true
+		else
+			getgenv().WayPointAnchored = false
+		end
+	end
+})
+local tween_mode = Misc1:AddToggle({
+	Name = 'Tween Mode',
+	Value = false,
+	Flag = 'tweningjdhu',
+	Locked = false,
+	Keybind = {
+		Flag = '4refdiukj4erdfrff',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			getgenv().TweenModeIsActive = true
+		else
+			getgenv().TweenModeIsActive = false
+		end
+	end
+})
+local tweendelLMAO = Misc1:AddSlider({
+	Name = 'Tween delay',
+	Flag = "tween_is_gay",
+	Value = 5,
+	Min = 1,
+	Max = 30,
+	Decimals = 2,
+	Callback = function( trans )
+		getgenv().TweenDelay = trans
+	end
+})
+
+function waypoint1()
+	local waypoint1 = Instance.new("Part")
+	waypoint1.Name = "wayPoint1_NIGGA_SEX_FUCKER"
+	waypoint1.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	waypoint1.Parent = game.Workspace
+	waypoint1.Anchored = getgenv().WayPointAnchored
+	waypoint1.CanCollide = getgenv().WayPointCanCollide
+	waypoint1.Transparency = getgenv().WayPointTransparency
+	waypoint1.Size = Vector3.new(1, 1, 1)
+end
+function waypoint2()
+	local waypoint2 = Instance.new("Part")
+	waypoint2.Name = "wayPoint2_NIGGA_SEX_FUCKER"
+	waypoint2.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	waypoint2.Parent = game.Workspace
+	waypoint2.Anchored = getgenv().WayPointAnchored
+	waypoint2.CanCollide = getgenv().WayPointCanCollide
+	waypoint2.Transparency = getgenv().WayPointTransparency
+	waypoint2.Size = Vector3.new(1, 1, 1)
+end
+function waypoint3()
+	local waypoint3 = Instance.new("Part")
+	waypoint3.Name = "wayPoint3_NIGGA_SEX_FUCKER"
+	waypoint3.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	waypoint3.Parent = game.Workspace
+	waypoint3.Anchored = getgenv().WayPointAnchored
+	waypoint3.CanCollide = getgenv().WayPointCanCollide
+	waypoint3.Transparency = getgenv().WayPointTransparency
+	waypoint3.Size = Vector3.new(1, 1, 1)
+end
+
+local createlabelwaypoint = Misc1:CreateLabel({
+	Text = 'Create'
+})
+
+local createwayPoint1 = Misc1:AddButton({
+	Name = "Create Waypoint 1",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint1_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+		wait()
+		waypoint1()
+	end
+})
+local createwayPoint2 = Misc1:AddButton({
+	Name = "Create Waypoint 2",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint2_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+		wait()
+		waypoint2()
+	end
+})
+local createwayPoint3 = Misc1:AddButton({
+	Name = "Create Waypoint 3",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint3_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+		wait()
+		waypoint3()
+	end
+})
+
+local destroylabelwaypoint = Misc1:CreateLabel({
+	Text = 'Destroy'
+})
+
+local noPoint1 = Misc1:AddButton({
+	Name = "Destroy Waypoint 1",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint1_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+	end
+})
+local noPoint2 = Misc1:AddButton({
+	Name = "Destroy Waypoint 2",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint2_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+	end
+})
+local noPoint3 = Misc1:AddButton({
+	Name = "Destroy Waypoint 3",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint3_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+	end
+})
+
+local Controllabelwaypoint = Misc1:CreateLabel({
+	Text = 'Control'
+})
+
+function tweenMode1()
+	game.workspace.Gravity = 0
+    tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(getgenv().TweenDelay, Enum.EasingStyle.Linear)
+    tween =
+        tweenService:Create(
+        game:GetService("Players")["LocalPlayer"].Character:WaitForChild("HumanoidRootPart"),
+        tweenInfo,
+        {CFrame = game.Workspace:WaitForChild("wayPoint1_NIGGA_SEX_FUCKER").CFrame}
+    )
+    tween:Play()
+	game.workspace.Gravity = 196.2
+end
+function tweenMode2()
+	game.workspace.Gravity = 0
+    tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(getgenv().TweenDelay, Enum.EasingStyle.Linear)
+    tween =
+        tweenService:Create(
+        game:GetService("Players")["LocalPlayer"].Character:WaitForChild("HumanoidRootPart"),
+        tweenInfo,
+        {CFrame = game.Workspace:WaitForChild("wayPoint2_NIGGA_SEX_FUCKER").CFrame}
+    )
+    tween:Play()
+	game.workspace.Gravity = 196.2
+end 
+function tweenMode3()
+	game.workspace.Gravity = 0
+    tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(getgenv().TweenDelay, Enum.EasingStyle.Linear)
+    tween =
+        tweenService:Create(
+        game:GetService("Players")["LocalPlayer"].Character:WaitForChild("HumanoidRootPart"),
+        tweenInfo,
+        {CFrame = game.Workspace:WaitForChild("wayPoint3_NIGGA_SEX_FUCKER").CFrame}
+    )
+    tween:Play()
+	game.workspace.Gravity = 196.2
+end 
+
+
+local goPoint1 = Misc1:AddButton({
+	Name = "To Waypoint 1",
+	Callback = function()
+		if getgenv().TweenModeIsActive == false then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:WaitForChild("wayPoint1_NIGGA_SEX_FUCKER").CFrame
+		elseif getgenv().TweenModeIsActive == true then
+			game.workspace.Gravity = 0
+			tweenMode1()
+		end
+	end
+})
+local goPoint2 = Misc1:AddButton({
+	Name = "To Waypoint 2",
+	Callback = function()
+		if getgenv().TweenModeIsActive == false then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:WaitForChild("wayPoint2_NIGGA_SEX_FUCKER").CFrame
+		elseif getgenv().TweenModeIsActive == true then
+			game.workspace.Gravity = 0
+			tweenMode2()
+		end
+	end
+})
+local goPoint3 = Misc1:AddButton({
+	Name = "To Waypoint 3",
+	Callback = function()
+		if getgenv().TweenModeIsActive == false then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:WaitForChild("wayPoint3_NIGGA_SEX_FUCKER").CFrame
+		elseif getgenv().TweenModeIsActive == true then
+			game.workspace.Gravity = 0
+			tweenMode3()
 		end
 	end
 })
