@@ -81,6 +81,10 @@ local Visuals2 = VisualsTab:CreateSection({
 	Name = 'Name Spoofer',
 	Side = 'Right'
 })
+local Visuals3 = VisualsTab:CreateSection({
+	Name = 'Esp stuff',
+	Side = 'Right'
+})
 
 local Funny1 = FunTab:CreateSection({
 	Name = 'Sex',
@@ -158,6 +162,26 @@ local hiphieghyt = Player0:AddTextbox({
 	end
 })
 
+local fov1 = Player0:AddTextbox({
+	Name = 'Modify FOV',
+	Flag = "65y54trfgtj",
+	Value = workspace.CurrentCamera.FieldOfView,
+	Multiline = true,
+	Callback = function( x )
+		workspace.CurrentCamera.FieldOfView = x
+	end
+})
+
+local fpscapyes = Player0:AddTextbox({
+	Name = 'Modify FPS Cap',
+	Flag = "65yt4rfkj",
+	Value = 1e6,
+	Multiline = true,
+	Callback = function( x )
+		setfpscap( x )
+	end
+})
+
 _G.noclip = false
 game:GetService("RunService").Stepped:Connect(function()
     if _G.noclip == true then
@@ -187,6 +211,30 @@ local noclip = Player1:AddToggle({
 			_G.noclip = true
 		else
 			_G.noclip = false
+		end
+	end
+})
+
+_G.Bhop = false
+local bhopissodunny = Player1:AddToggle({
+	Name = 'B Hop',
+	Value = false,
+	Flag = 'nbhop24p',
+	Locked = false,
+	Keybind = {
+		Flag = 'nobhpopdfip',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.Bhop = true
+			while _G.Bhop == true do
+				wait()
+				game.Players.LocalPlayer.Character.Humanoid.Jump = true
+			end
+		else
+			_G.Bhop = false
 		end
 	end
 })
@@ -1020,7 +1068,16 @@ local nolegs = Player3:AddButton({
 		end
 	end
 })
-
+local nofacelkao = Player3:AddButton({
+	Name = "No Face",
+	Callback = function()
+		for i,v in pairs(speaker.Character:GetDescendants()) do
+			if v:IsA("Decal") and v.Name == 'face' then
+				v:Destroy()
+			end
+		end
+	end
+})
 local mnorootes = Player3:AddButton({
 	Name = "No Root",
 	Callback = function()
@@ -1059,6 +1116,16 @@ local split = Player3:AddButton({
 				Text = "r15 Is required for this to work",
 				Duration = 6
 			})
+		end
+	end
+})
+local nudesnaked = Player3:AddButton({
+	Name = "Become Naked",
+	Callback = function()
+		for i,v in pairs(speaker.Character:GetDescendants()) do
+			if v:IsA("Clothing") or v:IsA("ShirtGraphic") then
+				v:Destroy()
+			end
 		end
 	end
 })
@@ -1218,6 +1285,18 @@ local invis = Player4:AddButton({
 	end
 })
 
+local triplol = Player4:AddButton({
+	Name = "Trip",
+	Callback = function()
+		if speaker and speaker.Character and speaker.Character:FindFirstChildOfClass("Humanoid") and getRoot(speaker.Character) then
+			local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+			local root = getRoot(speaker.Character)
+			hum:ChangeState(0)
+			root.Velocity = root.CFrame.LookVector * 30
+		end
+	end
+})
+
 local nilchar = Player4:AddToggle({
 	Name = 'Nil Character',
 	Value = false,
@@ -1308,6 +1387,32 @@ local stun2 = Player4:AddToggle({
 			end
 		else
 			_G.spamstun = false
+		end
+	end
+})
+
+local lightyesyes = Player4:AddToggle({
+	Name = 'Light',
+	Value = false,
+	Flag = 'light23987hdf',
+	Locked = false,
+	Keybind = {
+		Flag = 's43yhg8999un',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local light = Instance.new("PointLight")
+			light.Parent = getRoot(speaker.Character)
+			light.Range = 30
+			light.Brightness = 5
+		else
+			for i,v in pairs(speaker.Character:GetDescendants()) do
+				if v.ClassName == "PointLight" then
+					v:Destroy()
+				end
+			end
 		end
 	end
 })
@@ -1424,41 +1529,63 @@ local night1 = Visuals1:AddButton({
 		Lighting.ClockTime = 0
 	end
 })
-
-local transparent = false
-function x(v)
-	if v then
-		for _,i in pairs(workspace:GetDescendants()) do
-			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
-				i.LocalTransparencyModifier = 0.5
+local lesslag = Visuals1:AddButton({
+	Name = "Less lag",
+	Callback = function()
+		local Terrain = workspace:FindFirstChildOfClass('Terrain')
+		Terrain.WaterWaveSize = 0
+		Terrain.WaterWaveSpeed = 0
+		Terrain.WaterReflectance = 0
+		Terrain.WaterTransparency = 0
+		Lighting.GlobalShadows = false
+		Lighting.FogEnd = 9e9
+		settings().Rendering.QualityLevel = 1
+		for i,v in pairs(game:GetDescendants()) do
+			if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+				v.Material = "Plastic"
+				v.Reflectance = 0
+			elseif v:IsA("Decal") then
+				v.Transparency = 1
+			elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+				v.Lifetime = NumberRange.new(0)
+			elseif v:IsA("Explosion") then
+				v.BlastPressure = 1
+				v.BlastRadius = 1
 			end
 		end
-	else
-		for _,i in pairs(workspace:GetDescendants()) do
-			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
-				i.LocalTransparencyModifier = 0
+		for i,v in pairs(Lighting:GetDescendants()) do
+			if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+				v.Enabled = false
 			end
 		end
+		workspace.DescendantAdded:Connect(function(child)
+			coroutine.wrap(function()
+				if child:IsA('ForceField') then
+					RunService.Heartbeat:Wait()
+					child:Destroy()
+				elseif child:IsA('Sparkles') then
+					RunService.Heartbeat:Wait()
+					child:Destroy()
+				elseif child:IsA('Smoke') or child:IsA('Fire') then
+					RunService.Heartbeat:Wait()
+					child:Destroy()
+				end
+			end)()
+		end)
 	end
-end
-local xray213324 = Visuals1:AddToggle({
-	Name = 'XRay',
-	Value = false,
-	Flag = 'xray2opruhies',
-	Locked = false,
-	Keybind = {
-		Flag = 'asfer45ernugdf',
-		Mode = 'Toggle',
-	},
-
-	Callback = function( state )
-		if ( state ) then
-			transparent = true
-			x(transparent)
-		else
-			transparent = false
-			x(transparent)
-		end
+})
+local fixcam = Visuals1:AddButton({
+	Name = "Fix Camera",
+	Callback = function()
+		workspace.CurrentCamera:remove()
+		wait(.1)
+		repeat wait() until speaker.Character ~= nil
+		workspace.CurrentCamera.CameraSubject = speaker.Character:FindFirstChildWhichIsA('Humanoid')
+		workspace.CurrentCamera.CameraType = "Custom"
+		speaker.CameraMinZoomDistance = 0.5
+		speaker.CameraMaxZoomDistance = 400
+		speaker.CameraMode = "Classic"
+		speaker.Character.Head.Anchored = false
 	end
 })
 
@@ -1493,6 +1620,55 @@ local invisparts = Visuals1:AddToggle({
 })
 
 
+getgenv().XrayTrans = 0.5
+local transparent = false
+function x(v)
+	if v then
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
+				i.LocalTransparencyModifier = getgenv().XrayTrans
+			end
+		end
+	else
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChildOfClass('Humanoid') and not i.Parent.Parent:FindFirstChildOfClass('Humanoid') then
+				i.LocalTransparencyModifier = 0
+			end
+		end
+	end
+end
+local xray213324 = Visuals1:AddToggle({
+	Name = 'XRay',
+	Value = false,
+	Flag = 'xray2opruhies',
+	Locked = false,
+	Keybind = {
+		Flag = 'asfer45ernugdf',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			transparent = true
+			x(transparent)
+		else
+			transparent = false
+			x(transparent)
+		end
+	end
+})
+local chamtransda1 = Visuals1:AddSlider({
+	Name = 'Xray Transparency',
+	Flag = "s5tg_yoiDMldni4s",
+	Value = getgenv().XrayTrans,
+	Min = 0,
+	Max = 1,
+	Decimals = 2,
+	Callback = function( y )
+		getgenv().XrayTrans = y
+	end
+})
+
 local nickspoofer = Visuals2:AddTextbox({
 	Name = 'Dislay Name',
 	Flag = "displayspfokf",
@@ -1511,6 +1687,89 @@ local namespoofer = Visuals2:AddTextbox({
 		game.Players.LocalPlayer.Name = spefiyhg4sruhig2
 	end
 })
+
+getgenv().FillColor = Color3.new(1, 0.666667, 0)
+getgenv().FillTransparency = 0
+getgenv().OutlineColor = Color3.new(1, 0.333333, 1)
+getgenv().OutlineTransparency = 0
+
+local cvhamslable = Visuals3:CreateLabel({
+	Text = 'Chams'
+})
+
+local cgamesopCHAMS = Visuals3:AddToggle({
+	Name = 'Chams',
+	Value = false,
+	Flag = 'rdiuygdf',
+	Locked = false,
+	Keybind = {
+		Flag = 'as546frug453eerndf',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local players = game.Players:GetPlayers()
+			for i,v in pairs(players) do
+			 	local esp = Instance.new("Highlight")
+			 	esp.Name = "KLjhfehu904eoiuiuoiIuOIUDfhuIde89iuhdf8U_oiuhfdjukHU9if90ns=o'sd.fodsk9dsf"
+			 	esp.FillTransparency = getgenv().FillTransparency
+			 	esp.FillColor = getgenv().FillColor
+			 	esp.OutlineColor =getgenv().OutlineColor
+			 	esp.OutlineTransparency = getgenv().OutlineTransparency
+			 	esp.Parent = v.Character
+			end
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v.Name == "KLjhfehu904eoiuiuoiIuOIUDfhuIde89iuhdf8U_oiuhfdjukHU9if90ns=o'sd.fodsk9dsf" then
+					v:Destroy()
+				end
+			end
+		else
+			for i,v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name == "KLjhfehu904eoiuiuoiIuOIUDfhuIde89iuhdf8U_oiuhfdjukHU9if90ns=o'sd.fodsk9dsf" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+local CockerChalorPimdfu = Visuals3:AddColorPicker({
+	Name = "Fill Color",
+	Value = getgenv().FillColor,
+	Callback = function( color )
+		getgenv().FillColor = color
+	end
+})
+local CeroChamdfkloru = Visuals3:AddColorPicker({
+	Name = "Outline Color",
+	Value = getgenv().OutlineColor,
+	Callback = function( color )
+		getgenv().OutlineColor = color
+	end
+})
+local chamtransda1 = Visuals3:AddSlider({
+	Name = 'Fill Transparency',
+	Flag = "sli45tgdn_yoDMis",
+	Value = getgenv().FillTransparency,
+	Min = 0,
+	Max = 1,
+	Decimals = 2,
+	Callback = function( y )
+		getgenv().FillTransparency = y
+	end
+})
+local chamtransda2 = Visuals3:AddSlider({
+	Name = 'Outline Transparency',
+	Flag = "sl4tooi8ytrr_DMs",
+	Value = getgenv().OutlineTransparency,
+	Min = 0,
+	Max = 1,
+	Decimals = 2,
+	Callback = function( y )
+		getgenv().OutlineTransparency = y
+	end
+})
+
 
 
 local Global = getgenv and getgenv() or _G
