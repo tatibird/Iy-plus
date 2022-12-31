@@ -1,3 +1,14 @@
+--[[
+▄▄▄▄▄▄▄▄░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░█
+██▀▀▀▀▀▀█▄░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
+██░░░░░░██░░░░██░░░░▄▄▄▄▄▄▄░░░░░░▄▄▄▄▄▄▄░░░█░░░░░▄▄▄░░░░▄▄▄▄▄▄░░░░░▄▄░░░░░▄▄░░░▄██▄▄▄▄
+██▄▄▄▄▄█▀░░░░░██░░░░▀░░░░▀██░░░░██▀░░░▀▀░░░█░░░▄██▀░░░▄█▀░░░▀██░░░░██░░░░░██░░░░██
+██▀▀▀▀▀▀██▄░░░██░░░░░▄▄▄▄▄██░░░██░░░░░░░░░░█░▄██▀░░░░░██░░░░░░██░░░██░░░░░██░░░░██
+██░░░░░░░██░░░██░░░██▀▀░░░██░░░██░░░░░░░░░░██▀██░░░░░░██░░░░░░██░░░██░░░░░██░░░░██
+██░░░░░░▄██░░░██░░░██░░░░░██░░░▀█▄░░░░░░░░░█░░░▀█▄░░░░██░░░░░▄█▀░░░██░░░░░██░░░░██
+█████████▀░░░░██░░░▀██▄▄█▀██░░░░▀██▄▄███░░░█░░░░░▀█▄░░░▀██▄▄██▀░░░░▀█████▀██░░░░▀██▄▄█]]
+
+
 local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
 local Libraryflags = Library.flags
 local Wait = Library.subs.Wait
@@ -41,6 +52,10 @@ local MiscTab = Window:CreateTab({
 
 
 
+local Player0 = PlayerTab:CreateSection({
+	Name = 'Modifications',
+	Side = 'left'
+})
 local Player1 = PlayerTab:CreateSection({
 	Name = 'Player',
 	Side = 'left'
@@ -84,8 +99,16 @@ local Misc1 = MiscTab:CreateSection({
 	Name = 'Waypoints',
 	Side = 'Left'
 })
+local Misc2 = MiscTab:CreateSection({
+	Name = 'Bread Crumbs',
+	Side = 'Right'
+})
+local Misc3 = MiscTab:CreateSection({
+	Name = 'Bread Crumbs 2',
+	Side = 'Right'
+})
 
-local Speed1 = Player1:AddTextbox({
+local Speed1 = Player0:AddTextbox({
 	Name = 'Modify Speed',
 	Flag = "speed_velo",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed,
@@ -95,7 +118,7 @@ local Speed1 = Player1:AddTextbox({
 	end
 })
 
-local jumpPower1 = Player1:AddTextbox({
+local jumpPower1 = Player0:AddTextbox({
 	Name = 'Modify JumpPower',
 	Flag = "jumppower12",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower,
@@ -105,13 +128,33 @@ local jumpPower1 = Player1:AddTextbox({
 	end
 })
 
-local garv = Player1:AddTextbox({
+local garv = Player0:AddTextbox({
 	Name = 'Modify Gravity',
 	Flag = "garvityworkspace",
 	Value = game.Workspace.Gravity,
 	Multiline = true,
 	Callback = function(gravityyyyyywor)
 		game.Workspace.Gravity = gravityyyyyywor
+	end
+})
+
+local maxslope = Player0:AddTextbox({
+	Name = 'Modify Max lope Angle',
+	Flag = "4rft65ytgo",
+	Value = speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle,
+	Multiline = true,
+	Callback = function( x )
+		speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle = x
+	end
+})
+
+local hiphieghyt = Player0:AddTextbox({
+	Name = 'Modify Hip height',
+	Flag = "65ythglkj",
+	Value = speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight,
+	Multiline = true,
+	Callback = function( x )
+		speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = x
 	end
 })
 
@@ -265,46 +308,6 @@ local flyjump = Player1:AddToggle({
 			end)
 		else
 			_G.infjump = false
-		end
-	end
-})
-
-_G.cframefloat = false
-local cframefloat = Player1:AddToggle({
-	Name = 'CFrame Speed',
-	Value = false,
-	Flag = 'cferaweflaot',
-	Locked = false,
-	Keybind = {
-		Flag = 'cferaweflaot1',
-		Mode = 'Toggle',
-	},
-
-	Callback = function( state )
-		if ( state ) then
-			_G.cframefloat = true
-			Speed = 2.4
-
-			You = game.Players.LocalPlayer.Name
-			UIS = game:GetService("UserInputService")
-
-			while _G.cframefloat == true do
-				if UIS:IsKeyDown(Enum.KeyCode.W) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,-Speed)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.A) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(-Speed,0,0)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.S) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,Speed)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.D) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(Speed,0,0)
-				end;
-				wait()
-			end
-		else
-			_G.cframefloat = false
 		end
 	end
 })
@@ -603,6 +606,124 @@ local dfcam = Player1:AddToggle({
 		else
 			_G.freecam = false
 		end
+	end
+})
+
+getgenv().CFrameSpeed = 2.4
+_G.cframefloat = false
+local cframefloat = Player1:AddToggle({
+	Name = 'CFrame Speed',
+	Value = false,
+	Flag = '54trfgiukjfg',
+	Locked = false,
+	Keybind = {
+		Flag = 'cferawtlaot1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.cframefloat = true
+			Speed = getgenv().CFrameSpeed
+
+			You = game.Players.LocalPlayer.Name
+			UIS = game:GetService("UserInputService")
+
+			while _G.cframefloat == true do
+				if UIS:IsKeyDown(Enum.KeyCode.W) then
+					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,-Speed)
+				end;
+				if UIS:IsKeyDown(Enum.KeyCode.A) then
+					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(-Speed,0,0)
+				end;
+				if UIS:IsKeyDown(Enum.KeyCode.S) then
+					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,Speed)
+				end;
+				if UIS:IsKeyDown(Enum.KeyCode.D) then
+					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(Speed,0,0)
+				end;
+				wait()
+			end
+		else
+			_G.cframefloat = false
+		end
+	end
+})
+local TextBox = Player1:AddTextbox({
+	Name = 'CFrame speed',
+	Flag = "speed_cframe",
+	Value = getgenv().CFrameSpeed,
+	Callback = function( x ) 
+		getgenv().CFrameSpeed = x
+	end
+})
+
+local oldspeed = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed
+getgenv().MaxSpeed = 30
+getgenv().MixSpeed = oldspeed
+getgenv().UpDelay = 1
+getgenv().DownDely = 1
+
+_G.SeakerEnabled = false
+local heatseakerspeed = Player1:AddToggle({
+	Name = 'HeatSeaker Speed',
+	Value = false,
+	Flag = 'heatstaskjhdf',
+	Locked = false,
+	Keybind = {
+		Flag = 'cferhgot1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.SeakerEnabled = true
+			while _G.SeakerEnabled == true do
+				wait()
+				game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = getgenv().MixSpeed
+				wait()
+				game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = ( getgenv().MaxSpeed - getgenv().MixSpeed )
+				wait( getgenv().UpDelay )
+				game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = getgenv().MaxSpeed
+				wait( getgenv().DownDely )
+				game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = ( getgenv().MaxSpeed - getgenv().MixSpeed )
+			end
+		else
+			_G.SeakerEnabled = false
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = oldspeed
+		end
+	end
+})
+local TextBox = Player1:AddTextbox({
+	Name = 'Max Speed',
+	Flag = "43er90",
+	Value = getgenv().MaxSpeed,
+	Callback = function( x ) 
+		getgenv().MaxSpeed = x
+	end
+})
+local TextBox = Player1:AddTextbox({
+	Name = 'Mix Speed',
+	Flag = "erfjhdf",
+	Value = getgenv().MixSpeed,
+	Callback = function( x ) 
+		getgenv().MixSpeed = x
+	end
+})
+local TextBox = Player1:AddTextbox({
+	Name = 'Up Delay',
+	Flag = "54rekjhdf",
+	Value = getgenv().UpDelay,
+	Callback = function( x ) 
+		getgenv().UpDelay = x
+	end
+})
+local TextBox = Player1:AddTextbox({
+	Name = 'Down Dely',
+	Flag = "edfdgdfgd",
+	Value = getgenv().DownDely,
+	Callback = function( x ) 
+		getgenv().DownDely = x
 	end
 })
 
@@ -1119,6 +1240,7 @@ local nilchar = Player4:AddToggle({
 		end
 	end
 })
+
 local freeze = Player4:AddToggle({
 	Name = 'Freeze',
 	Value = false,
@@ -1229,7 +1351,7 @@ local Slider = Player4:AddSlider({
 	Value = 20,
 	Min = 10,
 	Max = 50,
-	Decimals = 1, -- 13.00
+	Decimals = 1,
 	Callback = function( Spiin_speeed )
 		getgenv().SpinSpeed = Spiin_speeed
 	end
@@ -1373,7 +1495,7 @@ local invisparts = Visuals1:AddToggle({
 
 local nickspoofer = Visuals2:AddTextbox({
 	Name = 'Dislay Name',
-	Flag = "displayspfofokf",
+	Flag = "displayspfokf",
 	Value = game.Players.LocalPlayer.DisplayName,
 	Multiline = true,
 	Callback = function( spooooooooof1 )
@@ -2024,5 +2146,201 @@ local goPoint3 = Misc1:AddButton({
 			game.workspace.Gravity = 0
 			tweenMode3()
 		end
+	end
+})
+
+_G.BreadCrumbs = false
+
+--\\ settings
+getgenv().BallDelay = 0.001
+getgenv().BallSize = 0.4
+getgenv().BallTransparency = 0
+getgenv().BallShape = "Ball"
+getgenv().SmoothDestroy = false
+
+local breadcrumsbs = Misc2:AddToggle({
+	Name = 'BreadCrumbs',
+	Value = false,
+	Flag = 'nilchbreadcrueadcrumsbsbrmsbsar1',
+	Locked = false,
+	Keybind = {
+		Flag = 'nilbreadsl1',
+		Mode = 'Toggle',
+	},
+	Callback = function( state )
+		if ( state ) then
+			_G.BreadCrumbs = true
+			while _G.BreadCrumbs == true do
+				wait(getgenv().BallDelay)
+				local breadball = Instance.new("Part")
+				breadball.Shape = getgenv().BallShape
+				breadball.Parent = game.Workspace
+				yeyesy = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+				breadball.CFrame = CFrame.new(yeyesy.Position.X, yeyesy.Position.Y - 1.7, yeyesy.Position.Z)
+				breadball.Name = "breadcrumbs_NIGGA"
+				breadball.CanCollide = false
+				breadball.Anchored = true
+				breadball.Size = Vector3.new(getgenv().BallSize ,getgenv().BallSize, getgenv().BallSize)
+				breadball.Material = "Neon"
+				breadball.BrickColor = BrickColor.new("Really red")
+				breadball.Transparency = getgenv().BallTransparency
+			end
+		else
+			_G.BreadCrumbs = false
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v.Name == "breadcrumbs_NIGGA" then
+					v:Destroy()
+					if getgenv().SmoothDestroy == true then
+						wait()
+						v:Destroy()
+					end
+				end
+			end
+		end
+	end
+})
+local breadcrumsbssmooth = Misc2:AddToggle({
+	Name = 'Smooth Destroy',
+	Value = false,
+	Flag = 'nil4r1',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			getgenv().SmoothDestroy = true
+		else
+			getgenv().SmoothDestroy = false
+		end
+	end
+})
+local BallDelay = Misc2:AddSlider({
+	Name = 'Delay',
+	Flag = "slide_in_your_DMs4refd",
+	Value = 0.001,
+	Min = 0.001,
+	Max = 0.5,
+	Decimals = 5,
+	llegalInput = false,
+	Callback = function( BallDelay )
+		getgenv().BallDelay = BallDelay
+	end
+})
+local BallSize = Misc2:AddSlider({
+	Name = 'Size',
+	Flag = "slide_in_your_DMstfg",
+	Value = 0.4,
+	Min = 0.1,
+	Max = 1,
+	Decimals = 4,
+	llegalInput = false,
+	Callback = function( BallSize )
+		getgenv().BallSize = BallSize
+	end
+})
+local BallTransparency = Misc2:AddSlider({
+	Name = 'Transparency',
+	Flag = "slide_in_your_DMslkjbvcx",
+	Value = 0,
+	Min = 0,
+	Max = 1,
+	Decimals = 3,
+	llegalInput = false,
+	Callback = function( BallTransparency )
+		getgenv().BallTransparency = BallTransparency
+	end
+})
+local breamselecter = Misc2:AddDropdown({
+	Name = 'Type',
+	Flag = "balstyprniggaseex",
+	Multi = false,
+	List = {
+		"Ball",
+		"Block"
+	},
+	Callback = function( WHAT_THE_FUCK )
+		getgenv().BallShape = WHAT_THE_FUCK
+	end
+})
+
+getgenv().Lifetime = 9e9
+getgenv().MaxLength = 9e9
+getgenv().MinLength = 0
+getgenv().FaceCamera = true
+
+
+local breadcrumsbs2 = Misc3:AddToggle({
+	Name = 'BreadCrumbs Trail',
+	Value = false,
+	Flag = 'nilchbreadcrueadcruar1',
+	Locked = false,
+	Keybind = {
+		Flag = 'nilbreadcrumsbsl1',
+		Mode = 'Toggle',
+	},
+	Callback = function( state )
+		if ( state ) then
+			local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+			local trail = Instance.new("Trail")
+			for k,v in pairs({
+				Lifetime = getgenv().Lifetime,
+				MaxLength = getgenv().MaxLength,
+				MinLength = getgenv().MinLength,
+				FaceCamera = getgenv().FaceCamera,
+				Enabled = true,
+				Name = "ilovehairyoilyniggas",
+				Attachment0 = root:FindFirstChildOfClass("Attachment"),
+				Attachment1 = root.Parent.Head:FindFirstChildOfClass("Attachment"),
+				Parent = root}) do
+				trail[k] = v 
+			end
+		else
+			for i,v in pairs(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:GetDescendants()) do
+				if v.Name == "ilovehairyoilyniggas" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+local breadtrail1 = Misc3:AddToggle({
+	Name = 'Face Camera',
+	Value = true,
+	Flag = 'fdauoiudfg',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			getgenv().FaceCamera = true
+		else
+			getgenv().FaceCamera = false
+		end
+	end
+})
+local breadtrail2 = Misc3:AddTextbox({
+	Name = 'LifeTime',
+	Flag = "pro_flagiufuckyg",
+	Value = getgenv().Lifetime,
+	Multiline = true,
+	Callback = function( x )
+		getgenv().Lifetime = x
+	end
+})
+local breadtrail3 = Misc3:AddTextbox({
+	Name = 'MaxLength',
+	Flag = "pro_flagiuyg",
+	Value = getgenv().MaxLength,
+	Multiline = true,
+	Callback = function( x )
+		getgenv().MaxLength = x
+	end
+})
+local breadtrail4 = Misc3:AddSlider({
+	Name = 'MinLength',
+	Flag = "slide_in_your_DMsl3kjbvcx",
+	Value = 0,
+	Min = 0,
+	Max = 1,
+	Decimals = 3,
+	llegalInput = false,
+	Callback = function( x )
+		getgenv().MinLength = x
 	end
 })
