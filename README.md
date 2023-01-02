@@ -115,3 +115,21 @@ Fun | FE
 [#] Tween Mode
 [#] Tween Delay 
 ```
+
+2/1/2023 v0.0.8
+```ini
+[*] Cframe speed is now customizable
+[+] heatseaker speed
+[+] BreadCrumbs \\ makes a trail showing where you were
+[+] Modify fov
+[+] modify fps cap
+[+] BHop
+[+] no face
+[+] naked
+[+] trip
+[+] light \\ makes a light around you (client)
+[+] less lag
+[+] fix camera
+[*] xray is now customizable
+[+] Esp Chams \\ finally
+```
