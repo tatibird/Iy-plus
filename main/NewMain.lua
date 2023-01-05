@@ -49,7 +49,9 @@ local FunTab = Window:CreateTab({
 local MiscTab = Window:CreateTab({
 	Name = 'Misc'
 })
-
+local CreditsTab = Window:CreateTab({
+	Name = 'Credits'
+})
 
 
 local Player0 = PlayerTab:CreateSection({
@@ -111,6 +113,30 @@ local Misc3 = MiscTab:CreateSection({
 	Name = 'Bread Crumbs 2',
 	Side = 'Right'
 })
+local Misc4 = MiscTab:CreateSection({
+	Name = 'Misc',
+	Side = 'Right'
+})
+local Misc5 = MiscTab:CreateSection({
+	Name = 'Commands',
+	Side = 'Left'
+})
+
+local Credits1 = CreditsTab:CreateSection({
+	Name = 'Developer',
+	Side = 'Left'
+})
+local Credits2 = CreditsTab:CreateSection({
+	Name = 'Best Scripter',
+	Side = 'Left'
+})
+local Credits3 = CreditsTab:CreateSection({
+	Name = 'Cool people',
+	Side = 'Right'
+})
+
+--yes
+
 
 local Speed1 = Player0:AddTextbox({
 	Name = 'Modify Speed',
@@ -326,7 +352,7 @@ local flyjump = Player1:AddToggle({
 })
 
 _G.infjump = false
-local flyjump = Player1:AddToggle({
+local infjump = Player1:AddToggle({
 	Name = 'Inf Jump',
 	Value = false,
 	Flag = 'infjumplol',
@@ -361,7 +387,7 @@ local flyjump = Player1:AddToggle({
 })
 
 _G.clickTp = false
-local flyjump = Player1:AddToggle({
+local clicktp = Player1:AddToggle({
 	Name = 'CTRL + Click Tp',
 	Value = false,
 	Flag = 'clicktpctrl',
@@ -398,6 +424,73 @@ local flyjump = Player1:AddToggle({
 			end)
 		else
 			_G.clickTp = false
+		end
+	end
+})
+
+
+oldgravy23 = game.Workspace.Gravity
+_G.clicktween = false
+local clicktp = Player1:AddToggle({
+	Name = 'CTRL + Click Tween',
+	Value = false,
+	Flag = 'clicktptweenrl',
+	Locked = false,
+	Keybind = {
+		Flag = 'ke43erdflicktp',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( clicktp )
+		if ( clicktp ) then
+			_G.clicktween = true
+			local UIS = game:GetService("UserInputService")
+			plr = game.Players.LocalPlayer
+			mouse = plr:GetMouse()
+
+			UIS.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.clicktween == true then
+					wait()
+					for i,v in pairs(game.Workspace:GetChildren()) do
+						if v.Name == "Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd" then 
+							v:Destroy()
+							warn("Tween Part Destroyed")
+						end
+					end
+					wait()
+					local Target = Instance.new("Part")
+					Target.Parent = game.Workspace
+					Target.Name = "Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd"
+					Target.CFrame = CFrame.new(mouse.Hit.p.X, mouse.Hit.p.Y + 1.5, mouse.Hit.p.Z)
+					Target.Transparency = 1
+					Target.Anchored = true 
+					Target.CanCollide = false
+					wait()
+					print("Tween part created at:")
+					print(mouse.Hit.p)
+					wait()
+					game.Workspace.Gravity = 0
+					tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
+					tween =
+						tweenService:Create(
+						game:GetService("Players")["LocalPlayer"].Character:WaitForChild("HumanoidRootPart"),
+						tweenInfo,
+						{CFrame = game.Workspace:WaitForChild("Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd").CFrame}
+					)
+					tween:Play()
+					wait()
+					game.Workspace.Gravity = oldgravy23
+					for i,v in pairs(game.Workspace:GetChildren()) do
+						if v.Name == "Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd" then 
+							v:Destroy()
+							warn("Tween Part Destroyed")
+						end
+					end
+					game.Workspace.Gravity = oldgravy23
+				end
+			end)
+		else
+			_G.clicktween = false
 		end
 	end
 })
@@ -891,43 +984,69 @@ local animlable = Player3:CreateLabel({
 	Text = 'Animations'
 })
 
-local Disableanims = Player3:AddButton({
-	Name = "Disable Animations",
-	Callback = function()
-		local CAS = game:GetService("ContextActionService")
-		local FA = "freezeMovement"
-		CAS:BindAction(
-			FA,
-			function()
-				return Enum.ContextActionResult.Sink
-			end,
-			false,
-			unpack(Enum.PlayerActions:GetEnumItems())
-		)
-		wait(1.5)
-		CAS:UnbindAction(FA)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-		wait()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-		game.Players.LocalPlayer.Character.Animate.Disabled = true
+_G.FreezeAnims = false
+local Freezeanims = Player3:AddToggle({
+	Name = 'Stupid Animations',
+	Value = false,
+	Flag = 'Freezeaniumsd',
+	Locked = false,
+	Keybind = {
+		Flag = 'c4354rfdi1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.FreezeAnims = true
+			while _G.FreezeAnims == true do
+				wait()
+				local Humanoid = speaker.Character:FindFirstChildOfClass("Humanoid") or speaker.Character:FindFirstChildOfClass("AnimationController")
+				local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
+				for _, v in pairs(ActiveTracks) do
+					v:AdjustSpeed(0)
+				end
+			end
+		else
+			_G.FreezeAnims = false
+			local Humanoid = speaker.Character:FindFirstChildOfClass("Humanoid") or speaker.Character:FindFirstChildOfClass("AnimationController")
+			local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
+			for _, v in pairs(ActiveTracks) do
+				v:AdjustSpeed(1)
+			end
+		end
 	end
 })
-local Enableanims = Player3:AddButton({
-	Name = "Enable Animations",
-	Callback = function()
-		game.Players.LocalPlayer.Character.Animate.Disabled = false
-	end
-})
-local Freezeanims = Player3:AddButton({
-	Name = "Freeze Animations",
-	Callback = function()
-		game.Players.LocalPlayer.Character.Animate.Disabled = true
-	end
-})
-local UnFreezeAnimations = Player3:AddButton({
-	Name = "Un-Freeze Animations",
-	Callback = function()
-		game.Players.LocalPlayer.Character.Animate.Disabled = false
+local Disableanims = Player3:AddToggle({
+	Name = 'Disable Animations',
+	Value = false,
+	Flag = 'DisableAnimations',
+	Locked = false,
+	Keybind = {
+		Flag = 'c43rerfdi1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local CAS = game:GetService("ContextActionService")
+			local FA = "freezeMovement"
+			CAS:BindAction(
+				FA,
+				function()
+					return Enum.ContextActionResult.Sink
+				end,
+				false,
+				unpack(Enum.PlayerActions:GetEnumItems())
+			)
+			wait(1.5)
+			CAS:UnbindAction(FA)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+			wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+			game.Players.LocalPlayer.Character.Animate.Disabled = true
+		else
+			game.Players.LocalPlayer.Character.Animate.Disabled = false
+		end
 	end
 })
 
@@ -1487,13 +1606,13 @@ local nofog = Visuals1:AddButton({
 		end
 	end
 })
-local nofog = Visuals1:AddButton({
+local disabledahwo = Visuals1:AddButton({
 	Name = "Disable Global Shadows",
 	Callback = function()
 		Lighting.GlobalShadows = false
 	end
 })
-local yesfog = Visuals1:AddButton({
+local disabledahwoNO = Visuals1:AddButton({
 	Name = "Enable Global Shadows",
 	Callback = function()
 		Lighting.GlobalShadows = true
@@ -1861,15 +1980,15 @@ local sex1 = Funny1:AddButton({
 			}
 			Global.dancing = true
 			local speed = 1
-			local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+			local keyframes = NeededAssets:GetKeyframes()
 			repeat
-				for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+				for ii,frame in pairs(keyframes) do
 					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
 					if keyframes[ii-1] then
 						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
 					end
-					for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-						if Joints[v.Name] then -- see if the part exists in the joint table
+					for i,v in pairs(frame:GetDescendants()) do
+						if Joints[v.Name] then 
 							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
 						end
 					end
@@ -1914,15 +2033,15 @@ local sex1 = Funny1:AddButton({
 			}
 			Global.dancing = true
 			local speed = 1
-			local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order 
+			local keyframes = NeededAssets:GetKeyframes() 
 			repeat
-				for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
+				for ii,frame in pairs(keyframes) do 
 					local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
 					if keyframes[ii-1] then
 						task.wait((frame.Time - keyframes[ii-1].Time)*speed)
 					end
-					for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-						if Joints[v.Name] then -- see if the part exists in the joint table
+					for i,v in pairs(frame:GetDescendants()) do
+						if Joints[v.Name] then
 							TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
 						end
 					end
@@ -2446,6 +2565,7 @@ local breadcrumsbs = Misc2:AddToggle({
 			end
 		else
 			_G.BreadCrumbs = false
+			wait()
 			for i,v in pairs(game.Workspace:GetChildren()) do
 				if v.Name == "breadcrumbs_NIGGA" then
 					v:Destroy()
@@ -2603,3 +2723,126 @@ local breadtrail4 = Misc3:AddSlider({
 		getgenv().MinLength = x
 	end
 })
+
+
+local enlerespawn = Misc4:AddToggle({
+	Name = 'Enable Respawn Button',
+	Value = true,
+	Flag = 'nilfrgr1',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+		else
+			game:GetService("StarterGui"):SetCore("ResetButtonCallback", false)
+		end
+	end
+})
+
+
+
+-- \\ command line functions
+--[[
+function test()
+	print("test")
+end
+
+function test2()
+	print("functions are cool :D")
+end
+
+function freeze()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.Anchored = true
+		end
+	end
+end
+function unfreeze()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.Anchored = false
+		end
+	end
+end
+
+
+
+local Cmdline = Misc5:AddTextbox({
+	Name = 'Command Line',
+	Value = "String Cmd",
+	Callback = function( x )
+		if x == "test" then
+			test()
+		elseif x == "test2" then
+			test2()
+		elseif x == "freeze" then
+			freeze()
+		elseif x == "unfreeze" or "thaw" then
+			unfreeze()
+		end
+	end
+})
+
+local cmdinfo = Misc5:CreateLabel({
+	Text = 'Commands'
+})
+
+local cmdbreak = Misc5:CreateLabel({
+	Text = '---------'
+})
+
+local cmd1 = Misc5:CreateLabel({
+	Text = 'Test'
+})
+local cmd1d = Misc5:CreateLabel({
+	Text = '(prints "test")'
+})
+
+]]
+
+
+local dev1 = Credits1:CreateLabel({
+	Text = 'Vo | Main Dev'
+})
+
+
+local Scripter1 = Credits2:CreateLabel({
+	Text = 'sx65 | Fly'
+})
+local Scripter2 = Credits2:CreateLabel({
+	Text = 'zurewrath | CFrame Speed'
+})
+local Scripter3 = Credits2:CreateLabel({
+	Text = 'TheYoyo | Free Cam'
+})
+local Scripte4 = Credits2:CreateLabel({
+	Text = 'JjsploitScripts | Chams'
+})
+local Scripter5 = Credits2:CreateLabel({
+	Text = 'CoffeeWare | Sex Animations'
+})
+
+
+
+local Cool1 = Credits3:CreateLabel({
+	Text = 'E009'
+})
+local Cool2 = Credits3:CreateLabel({
+	Text = 'cqc Demoted'
+})
+local Cool3 = Credits3:CreateLabel({
+	Text = 'Noro'
+})
+local Cool4 = Credits3:CreateLabel({
+	Text = 'joJo'
+})
+local Cool5 = Credits3:CreateLabel({
+	Text = 'Someone is here'
+})
+local Cool6 = Credits3:CreateLabel({
+	Text = 'Azura'
+})
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/extras.lua"))()
