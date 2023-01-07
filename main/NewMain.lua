@@ -1,3 +1,4 @@
+local executiontime = tick()
 --[[
 ▄▄▄▄▄▄▄▄░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░█
 ██▀▀▀▀▀▀█▄░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
@@ -16,6 +17,7 @@ local player = Library.LP
 local speaker = game.Players.LocalPlayer
 local Lighting = game:GetService("Lighting")
 local Camera = workspace.CurrentCamera
+local ProximityPromptService = game:GetService("ProximityPromptService")
 origsettings = {abt = Lighting.Ambient, oabt = Lighting.OutdoorAmbient, brt = Lighting.Brightness, time = Lighting.ClockTime, fe = Lighting.FogEnd, fs = Lighting.FogStart, gs = Lighting.GlobalShadows}
 
 function r15(plr)
@@ -36,6 +38,7 @@ local Window = Library:CreateWindow({
 	},
 	DefaultTheme = shared.themename or '{"__Designer.Colors.main":"963fcc"}'
 })
+
 
 local PlayerTab = Window:CreateTab({
 	Name = 'Player'
@@ -87,6 +90,10 @@ local Visuals3 = VisualsTab:CreateSection({
 	Name = 'Esp stuff',
 	Side = 'Right'
 })
+local Visuals4 = VisualsTab:CreateSection({
+	Name = 'Screen Exploits',
+	Side = 'Right'
+})
 
 local Funny1 = FunTab:CreateSection({
 	Name = 'Sex',
@@ -99,6 +106,10 @@ local Funny2 = FunTab:CreateSection({
 local Funny3 = FunTab:CreateSection({
 	Name = 'FE Scripts',
 	Side = 'Right'
+})
+local Funny4 = FunTab:CreateSection({
+	Name = 'bang',
+	Side = 'Left'
 })
 
 local Misc1 = MiscTab:CreateSection({
@@ -117,10 +128,15 @@ local Misc4 = MiscTab:CreateSection({
 	Name = 'Misc',
 	Side = 'Right'
 })
-local Misc5 = MiscTab:CreateSection({
-	Name = 'Commands',
+local Misc6 = MiscTab:CreateSection({
+	Name = 'Chat Spammer',
 	Side = 'Left'
 })
+local Misc7 = MiscTab:CreateSection({
+	Name = 'Game',
+	Side = 'Right'
+})
+
 
 local Credits1 = CreditsTab:CreateSection({
 	Name = 'Developer',
@@ -132,10 +148,13 @@ local Credits2 = CreditsTab:CreateSection({
 })
 local Credits3 = CreditsTab:CreateSection({
 	Name = 'Cool people',
+	Side = 'Left'
+})
+local Credits4 = CreditsTab:CreateSection({
+	Name = 'Discord',
 	Side = 'Right'
 })
 
---yes
 
 
 local Speed1 = Player0:AddTextbox({
@@ -143,8 +162,8 @@ local Speed1 = Player0:AddTextbox({
 	Flag = "speed_velo",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed,
 	Multiline = true,
-	Callback = function(speeeeeeeeed)
-		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = speeeeeeeeed
+	Callback = function(x)
+		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = x
 	end
 })
 
@@ -153,8 +172,8 @@ local jumpPower1 = Player0:AddTextbox({
 	Flag = "jumppower12",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower,
 	Multiline = true,
-	Callback = function(jumpyy)
-		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower = jumpyy
+	Callback = function(x)
+		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower = x
 	end
 })
 
@@ -163,8 +182,8 @@ local garv = Player0:AddTextbox({
 	Flag = "garvityworkspace",
 	Value = game.Workspace.Gravity,
 	Multiline = true,
-	Callback = function(gravityyyyyywor)
-		game.Workspace.Gravity = gravityyyyyywor
+	Callback = function(x)
+		game.Workspace.Gravity = x
 	end
 })
 
@@ -390,10 +409,10 @@ _G.clickTp = false
 local clicktp = Player1:AddToggle({
 	Name = 'CTRL + Click Tp',
 	Value = false,
-	Flag = 'clicktpctrl',
+	Flag = 'click3ctrl',
 	Locked = false,
 	Keybind = {
-		Flag = 'keybindclicktp',
+		Flag = 'keyb43clicktp',
 		Mode = 'Toggle',
 	},
 
@@ -428,6 +447,58 @@ local clicktp = Player1:AddToggle({
 	end
 })
 
+_G.clickTp2 = false
+local clicktp = Player1:AddToggle({
+	Name = 'CTRL + Click Tp V2',
+	Value = false,
+	Flag = 'clicktpctrl',
+	Locked = false,
+	Keybind = {
+		Flag = 'keybindclicktp',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( clicktp )
+		if ( clicktp ) then
+			_G.clickTp2 = true
+			local player = game:GetService("Players").LocalPlayer
+			local UIS = game:GetService("UserInputService")
+			local Mouse = player:GetMouse()
+
+			local mt = getrawmetatable(game)
+			setreadonly(mt, false)
+			local old = mt.__index
+
+			local deb = false  
+			local opos = player.Character.HumanoidRootPart.CFrame
+
+			mt.__index = newcclosure(function(self, key)
+				if self == "HumanoidRootPart" and self.Parent == player.Character and key == "CFrame" and deb then
+					return opos
+				end
+				return old(self, key)
+			end)
+
+			local function tp(newpos)
+				if player.Character ~= nil and player.Character:FindFirstChild("HumanoidRootPart") ~= nil then
+					opos = player.Character.HumanoidRootPart.CFrame
+					deb = true
+					player.Character.HumanoidRootPart.CFrame = CFrame.new(newpos)
+					deb = false
+				end
+			end
+
+			UIS.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.clickTp2 == true then
+					tp(Mouse.Hit.p + Vector3.new(0, 3, 0))
+				end
+			end)
+		else
+			_G.clickTp2 = false
+		end
+	end
+})
+
 
 oldgravy23 = game.Workspace.Gravity
 _G.clicktween = false
@@ -441,8 +512,8 @@ local clicktp = Player1:AddToggle({
 		Mode = 'Toggle',
 	},
 
-	Callback = function( clicktp )
-		if ( clicktp ) then
+	Callback = function( x )
+		if ( x ) then
 			_G.clicktween = true
 			local UIS = game:GetService("UserInputService")
 			plr = game.Players.LocalPlayer
@@ -454,7 +525,6 @@ local clicktp = Player1:AddToggle({
 					for i,v in pairs(game.Workspace:GetChildren()) do
 						if v.Name == "Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd" then 
 							v:Destroy()
-							warn("Tween Part Destroyed")
 						end
 					end
 					wait()
@@ -465,9 +535,6 @@ local clicktp = Player1:AddToggle({
 					Target.Transparency = 1
 					Target.Anchored = true 
 					Target.CanCollide = false
-					wait()
-					print("Tween part created at:")
-					print(mouse.Hit.p)
 					wait()
 					game.Workspace.Gravity = 0
 					tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
@@ -483,7 +550,6 @@ local clicktp = Player1:AddToggle({
 					for i,v in pairs(game.Workspace:GetChildren()) do
 						if v.Name == "Tweenpaerr_NIGGASEXXXXXXXXXXXX_SIUt37rfjsd9fu4lKhdsrf8i3ksd" then 
 							v:Destroy()
-							warn("Tween Part Destroyed")
 						end
 					end
 					game.Workspace.Gravity = oldgravy23
@@ -750,46 +816,76 @@ local dfcam = Player1:AddToggle({
 	end
 })
 
-getgenv().CFrameSpeed = 2.4
-_G.cframefloat = false
-local cframefloat = Player1:AddToggle({
+_G.tpwalking = false
+getgenv().CFrameSpeed = 2
+local hb = game:GetService("RunService").Heartbeat
+local cframefloat2 = Player1:AddToggle({
 	Name = 'CFrame Speed',
 	Value = false,
 	Flag = '54trfgiukjfg',
 	Locked = false,
 	Keybind = {
-		Flag = 'cferawtlaot1',
+		Flag = 'cferawtlaot21',
 		Mode = 'Toggle',
 	},
 
 	Callback = function( state )
 		if ( state ) then
-			_G.cframefloat = true
-			Speed = getgenv().CFrameSpeed
-
-			You = game.Players.LocalPlayer.Name
-			UIS = game:GetService("UserInputService")
-
-			while _G.cframefloat == true do
-				if UIS:IsKeyDown(Enum.KeyCode.W) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,-Speed)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.A) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(-Speed,0,0)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.S) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,Speed)
-				end;
-				if UIS:IsKeyDown(Enum.KeyCode.D) then
-					game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(Speed,0,0)
-				end;
-				wait()
+			_G.tpwalking = true
+			local chr = speaker.Character
+			local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+			while _G.tpwalking == true and chr and hum and hum.Parent do
+				local delta = hb:Wait()
+				if hum.MoveDirection.Magnitude > 0 then
+					chr:TranslateBy(hum.MoveDirection * getgenv().CFrameSpeed * delta * 10)
+				end
 			end
 		else
-			_G.cframefloat = false
+			_G.tpwalking = false
 		end
 	end
 })
+
+--	getgenv().CFrameSpeed = 2.4
+--	_G.cframefloat = false
+--	local cframefloat = Player1:AddToggle({
+--		Name = 'CFrame Speed',
+--		Value = false,
+--		Flag = '54trfgiukjfg',
+--		Locked = false,
+--		Keybind = {
+--			Flag = 'cferawtlaot1',
+--			Mode = 'Toggle',
+--		},
+--
+--		Callback = function( state )
+--			if ( state ) then
+--				_G.cframefloat = true
+--				Speed = getgenv().CFrameSpeed
+--
+--				You = game.Players.LocalPlayer.Name
+--				UIS = game:GetService("UserInputService")
+--
+--				while _G.cframefloat == true do
+--					if UIS:IsKeyDown(Enum.KeyCode.W) then
+--						game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,-Speed)
+--					end;
+--					if UIS:IsKeyDown(Enum.KeyCode.A) then
+--						game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(-Speed,0,0)
+--					end;
+--					if UIS:IsKeyDown(Enum.KeyCode.S) then
+--						game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(0,0,Speed)
+--					end;
+--					if UIS:IsKeyDown(Enum.KeyCode.D) then
+--						game:GetService("Workspace")[You].HumanoidRootPart.CFrame = game:GetService("Workspace")[You].HumanoidRootPart.CFrame * CFrame.new(Speed,0,0)
+--					end;
+--					wait()
+--				end
+--			else
+--				_G.cframefloat = false
+--			end
+--		end
+--	})
 local TextBox = Player1:AddTextbox({
 	Name = 'CFrame speed',
 	Flag = "speed_cframe",
@@ -807,7 +903,7 @@ getgenv().DownDely = 1
 
 _G.SeakerEnabled = false
 local heatseakerspeed = Player1:AddToggle({
-	Name = 'HeatSeaker Speed',
+	Name = 'HeatSeeker Speed',
 	Value = false,
 	Flag = 'heatstaskjhdf',
 	Locked = false,
@@ -1208,23 +1304,6 @@ local mnorootes = Player3:AddButton({
 		end
 	end
 })
-local yesroot123 = Player3:AddButton({
-	Name = "Replace Root",
-	Callback = function()
-		if speaker.Character ~= nil and speaker.Character:FindFirstChild("HumanoidRootPart") then
-			local Char = speaker.Character
-			local OldParent = Char.Parent
-			local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
-			local OldPos = HRP.CFrame
-			Char.Parent = game
-			local HRP1 = HRP:Clone()
-			HRP1.Parent = Char
-			HRP = HRP:Destroy()
-			HRP1.CFrame = OldPos
-			Char.Parent = OldParent
-		end
-	end
-})
 local split = Player3:AddButton({
 	Name = "Split Body",
 	Callback = function()
@@ -1255,12 +1334,69 @@ local animlable = Player3:CreateLabel({
 })
 
 
+
+local tpplayer = Player4:AddTextbox({
+	Name = 'Go to Player',
+	Flag = "tptoplayers",
+	Value = speaker.Name,
+	Callback = function( plrTar )
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(plrTar)
+		if plr2 then
+			if plr2 ~= plr1 then
+				plr1.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame + Vector3.new(3,1,0)
+			end
+		end
+	end
+})
+local tpplayer = Player4:AddButton({
+	Name = "Go to Random Player",
+	Callback = function()
+		local randomPlayer = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
+
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(
+			Vector3.new(
+				randomPlayer.Character.Head.Position.X,
+				randomPlayer.Character.Head.Position.Y,
+				randomPlayer.Character.Head.Position.Z
+			)
+		)
+	end
+})
+
+function gmode()
+	game.Players.LocalPlayer.Character.Humanoid:Remove()
+    Instance.new('Humanoid', game.Players.LocalPlayer.Character)
+    game:GetService("Workspace")[game.Players.LocalPlayer.Name]:FindFirstChildOfClass('Humanoid').HipHeight = 2
+end
+
 local godmode = Player4:AddButton({
 	Name = "GodMode",
 	Callback = function()
-		game.Players.LocalPlayer.Character.Humanoid:Remove()
-    	Instance.new('Humanoid', game.Players.LocalPlayer.Character)
-    	game:GetService("Workspace")[game.Players.LocalPlayer.Name]:FindFirstChildOfClass('Humanoid').HipHeight = 2
+		gmode()
+	end
+})
+_G.spamgmode = false
+local spamgmode = Player4:AddToggle({
+	Name = 'Spam Godmode',
+	Value = false,
+	Flag = 'spamgmodesdf',
+	Locked = false,
+	Keybind = {
+		Flag = 'ni43erdft1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.spamgmode = true
+			while _G.spamgmode == true do
+				wait()
+				gmode()
+			end
+		else
+			_G.spamgmode = false
+		end
 	end
 })
 function invis1()
@@ -1416,6 +1552,72 @@ local triplol = Player4:AddButton({
 	end
 })
 
+
+function respawn(plr)
+	if invisRunning then TurnVisible() end
+	local char = plr.Character
+	if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+	char:ClearAllChildren()
+	local newChar = Instance.new("Model")
+	newChar.Parent = workspace
+	plr.Character = newChar
+	wait()
+	plr.Character = char
+	newChar:Destroy()
+end
+local refreshCmd = false
+function refresh(plr)
+	refreshCmd = true
+	local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+	local pos = Human and Human.RootPart and Human.RootPart.CFrame
+	local pos1 = workspace.CurrentCamera.CFrame
+	respawn(plr)
+	task.spawn(function()
+		plr.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
+		refreshCmd = false
+	end)
+end
+
+local Respawn = Player4:AddButton({
+	Name = "Respawn",
+	Callback = function()
+		respawn(speaker)
+	end
+})
+local Refresh = Player4:AddButton({
+	Name = "Refresh",
+	Callback = function()
+		refresh(speaker)
+	end
+})
+
+_G.AntiAfk = false
+local antiafk = Player4:AddToggle({
+	Name = 'Anti Afk',
+	Value = false,
+	Flag = 'nit5erfgd1',
+	Locked = false,
+	Keybind = {
+		Flag = 'nil43erdfcxgtrfvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.AntiAfk = true
+			local vu = game:GetService("VirtualUser")
+			game:GetService("Players").LocalPlayer.Idled:connect(function()
+				if _G.AntiAfk == true then
+					vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+					wait(1)
+					vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+				end
+			end)
+		else
+			_G.AntiAfk = false
+		end
+	end
+})
 local nilchar = Player4:AddToggle({
 	Name = 'Nil Character',
 	Value = false,
@@ -1438,6 +1640,35 @@ local nilchar = Player4:AddToggle({
 		end
 	end
 })
+_G.spamNilChar = false
+local nilchar2 = Player4:AddToggle({
+	Name = 'Spam Nil Character',
+	Value = false,
+	Flag = 'nilchar12',
+	Locked = false,
+	Keybind = {
+		Flag = 'nill22222l1',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.spamNilChar = true
+			while _G.spamNilChar ==  true do
+				wait()
+				if speaker.Character ~= nil then
+					speaker.Character.Parent = nil
+				end
+				wait()
+				if speaker.Character ~= nil then
+					speaker.Character.Parent = workspace
+				end
+			end
+		else
+			_G.spamNilChar = false
+		end
+	end
+})
 
 local freeze = Player4:AddToggle({
 	Name = 'Freeze',
@@ -1457,6 +1688,44 @@ local freeze = Player4:AddToggle({
 				end
 			end
 		else
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Anchored = false
+				end
+			end
+		end
+	end
+})
+_G.spamfreeze = false
+local randomfreeze = Player4:AddToggle({
+	Name = 'Freeze Lag',
+	Value = false,
+	Flag = 'freezeisfunni2',
+	Locked = false,
+	Keybind = {
+		Flag = '4r8uifgdfg',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.spamfreeze = true
+			while _G.spamfreeze == true do
+				wait()
+				for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+					if v:IsA("BasePart") then
+						v.Anchored = true
+					end
+				end
+				wait(math.random(0.002,0.5))
+				for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+					if v:IsA("BasePart") then
+						v.Anchored = false
+					end
+				end
+			end
+		else
+			_G.spamfreeze = false
 			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 				if v:IsA("BasePart") then
 					v.Anchored = false
@@ -1648,51 +1917,57 @@ local night1 = Visuals1:AddButton({
 		Lighting.ClockTime = 0
 	end
 })
+
+function lesslag()
+	local Terrain = workspace:FindFirstChildOfClass('Terrain')
+	Terrain.WaterWaveSize = 0
+	Terrain.WaterWaveSpeed = 0
+	Terrain.WaterReflectance = 0
+	Terrain.WaterTransparency = 0
+	Lighting.GlobalShadows = false
+	Lighting.FogEnd = 9e9
+	settings().Rendering.QualityLevel = 1
+	for i,v in pairs(game:GetDescendants()) do
+		if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+			v.Material = "Plastic"
+			v.Reflectance = 0
+		elseif v:IsA("Decal") then
+			v.Transparency = 1
+		elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+			v.Lifetime = NumberRange.new(0)
+		elseif v:IsA("Explosion") then
+			v.BlastPressure = 1
+			v.BlastRadius = 1
+		end
+	end
+	for i,v in pairs(Lighting:GetDescendants()) do
+		if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+			v.Enabled = false
+		end
+	end
+	workspace.DescendantAdded:Connect(function(child)
+		coroutine.wrap(function()
+			if child:IsA('ForceField') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Sparkles') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Smoke') or child:IsA('Fire') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			end
+		end)()
+	end)
+end
+
 local lesslag = Visuals1:AddButton({
 	Name = "Less lag",
 	Callback = function()
-		local Terrain = workspace:FindFirstChildOfClass('Terrain')
-		Terrain.WaterWaveSize = 0
-		Terrain.WaterWaveSpeed = 0
-		Terrain.WaterReflectance = 0
-		Terrain.WaterTransparency = 0
-		Lighting.GlobalShadows = false
-		Lighting.FogEnd = 9e9
-		settings().Rendering.QualityLevel = 1
-		for i,v in pairs(game:GetDescendants()) do
-			if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-				v.Material = "Plastic"
-				v.Reflectance = 0
-			elseif v:IsA("Decal") then
-				v.Transparency = 1
-			elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-				v.Lifetime = NumberRange.new(0)
-			elseif v:IsA("Explosion") then
-				v.BlastPressure = 1
-				v.BlastRadius = 1
-			end
-		end
-		for i,v in pairs(Lighting:GetDescendants()) do
-			if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
-				v.Enabled = false
-			end
-		end
-		workspace.DescendantAdded:Connect(function(child)
-			coroutine.wrap(function()
-				if child:IsA('ForceField') then
-					RunService.Heartbeat:Wait()
-					child:Destroy()
-				elseif child:IsA('Sparkles') then
-					RunService.Heartbeat:Wait()
-					child:Destroy()
-				elseif child:IsA('Smoke') or child:IsA('Fire') then
-					RunService.Heartbeat:Wait()
-					child:Destroy()
-				end
-			end)()
-		end)
+		lesslag()
 	end
 })
+
 local fixcam = Visuals1:AddButton({
 	Name = "Fix Camera",
 	Callback = function()
@@ -1889,6 +2164,101 @@ local chamtransda2 = Visuals3:AddSlider({
 	end
 })
 
+local proximitypromptslabel = Visuals4:CreateLabel({
+	Text = 'proximity prompts'
+})
+
+local PromptButtonHoldBegan = nil
+instantproxpromts = Visuals4:AddToggle({
+	Name = 'Instant proximity prompts',
+	Value = false,
+	Flag = 'rd4erfdygdf',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			if fireproximityprompt then
+				if PromptButtonHoldBegan ~= nil then
+					PromptButtonHoldBegan:Disconnect()
+					PromptButtonHoldBegan = nil
+				end
+				wait()
+				PromptButtonHoldBegan = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
+					fireproximityprompt(prompt)
+				end)
+			else
+				Library.Notify({
+					Text = "missing fireproximityprompt",
+					Duration = 6
+				})
+			end
+		else
+			if PromptButtonHoldBegan ~= nil then
+				PromptButtonHoldBegan:Disconnect()
+				PromptButtonHoldBegan = nil
+			end
+		end
+	end
+})
+noproximitypromptlimits = Visuals4:AddButton({
+	Name = "No Proximity prompt limit",
+	Callback = function()
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("ProximityPrompt") then
+				v.MaxActivationDistance = math.huge
+			end
+		end
+	end
+})
+fireproximityprompts = Visuals4:AddButton({
+	Name = "Fire Proximity prompts",
+	Callback = function()
+		if fireproximityprompt then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v:IsA("ProximityPrompt") then
+					fireproximityprompt(v)
+				end
+			end
+		else
+			Library.Notify({
+				Text = "missing fireproximityprompt",
+				Duration = 6
+			})
+		end
+	end
+})
+
+local proximitypromptslabel = Visuals4:CreateLabel({
+	Text = 'Click Detectors'
+})
+
+fireclickdetectors = Visuals4:AddButton({
+	Name = "Fire Click Detectors",
+	Callback = function()
+		if fireclickdetector then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v:IsA("ClickDetector") then
+					fireclickdetector(v)
+				end
+			end
+		else
+			Library.Notify({
+				Text = "missing fireclickdetector",
+				Duration = 6
+			})
+		end
+	end
+})
+noclickdetectorlimits = Visuals4:AddButton({
+	Name = "No Click Detector limit",
+	Callback = function()
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("ClickDetector") then
+				v.MaxActivationDistance = math.huge
+			end
+		end
+	end
+})
 
 
 local Global = getgenv and getgenv() or _G
@@ -2254,6 +2624,7 @@ local Studio_Dummy_q34V3 = Funny2:AddButton({
 	end
 })
 
+
 --// propertites
 getgenv().WayPointTransparency = 1
 getgenv().WayPointCanCollide = false
@@ -2282,7 +2653,7 @@ local Waypoints_CanCollide = Misc1:AddToggle({
 	Name = 'Can Collide',
 	Value = false,
 	Flag = 'CanCollideiudfg',
-	Locked = false,
+	Locked = true,
 	Keybind = {
 		Flag = '4erf243',
 		Mode = 'Toggle',
@@ -2352,7 +2723,7 @@ function waypoint1()
 	waypoint1.Anchored = getgenv().WayPointAnchored
 	waypoint1.CanCollide = getgenv().WayPointCanCollide
 	waypoint1.Transparency = getgenv().WayPointTransparency
-	waypoint1.Size = Vector3.new(1, 1, 1)
+	waypoint1.Size = Vector3.new(0.5, 0.5, 0.5)
 end
 function waypoint2()
 	local waypoint2 = Instance.new("Part")
@@ -2362,7 +2733,7 @@ function waypoint2()
 	waypoint2.Anchored = getgenv().WayPointAnchored
 	waypoint2.CanCollide = getgenv().WayPointCanCollide
 	waypoint2.Transparency = getgenv().WayPointTransparency
-	waypoint2.Size = Vector3.new(1, 1, 1)
+	waypoint2.Size = Vector3.new(0.5, 0.5, 0.5)
 end
 function waypoint3()
 	local waypoint3 = Instance.new("Part")
@@ -2372,7 +2743,7 @@ function waypoint3()
 	waypoint3.Anchored = getgenv().WayPointAnchored
 	waypoint3.CanCollide = getgenv().WayPointCanCollide
 	waypoint3.Transparency = getgenv().WayPointTransparency
-	waypoint3.Size = Vector3.new(1, 1, 1)
+	waypoint3.Size = Vector3.new(0.5, 0.5, 0.5)
 end
 
 local createlabelwaypoint = Misc1:CreateLabel({
@@ -2445,6 +2816,18 @@ local noPoint3 = Misc1:AddButton({
 	Callback = function()
 		for _,nigga in pairs(game.Workspace:GetDescendants()) do
 			if nigga.Name == "wayPoint3_NIGGA_SEX_FUCKER" then
+				nigga:Destroy()
+			end
+		end
+	end
+})
+local noPoint = Misc1:AddButton({
+	Name = "Destroy All Waypoint",
+	Callback = function()
+		for _,nigga in pairs(game.Workspace:GetDescendants()) do
+			if nigga.Name == "wayPoint3_NIGGA_SEX_FUCKER" or
+			nigga.Name == "wayPoint2_NIGGA_SEX_FUCKER" or
+			nigga.Name == "wayPoint1_NIGGA_SEX_FUCKER" then
 				nigga:Destroy()
 			end
 		end
@@ -2739,110 +3122,236 @@ local enlerespawn = Misc4:AddToggle({
 	end
 })
 
+local antikick = Misc4:AddButton({
+	Name = "Anti Client kick    ",
+	Callback = function()
+		local LocalPlayer = game.Players.LocalPlayer
+		local oldhmmi
+		local oldhmmnc
+		oldhmmi = hookmetamethod(game, "__index", function(self, method)
+			if self == LocalPlayer and method:lower() == "kick" then
+				return error("Expected ':' not '.' calling member function Kick", 2)
+			end
+			return oldhmmi(self, method)
+		end)
+		oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+			if self == LocalPlayer and getnamecallmethod():lower() == "kick" then
+				return
+			end
+			return oldhmmnc(self, ...)
+		end)
+		wait()
+		Library.Notify({
+			Text = "Local kicks Disabled",
+			Duration = 10
+		})
+	end
+})
+local anticlirnttp = Misc4:AddButton({
+	Name = "Anti Client Teleport",
+	Callback = function()
+		local TeleportService = TeleportService
+		local oldhmmi
+		local oldhmmnc
+		oldhmmi = hookmetamethod(game, "__index", function(self, method)
+			if self == TeleportService then
+				if method:lower() == "teleport" then
+					return error("Expected ':' not '.' calling member function Kick", 2)
+				elseif method == "TeleportToPlaceInstance" then
+					return error("Expected ':' not '.' calling member function TeleportToPlaceInstance", 2)
+				end
+			end
+			return oldhmmi(self, method)
+		end)
+		oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+			if self == TeleportService and getnamecallmethod():lower() == "teleport" or getnamecallmethod() == "TeleportToPlaceInstance" then
+				return
+			end
+			return oldhmmnc(self, ...)
+		end)
+		Library.Notify({
+			Text = "Local teleports Disabled",
+			Duration = 10
+		})
+	end
+})
+local shiftlockyes = Misc4:AddButton({
+	Name = "Enable Shift Lock",
+	Callback = function()
+		speaker.DevEnableMouseLock = true
+		Library.Notify({
+			Text = "Shift lock is now available.. i hope  ",
+			Duration = 10
+		})
+	end
+})
+--local ancdiabled = Misc4:AddButton({
+--	Name = "Gmode Ac Disabler",
+--	Callback = function()
+--		gmode()
+--		wait(3)
+--		workspace.CurrentCamera:remove()
+--		wait(.1)
+--		repeat wait() until speaker.Character ~= nil
+--		workspace.CurrentCamera.CameraSubject = speaker.Character:FindFirstChildWhichIsA('Humanoid')
+--		workspace.CurrentCamera.CameraType = "Custom"
+--		speaker.CameraMinZoomDistance = 0.5
+--		speaker.CameraMaxZoomDistance = 400
+--		speaker.CameraMode = "Classic"
+--		speaker.Character.Head.Anchored = false
+--	end
+--})
 
+getgenv().Message = "string"
+getgenv().Delay = 1
 
--- \\ command line functions
---[[
-function test()
-	print("test")
-end
-
-function test2()
-	print("functions are cool :D")
-end
-
-function freeze()
-	for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-		if v:IsA("BasePart") then
-			v.Anchored = true
+_G.ChatSpam = false
+local chatspamRwuygdf = Misc6:AddToggle({
+	Name = 'Chat Spammer',
+	Value = false,
+	Flag = 'nchatasoammerrgr1',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			_G.ChatSpam = true
+			while _G.ChatSpam == true do
+				wait()
+				game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(getgenv().Message, "All")
+				wait(getgenv().Delay)
+			end
+		else
+			_G.ChatSpam = false
 		end
 	end
-end
-function unfreeze()
-	for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-		if v:IsA("BasePart") then
-			v.Anchored = false
-		end
-	end
-end
-
-
-
-local Cmdline = Misc5:AddTextbox({
-	Name = 'Command Line',
-	Value = "String Cmd",
+})
+local message = Misc6:AddTextbox({
+	Name = 'Message',
+	Flag = "pniggerdsg",
+	Value = "Vo is hot :3",
 	Callback = function( x )
-		if x == "test" then
-			test()
-		elseif x == "test2" then
-			test2()
-		elseif x == "freeze" then
-			freeze()
-		elseif x == "unfreeze" or "thaw" then
-			unfreeze()
+		getgenv().Message = x
+	end
+})
+local meaggadrdelay = Misc6:AddSlider({
+	Name = 'Delay',
+	Flag = "slSYUSs",
+	Value = 1,
+	Min = 0.1,
+	Max = 20,
+	Decimals = 2,
+	Callback = function( x )
+		getgenv().Delay = x
+	end
+})
+
+local Players = game.Players
+local exitgames = Misc7:AddButton({
+	Name = "Exit Game",
+	Callback = function()
+		game:Shutdown()
+	end
+})
+local rejoinyesyes = Misc7:AddButton({
+	Name = "Rejoin Game",
+	Callback = function()
+		game.Players.LocalPlayer:Kick("\nRejoining...")
+
+		local tpservice = game:GetService("TeleportService")
+		local plr = game.Players.LocalPlayer
+		tpservice:Teleport(game.PlaceId, plr)
+	end
+})
+
+_G.AutoRejoin = false
+local rejoinyesyes = Misc7:AddToggle({
+	Name = 'Auto Rejoin',
+	Value = false,
+	Flag = 'nchatgr1',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			_G.AutoRejoin = true
+			repeat wait() until game.CoreGui:FindFirstChild('RobloxPromptGui')
+
+			local lp,po,ts = game:GetService('Players').LocalPlayer,game.CoreGui.RobloxPromptGui.promptOverlay,game:GetService('TeleportService')
+
+			po.ChildAdded:connect(function(a)
+				if a.Name == 'ErrorPrompt' and _G.AutoRejoin == true then
+					repeat
+						ts:Teleport(game.PlaceId)
+						wait(2)
+					until false
+				end
+			end)
+		else
+			_G.AutoRejoin = false
 		end
 	end
 })
 
-local cmdinfo = Misc5:CreateLabel({
-	Text = 'Commands'
-})
-
-local cmdbreak = Misc5:CreateLabel({
-	Text = '---------'
-})
-
-local cmd1 = Misc5:CreateLabel({
-	Text = 'Test'
-})
-local cmd1d = Misc5:CreateLabel({
-	Text = '(prints "test")'
-})
-
-]]
 
 
-local dev1 = Credits1:CreateLabel({
+dev1 = Credits1:CreateLabel({
 	Text = 'Vo | Main Dev'
 })
 
 
-local Scripter1 = Credits2:CreateLabel({
+Scripter1 = Credits2:CreateLabel({
 	Text = 'sx65 | Fly'
 })
-local Scripter2 = Credits2:CreateLabel({
+Scripter2 = Credits2:CreateLabel({
 	Text = 'zurewrath | CFrame Speed'
 })
-local Scripter3 = Credits2:CreateLabel({
+Scripter3 = Credits2:CreateLabel({
 	Text = 'TheYoyo | Free Cam'
 })
-local Scripte4 = Credits2:CreateLabel({
+Scripte4 = Credits2:CreateLabel({
 	Text = 'JjsploitScripts | Chams'
 })
-local Scripter5 = Credits2:CreateLabel({
+Scripter5 = Credits2:CreateLabel({
 	Text = 'CoffeeWare | Sex Animations'
 })
 
 
 
-local Cool1 = Credits3:CreateLabel({
+Cool1 = Credits3:CreateLabel({
 	Text = 'E009'
 })
-local Cool2 = Credits3:CreateLabel({
+Cool2 = Credits3:CreateLabel({
 	Text = 'cqc Demoted'
 })
-local Cool3 = Credits3:CreateLabel({
+Cool3 = Credits3:CreateLabel({
 	Text = 'Noro'
 })
-local Cool4 = Credits3:CreateLabel({
+Cool4 = Credits3:CreateLabel({
 	Text = 'joJo'
 })
-local Cool5 = Credits3:CreateLabel({
+Cool5 = Credits3:CreateLabel({
 	Text = 'Someone is here'
 })
-local Cool6 = Credits3:CreateLabel({
+Cool6 = Credits3:CreateLabel({
 	Text = 'Azura'
 })
 
 
+
+copydc = Credits4:AddButton({
+	Name = "Copy Discord Invite",
+	Callback = function()
+		setclipboard('https://discord.gg/NbUUucBXhq')
+		Library.Notify({
+			Text = "invite Copied to clipboard",
+			Duration = 6
+		})
+	end
+})
+
+
+
+
+
+Library.Notify({
+	Text = "loaded in "..tick() - executiontime .. " seconds   ",
+	Duration = 5
+})
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/extras.lua"))()
