@@ -2071,6 +2071,235 @@ local chamtransda1 = Visuals1:AddSlider({
 	end
 })
 
+function clear_custom_skybox()
+	for i,v in pairs(game.Lighting:GetChildren()) do
+		if v.Name == "Night_Sky_OUT" or
+		v.Name == "BIG_BLACK_DUDE_OUT" or
+		v.Name == "ORANGE_SUNSET_OUT" or
+		v.Name == "SNOWY_SKY_OUT" or
+		v.Name == "VOIDAL_OUT" or
+		v.Name == "PURPLE_SUNSET_OUT" or
+		v.Name == "SPACE_SKYBOX_BACLK_OUT" or
+		v.Name == "NIGULA_OUT" or
+		v.Name == "NIGULA2_OUT" or
+		v.Name == "STORMMY_OUT" or
+		v.Name == "JEFF_THE_NIGGA_OUT" or
+		v.Name == "LONG_NOSE_NIGGA" then
+			v:Destroy()
+		end
+	end
+end
+
+local skybox = Visuals1:AddDropdown({
+	Name = 'SkyBox',
+	Flag = "sdsfsdfsue",
+	Multi = false,
+	List = {
+		"No Skybox",
+		"Night Sky",
+		"Orange Sunset",
+		"Snowy Sky",
+		"Void Sky",
+		"Purple Sunset",
+		"Purple Nebula",
+		"Green Nebula",
+		"Stormy",
+		":)))))))))",
+		"QUANDALE DINGLE",
+		"Big Black ̶n̶i̶g̶g̶a̶  dude"
+	},
+	Callback = function( skybox )
+		if skybox == "Night Sky" then
+			local nightsky_skybox = Instance.new("Sky")
+			nightsky_skybox.Parent = game.Lighting
+			nightsky_skybox.Name = "Night_Sky_OUT"
+			nightsky_skybox.CelestialBodiesShown = false
+			nightsky_skybox.MoonAngularSize = 11
+			nightsky_skybox.SkyboxBk = "http://www.roblox.com/Asset/?ID=12064107"
+			nightsky_skybox.SkyboxDn = "http://www.roblox.com/Asset/?ID=12064152"
+			nightsky_skybox.SkyboxFt = "http://www.roblox.com/Asset/?ID=12064121"
+			nightsky_skybox.SkyboxLf = "http://www.roblox.com/Asset/?ID=12063984"
+			nightsky_skybox.SkyboxRt = "http://www.roblox.com/Asset/?ID=12064115"
+			nightsky_skybox.SkyboxUp = "http://www.roblox.com/Asset/?ID=12064131"
+			nightsky_skybox.StarCount = 0
+			nightsky_skybox.SunAngularSize = 21
+
+		elseif skybox == "Big Black ̶n̶i̶g̶g̶a̶  dude" then
+			local blackdude_skybox = Instance.new("Sky")
+			blackdude_skybox.Parent = game.Lighting
+			blackdude_skybox.Name = "BIG_BLACK_DUDE_OUT"
+			blackdude_skybox.CelestialBodiesShown = true
+			blackdude_skybox.MoonAngularSize = 11
+			blackdude_skybox.MoonTextureId = "rbxassetid://10017359424"
+			blackdude_skybox.SunTextureId = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxBk = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxDn = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxFt = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxLf = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxRt = "rbxassetid://10017359424"
+			blackdude_skybox.SkyboxUp = "rbxassetid://10017359424"
+			blackdude_skybox.StarCount = 3000
+			blackdude_skybox.SunAngularSize = 21
+
+		elseif skybox == "Orange Sunset" then
+			local OrangeSunset_skybox = Instance.new("Sky")
+			OrangeSunset_skybox.Parent = game.Lighting
+			OrangeSunset_skybox.Name = "ORANGE_SUNSET_OUT"
+			OrangeSunset_skybox.CelestialBodiesShown = true
+			OrangeSunset_skybox.MoonAngularSize = 11
+			OrangeSunset_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			OrangeSunset_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			OrangeSunset_skybox.SkyboxBk = "rbxassetid://600830446"
+			OrangeSunset_skybox.SkyboxDn = "rbxassetid://600831635"
+			OrangeSunset_skybox.SkyboxFt = "rbxassetid://600832720"
+			OrangeSunset_skybox.SkyboxLf = "rbxassetid://600886090"
+			OrangeSunset_skybox.SkyboxRt = "rbxassetid://600833862"
+			OrangeSunset_skybox.SkyboxUp = "rbxassetid://600835177"
+			OrangeSunset_skybox.StarCount = 3000
+			OrangeSunset_skybox.SunAngularSize = 21
+
+		elseif skybox == "Snowy Sky" then
+			local SnowySky_skybox = Instance.new("Sky")
+			SnowySky_skybox.Parent = game.Lighting
+			SnowySky_skybox.Name = "SNOWY_SKY_OUT"
+			SnowySky_skybox.CelestialBodiesShown = false
+			SnowySky_skybox.MoonAngularSize = 11
+			SnowySky_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			SnowySky_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			SnowySky_skybox.SkyboxBk = "http://www.roblox.com/asset/?id=155657655"
+			SnowySky_skybox.SkyboxDn = "http://www.roblox.com/asset/?id=155674246"
+			SnowySky_skybox.SkyboxFt = "http://www.roblox.com/asset/?id=155657609"
+			SnowySky_skybox.SkyboxLf = "http://www.roblox.com/asset/?id=155657671"
+			SnowySky_skybox.SkyboxRt = "http://www.roblox.com/asset/?id=155657619"
+			SnowySky_skybox.SkyboxUp = "http://www.roblox.com/asset/?id=155674931"
+			SnowySky_skybox.StarCount = 3000
+			SnowySky_skybox.SunAngularSize = 21
+
+		elseif skybox == "Void Sky" then
+			local voidal_skybox = Instance.new("Sky")
+			voidal_skybox.Parent = game.Lighting
+			voidal_skybox.Name = "VOIDAL_OUT"
+			voidal_skybox.CelestialBodiesShown = true
+			voidal_skybox.MoonAngularSize = 11
+			voidal_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			voidal_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			voidal_skybox.SkyboxBk = "rbxassetid://6847661057"
+			voidal_skybox.SkyboxDn = "rbxassetid://6847661380"
+			voidal_skybox.SkyboxFt = "rbxassetid://6847661671"
+			voidal_skybox.SkyboxLf = "rbxassetid://6847661950"
+			voidal_skybox.SkyboxRt = "rbxassetid://6847665479"
+			voidal_skybox.SkyboxUp = "rbxassetid://6847663751"
+			voidal_skybox.StarCount = 3000
+			voidal_skybox.SunAngularSize = 21
+
+		elseif skybox == "Purple Sunset" then
+			local PurpleSunset_skybox = Instance.new("Sky")
+			PurpleSunset_skybox.Parent = game.Lighting
+			PurpleSunset_skybox.Name = "PURPLE_SUNSET_OUT"
+			PurpleSunset_skybox.CelestialBodiesShown = false
+			PurpleSunset_skybox.MoonAngularSize = 11
+			PurpleSunset_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			PurpleSunset_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			PurpleSunset_skybox.SkyboxBk = "rbxassetid://264908339"
+			PurpleSunset_skybox.SkyboxDn = "rbxassetid://264907909"
+			PurpleSunset_skybox.SkyboxFt = "rbxassetid://264909420"
+			PurpleSunset_skybox.SkyboxLf = "rbxassetid://264909758"
+			PurpleSunset_skybox.SkyboxRt = "rbxassetid://264908886"
+			PurpleSunset_skybox.SkyboxUp = "rbxassetid://264907379"
+			PurpleSunset_skybox.StarCount = 3000
+			PurpleSunset_skybox.SunAngularSize = 21
+
+		elseif skybox == "Green Nebula" then
+			local Nebula2_skybox = Instance.new("Sky")
+			Nebula2_skybox.Parent = game.Lighting
+			Nebula2_skybox.Name = "NIGULA2_OUT"
+			Nebula2_skybox.CelestialBodiesShown = false
+			Nebula2_skybox.MoonAngularSize = 11
+			Nebula2_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			Nebula2_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			Nebula2_skybox.SkyboxBk = "http://www.roblox.com/asset/?id=159248188"
+			Nebula2_skybox.SkyboxDn = "http://www.roblox.com/asset/?id=159248183"
+			Nebula2_skybox.SkyboxFt = "http://www.roblox.com/asset/?id=159248187"
+			Nebula2_skybox.SkyboxLf = "http://www.roblox.com/asset/?id=159248173"
+			Nebula2_skybox.SkyboxRt = "http://www.roblox.com/asset/?id=159248192"
+			Nebula2_skybox.SkyboxUp = "http://www.roblox.com/asset/?id=159248176"
+			Nebula2_skybox.StarCount = 0
+			Nebula2_skybox.SunAngularSize = 21
+
+		elseif skybox == "Purple Nebula" then
+			local Nebula_skybox = Instance.new("Sky")
+			Nebula_skybox.Parent = game.Lighting
+			Nebula_skybox.Name = "NIGULA_OUT"
+			Nebula_skybox.CelestialBodiesShown = false
+			Nebula_skybox.MoonAngularSize = 11
+			Nebula_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			Nebula_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			Nebula_skybox.SkyboxBk = "http://www.roblox.com/asset/?id=159454299"
+			Nebula_skybox.SkyboxDn = "http://www.roblox.com/asset/?id=159454296"
+			Nebula_skybox.SkyboxFt = "http://www.roblox.com/asset/?id=159454293"
+			Nebula_skybox.SkyboxLf = "http://www.roblox.com/asset/?id=159454286"
+			Nebula_skybox.SkyboxRt = "http://www.roblox.com/asset/?id=159454300"
+			Nebula_skybox.SkyboxUp = "http://www.roblox.com/asset/?id=159454288"
+			Nebula_skybox.StarCount = 0
+			Nebula_skybox.SunAngularSize = 21
+
+		elseif skybox == "Stormy" then
+			local Stormy_skybox = Instance.new("Sky")
+			Stormy_skybox.Parent = game.Lighting
+			Stormy_skybox.Name = "STORMMY_OUT"
+			Stormy_skybox.CelestialBodiesShown = false
+			Stormy_skybox.MoonAngularSize = 11
+			Stormy_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			Stormy_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			Stormy_skybox.SkyboxBk = "http://www.roblox.com/asset/?id=48015734"
+			Stormy_skybox.SkyboxDn = "http://www.roblox.com/asset/?id=48015300"
+			Stormy_skybox.SkyboxFt = "http://www.roblox.com/asset/?id=48015344"
+			Stormy_skybox.SkyboxLf = "http://www.roblox.com/asset/?id=48015327"
+			Stormy_skybox.SkyboxRt = "http://www.roblox.com/asset/?id=48015359"
+			Stormy_skybox.SkyboxUp = "http://www.roblox.com/asset/?id=48015387"
+			Stormy_skybox.StarCount = 3000
+			Stormy_skybox.SunAngularSize = 21
+
+		elseif skybox == ":)))))))))" then
+			local scarry_skybox = Instance.new("Sky")
+			scarry_skybox.Parent = game.Lighting
+			scarry_skybox.Name = "JEFF_THE_NIGGA_OUT"
+			scarry_skybox.CelestialBodiesShown = false
+			scarry_skybox.MoonAngularSize = 11
+			scarry_skybox.MoonTextureId = "rbxasset://sky/moon.jpg"
+			scarry_skybox.SunTextureId = "rbxasset://sky/sun.jpg"
+			scarry_skybox.SkyboxBk = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.SkyboxDn = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.SkyboxFt = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.SkyboxLf = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.SkyboxRt = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.SkyboxUp = "http://www.roblox.com/asset/?id=103560945"
+			scarry_skybox.StarCount = 3000
+			scarry_skybox.SunAngularSize = 21
+
+		elseif skybox == "QUANDALE DINGLE" then
+			local QUANDALE_skybox = Instance.new("Sky")
+			QUANDALE_skybox.Parent = game.Lighting
+			QUANDALE_skybox.Name = "LONG_NOSE_NIGGA"
+			QUANDALE_skybox.CelestialBodiesShown = true
+			QUANDALE_skybox.MoonAngularSize = 11
+			QUANDALE_skybox.MoonTextureId = "rbxassetid://9065554720"
+			QUANDALE_skybox.SunTextureId = "rbxassetid://6196665106"
+			QUANDALE_skybox.SkyboxBk = "rbxassetid://9065554720"
+			QUANDALE_skybox.SkyboxDn = "rbxassetid://9065554720"
+			QUANDALE_skybox.SkyboxFt = "rbxassetid://9065554720"
+			QUANDALE_skybox.SkyboxLf = "rbxassetid://9065554720"
+			QUANDALE_skybox.SkyboxRt = "rbxassetid://9065554720"
+			QUANDALE_skybox.SkyboxUp = "rbxassetid://9065554720"
+			QUANDALE_skybox.StarCount = 3000
+			QUANDALE_skybox.SunAngularSize = 11
+			
+		elseif skybox == "No Skybox" then
+			clear_custom_skybox()
+		end
+	end
+})
+
 local nickspoofer = Visuals2:AddTextbox({
 	Name = 'Dislay Name',
 	Flag = "displayspfokf",
@@ -2117,7 +2346,7 @@ local cgamesopCHAMS = Visuals3:AddToggle({
 			 	esp.Name = "KLjhfehu904eoiuiuoiIuOIUDfhuIde89iuhdf8U_oiuhfdjukHU9if90ns=o'sd.fodsk9dsf"
 			 	esp.FillTransparency = getgenv().FillTransparency
 			 	esp.FillColor = getgenv().FillColor
-			 	esp.OutlineColor =getgenv().OutlineColor
+			 	esp.OutlineColor = getgenv().OutlineColor
 			 	esp.OutlineTransparency = getgenv().OutlineTransparency
 			 	esp.Parent = v.Character
 			end
