@@ -94,6 +94,10 @@ local Visuals4 = VisualsTab:CreateSection({
 	Name = 'Screen Exploits',
 	Side = 'Right'
 })
+local Visuals5 = VisualsTab:CreateSection({
+	Name = 'Spectate',
+	Side = 'Left'
+})
 
 local Funny1 = FunTab:CreateSection({
 	Name = 'Sex',
@@ -135,6 +139,10 @@ local Misc6 = MiscTab:CreateSection({
 local Misc7 = MiscTab:CreateSection({
 	Name = 'Game',
 	Side = 'Right'
+})
+local Misc8 = MiscTab:CreateSection({
+	Name = 'Hide',
+	Side = 'left'
 })
 
 
@@ -2260,6 +2268,29 @@ noclickdetectorlimits = Visuals4:AddButton({
 	end
 })
 
+spectateasd = Visuals5:AddTextbox({
+	Name = 'Player',
+	Flag = "hfgchgdfhgg",
+	Value = game.Players.LocalPlayer.Name,
+	Multiline = false,
+	Callback = function( plrTar )
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(plrTar)
+
+		if plr2 then
+			if plr2 ~= plr1 then
+				game:GetService("Workspace").CurrentCamera.CameraSubject = plr2.HumanoidRootPart
+			end
+		end
+	end
+})
+noclickdetectorlimits = Visuals5:AddButton({
+	Name = "Stop Spectating",
+	Callback = function()
+		game:GetService("Workspace").CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.HumanoidRootPart
+	end
+})
+
 
 local Global = getgenv and getgenv() or _G
 local sex1 = Funny1:AddButton({
@@ -2724,6 +2755,7 @@ function waypoint1()
 	waypoint1.CanCollide = getgenv().WayPointCanCollide
 	waypoint1.Transparency = getgenv().WayPointTransparency
 	waypoint1.Size = Vector3.new(0.5, 0.5, 0.5)
+	niggawaypoint1 = game.Workspace:WaitForChild("wayPoint1_NIGGA_SEX_FUCKER")
 end
 function waypoint2()
 	local waypoint2 = Instance.new("Part")
@@ -2881,6 +2913,14 @@ local goPoint1 = Misc1:AddButton({
 	Callback = function()
 		if getgenv().TweenModeIsActive == false then
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:WaitForChild("wayPoint1_NIGGA_SEX_FUCKER").CFrame
+			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+			wait(4)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+			for i = 1,100 do
+				task.wait()
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(niggawaypoint1.X, niggawaypoint1.Y, niggawaypoint1.Z)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+			end
 		elseif getgenv().TweenModeIsActive == true then
 			game.workspace.Gravity = 0
 			tweenMode1()
@@ -3289,7 +3329,121 @@ local rejoinyesyes = Misc7:AddToggle({
 	end
 })
 
+getgenv().FaggotTransparency = 0.5
+getgenv().FaggotSizeX = 3
+getgenv().FaggotSizeY = 5
+getgenv().FaggotSizeZ = 3
+getgenv().FaggotColor = Color3.new(115, 15, 180)
+getgenv().VeiwFaggot = true
 
+local hidechar = Misc8:AddToggle({
+	Name = 'Hide Character',
+	Value = false,
+	Flag = 'njhgfhjdrfgd1',
+	Locked = false,
+	Keybind = {
+		Flag = '54i54recxgtrfvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldcf = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			faggot = game.Players.LocalPlayer.Character.HumanoidRootPart
+			faggot.CFrame = CFrame.new(0, 99999999, 0)
+			faggot.Anchored = true
+			faggotpart = Instance.new("Part")
+			faggotpart.Size = Vector3.new(getgenv().FaggotSizeX, getgenv().FaggotSizeY, getgenv().FaggotSizeZ)
+			faggotpart.Anchored = true
+			
+			faggotpart.Material = Enum.Material.Neon
+			faggotpart.Transparency = getgenv().FaggotTransparency
+			faggotpart.CFrame = oldcf
+			faggotpart.CanCollide = false
+			faggotpart.Parent = game:GetService("Workspace")
+			if getgenv().VeiwFaggot == true then
+				game:GetService("Workspace").CurrentCamera.CameraSubject = faggotpart
+			end
+			while state == true do
+				wait()
+				faggotpart.Color = getgenv().FaggotColor
+			end
+		else
+			faggot.Anchored = false
+			faggot.CFrame = oldcf
+			faggotpart:Destroy()
+			game:GetService("Workspace").CurrentCamera.CameraSubject = faggot
+		end
+	end
+})
+
+settingssad3dasdsdf = Misc8:CreateLabel({
+	Text = 'Settings'
+})
+
+hidechar2 = Misc8:AddToggle({
+	Name = 'View Part',
+	Value = true,
+	Flag = 'njrfgd1',
+	Locked = false,
+	Keybind = {
+		Flag = '54irfvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			getgenv().VeiwFaggot = true
+		else
+			getgenv().VeiwFaggot = false
+		end
+	end
+})
+
+hidechar3 = Misc8:AddSlider({
+	Name = 'Transparency',
+	Flag = "sliMslkjbvcx",
+	Value = 0.5,
+	Min = 0,
+	Max = 1,
+	Decimals = 3,
+	llegalInput = false,
+	Callback = function( y )
+		getgenv().FaggotTransparency = y
+	end
+})
+
+hidechar22 = Misc8:AddTextbox({
+	Name = 'X Axis Value',
+	Flag = "pnigge",
+	Value = 3,
+	Callback = function( x )
+		getgenv().FaggotSizeX = x
+	end
+})
+hidechar24 = Misc8:AddTextbox({
+	Name = 'Y Axis Value',
+	Flag = "pniggerdsgefs",
+	Value = 5,
+	Callback = function( x )
+		getgenv().FaggotSizeY = x
+	end
+})
+hidechar26 = Misc8:AddTextbox({
+	Name = 'Z Axis Value',
+	Flag = "pniggerdsg35eg",
+	Value = 3,
+	Callback = function( x )
+		getgenv().FaggotSizeZ = x
+	end
+})
+hidechar26E = Misc8:AddColorPicker({
+	Name = "part Color",
+	Value = Color3.new(115, 15, 180),
+	Callback = function( color )
+		getgenv().FaggotColor = color
+	end
+})
 
 dev1 = Credits1:CreateLabel({
 	Text = 'Vo | Main Dev'
@@ -3300,7 +3454,7 @@ Scripter1 = Credits2:CreateLabel({
 	Text = 'sx65 | Fly'
 })
 Scripter2 = Credits2:CreateLabel({
-	Text = 'zurewrath | CFrame Speed'
+	Text = 'zurewrath | Old CFrame Speed'
 })
 Scripter3 = Credits2:CreateLabel({
 	Text = 'TheYoyo | Free Cam'
