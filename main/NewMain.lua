@@ -2914,7 +2914,7 @@ local goPoint1 = Misc1:AddButton({
 		if getgenv().TweenModeIsActive == false then
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:WaitForChild("wayPoint1_NIGGA_SEX_FUCKER").CFrame
 			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-			wait(4)
+			wait(2)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 			for i = 1,100 do
 				task.wait()
