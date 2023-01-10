@@ -9,7 +9,6 @@ local executiontime = tick()
 ██░░░░░░▄██░░░██░░░██░░░░░██░░░▀█▄░░░░░░░░░█░░░▀█▄░░░░██░░░░░▄█▀░░░██░░░░░██░░░░██
 █████████▀░░░░██░░░▀██▄▄█▀██░░░░▀██▄▄███░░░█░░░░░▀█▄░░░▀██▄▄██▀░░░░▀█████▀██░░░░▀██▄▄█]]
 
-
 local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
 local Libraryflags = Library.flags
 local Wait = Library.subs.Wait
@@ -18,7 +17,17 @@ local speaker = game.Players.LocalPlayer
 local Lighting = game:GetService("Lighting")
 local Camera = workspace.CurrentCamera
 local ProximityPromptService = game:GetService("ProximityPromptService")
-origsettings = {abt = Lighting.Ambient, oabt = Lighting.OutdoorAmbient, brt = Lighting.Brightness, time = Lighting.ClockTime, fe = Lighting.FogEnd, fs = Lighting.FogStart, gs = Lighting.GlobalShadows}
+getgenv().AutoReportableExecutor = false
+origsettings = {
+	abt = Lighting.Ambient, 
+	oabt = Lighting.OutdoorAmbient, 
+	brt = Lighting.Brightness, 
+	time = Lighting.ClockTime, 
+	fe = Lighting.FogEnd, 
+	fs = Lighting.FogStart, 
+	gs = Lighting.GlobalShadows
+}
+
 
 function r15(plr)
 	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
@@ -28,6 +37,10 @@ end
 function getRoot(char)
 	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
 	return rootPart
+end
+
+if not syn then
+	getgenv().AutoReportableExecutor = true
 end
 
 local Window = Library:CreateWindow({
@@ -3390,6 +3403,95 @@ local enlerespawn = Misc4:AddToggle({
 		end
 	end
 })
+
+words = {
+    ['gay'] = 'Bullying',
+    ['lesbian'] = 'Bullying',
+    ['retard'] = 'Bullying',
+    ['noob'] = 'Bullying',
+    ['clown'] = 'Bullying',
+    ['get a life'] = 'Bullying',
+    ['getalife'] = 'Bullying',
+    ['no life'] = 'Bullying',
+    ['nolife'] = 'Bullying',
+    ['wizard'] = 'Bullying',
+    ['reports'] = 'Bullying',
+    ['father'] = 'Bullying',
+    ['mother'] = 'Bullying',
+    ['dumb'] = 'Bullying',
+    ['stupid'] = 'Bullying',
+    ['cringe'] = 'Bullying',
+    ['skill issue'] = 'Bullying',
+    ['parent'] = 'Bullying',
+    ['kid'] = 'Bullying',
+    ['ugly'] = 'Bullying',
+    ['child'] = 'Bullying',
+    ['trash'] = 'Bullying',
+    ['bozo'] = 'Bullying',
+    ['kys'] = 'Bullying',
+    ['die'] = 'Bullying',
+    ['killyou'] = 'Bullying',
+    ['loser'] = 'Bullying',
+    ['black'] = 'Bullying',
+    ['white'] = 'Bullying',
+    ['ez l'] = 'Bullying',
+    ['l ez'] = 'Bullying',
+    ['negro'] = 'Bullying',
+    ['nivver'] = 'Bullying',
+    ['negar'] = 'Bullying',
+    ['bad'] = 'Bullying',
+    ['worst'] = 'Bullying',
+    ['fat'] = 'Bullying',
+    ['hack'] = 'Scamming',
+    ['exploit'] = 'Scamming',
+    ['cheat'] = 'Scamming',
+    ['download'] = 'Offsite Links',
+    ['youtube'] = 'Offsite Links',
+    ['dizzy'] = 'Offsite Links',
+}
+
+_G.AutoReport = false
+if getgenv().AutoReportableExecutor == true then
+	autoreportvape = Misc4:AddToggle({
+		Name = 'Auto report',
+		Value = false,
+		Flag = 'autoreportNOTSKIDDEDFROMVAPE',
+		Locked = false,
+		Callback = function( state )
+			if ( state ) then
+				_G.AutoReport = true
+				if not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents') or not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('OnMessageDoneFiltering') then return end
+				DCSCE = game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents')
+				local players = game:GetService("Players")
+
+				function handler(msg,speaker)
+					for i,v in next, words do
+						if string.match(string.lower(msg),i) then
+							if _G.AutoReport == true then
+								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+								task.wait(1.5)
+								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+								Library.Notify({
+									Text = "Auto Report Reported a player ",
+									Duration = 3
+								})
+							end
+						end
+					end
+				end
+
+				msg = DCSCE:FindFirstChild('OnMessageDoneFiltering')
+				msg.OnClientEvent:Connect(function(msgdata)
+					if tostring(msgdata.FromSpeaker) ~= players.LocalPlayer.Name then
+						handler(tostring(msgdata.Message),tostring(msgdata.FromSpeaker))
+					end
+				end)
+			else
+				_G.AutoReport = false
+			end
+		end
+	})
+end
 
 local antikick = Misc4:AddButton({
 	Name = "Anti Client kick    ",
