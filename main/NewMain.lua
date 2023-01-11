@@ -19,12 +19,12 @@ local Camera = workspace.CurrentCamera
 local ProximityPromptService = game:GetService("ProximityPromptService")
 getgenv().AutoReportableExecutor = false
 origsettings = {
-	abt = Lighting.Ambient, 
-	oabt = Lighting.OutdoorAmbient, 
-	brt = Lighting.Brightness, 
-	time = Lighting.ClockTime, 
-	fe = Lighting.FogEnd, 
-	fs = Lighting.FogStart, 
+	abt = Lighting.Ambient,
+	oabt = Lighting.OutdoorAmbient,
+	brt = Lighting.Brightness,
+	time = Lighting.ClockTime,
+	fe = Lighting.FogEnd,
+	fs = Lighting.FogStart,
 	gs = Lighting.GlobalShadows
 }
 
@@ -39,9 +39,6 @@ function getRoot(char)
 	return rootPart
 end
 
-if not syn then
-	getgenv().AutoReportableExecutor = true
-end
 
 local Window = Library:CreateWindow({
 	Name = 'Unbounded Yeild',
@@ -158,7 +155,6 @@ local Misc8 = MiscTab:CreateSection({
 	Side = 'left'
 })
 
-
 local Credits1 = CreditsTab:CreateSection({
 	Name = 'Developer',
 	Side = 'Left'
@@ -180,7 +176,7 @@ local Credits4 = CreditsTab:CreateSection({
 
 local Speed1 = Player0:AddTextbox({
 	Name = 'Modify Speed',
-	Flag = "speed_velo",
+	Flag = "speed_walkspeed",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed,
 	Multiline = true,
 	Callback = function(x)
@@ -867,6 +863,10 @@ local cframefloat2 = Player1:AddToggle({
 	end
 })
 
+
+
+
+
 --	getgenv().CFrameSpeed = 2.4
 --	_G.cframefloat = false
 --	local cframefloat = Player1:AddToggle({
@@ -916,7 +916,7 @@ local TextBox = Player1:AddTextbox({
 	end
 })
 
-local oldspeed = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed
+--[[local oldspeed = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed
 getgenv().MaxSpeed = 30
 getgenv().MixSpeed = oldspeed
 getgenv().UpDelay = 1
@@ -988,7 +988,7 @@ local TextBox = Player1:AddTextbox({
 local toollabel = Player2:CreateLabel({
 	Text = 'Tools'
 })
-
+]]
 local btools = Player2:AddButton({
 	Name = "Spawn BTools",
 	Callback = function()
@@ -1420,6 +1420,56 @@ local spamgmode = Player4:AddToggle({
 		end
 	end
 })
+
+
+local function skipFrame() 
+    return game:GetService("RunService").Heartbeat:Wait()
+end
+
+getgenv().TimerSpeed = 10
+_G.Timer = false
+timer = Player4:AddToggle({
+	Name = 'Timer',
+	Value = false,
+	Flag = 'nderfgd1',
+	Locked = false,
+	Keybind = {
+		Flag = 'nivc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldg = Workspace.Gravity
+			Workspace.Gravity = Workspace.Gravity * (getgenv().TimerSpeed / 10)
+			oldws = speaker.Character.Humanoid.WalkSpeed
+			speaker.Character.Humanoid.WalkSpeed = speaker.Character.Humanoid.WalkSpeed * (getgenv().TimerSpeed / 10)
+
+			spawn(function()
+				repeat skipFrame()
+					local tracks = speaker.Character.Humanoid:GetPlayingAnimationTracks()
+					for i,v in next, tracks do 
+						v:AdjustSpeed((getgenv().TimerSpeed / 10))
+					end
+				until _G.Timer == false
+			end)
+		else
+			_G.Timer = false
+			Workspace.Gravity = oldg
+			speaker.Character.Humanoid.WalkSpeed = oldws
+		end
+	end
+})
+
+timervalue = Player4:AddTextbox({
+	Name = 'Value',
+	Flag = "pdfsadrgtrdfro_flag",
+	Value = getgenv().TimerSpeed,
+	Callback = function( x )
+		getgenv().TimerSpeed = x
+	end
+})
+
 function invis1()
     invisRunning = false
     if invisRunning then return end
@@ -1636,6 +1686,104 @@ local antiafk = Player4:AddToggle({
 			end)
 		else
 			_G.AntiAfk = false
+		end
+	end
+})
+
+
+function CreateFloat()
+	local floaty2 = Instance.new("Part")
+	floaty2.Name = "FLOAT_BICH_NIGGPORN"
+	floaty2.Anchored = true
+	floaty2.Size = Vector3.new(3, 0.1, 3)
+	floaty2.Parent = Workspace
+	fagotlmao =  game.Players.LocalPlayer.Character.HumanoidRootPart
+	floaty2.CFrame = CFrame.new(fagotlmao.Position.X, fagotlmao.Position.Y - 3.8, fagotlmao.Position.Z)
+	floaty2.Transparency = 1
+end
+
+function CreateFloa2()
+	local floaty = Instance.new("Part")
+	floaty.Name = "FLOAT_BICH_NIGGPORN2"
+	floaty.Anchored = true
+	floaty.Size = Vector3.new(1000, 0.1, 1000)
+	floaty.Parent = Workspace
+	fagotlmao =  game.Players.LocalPlayer.Character.HumanoidRootPart
+	floaty.CFrame = CFrame.new(fagotlmao.Position.X, fagotlmao.Position.Y - 3.5, fagotlmao.Position.Z)
+	floaty.Transparency = 1
+end
+
+function Nofloat()
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		if v.Name == "FLOAT_BICH_NIGGPORN" then
+			v:Destroy()
+		end
+	end
+end
+
+function Nofloa2()
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		if v.Name == "FLOAT_BICH_NIGGPORN2" then
+			v:Destroy()
+		end
+	end
+end
+
+
+_G.SlowFAll = false
+local Float = Player4:AddToggle({
+	Name = 'Slow fall',
+	Value = false,
+	Flag = 'nifghgd1333',
+	Locked = false,
+	Keybind = {
+		Flag = 'fcxgtrfvddfdfc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.SlowFAll = true
+			while _G.SlowFAll == true do
+				wait()
+				CreateFloat()
+				wait()
+				Nofloat()
+			end
+		else
+			_G.SlowFAll = false
+
+		end
+	end
+})
+
+_G.PlatFormFloat = false
+local Float = Player4:AddToggle({
+	Name = 'Platform Float',
+	Value = false,
+	Flag = 'nifghgd1',
+	Locked = false,
+	Keybind = {
+		Flag = 'fcxgtrfvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.PlatFormFloat = true
+			while _G.PlatFormFloat == true do
+				wait()
+				CreateFloa2()
+				wait(5)
+				Nofloa2()
+			end
+		else
+			_G.PlatFormFloat = false
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v.Name == "FLOAT_BICH_NIGGPORN2" then
+					v:Destroy()
+				end
+			end
 		end
 	end
 })
@@ -2414,6 +2562,21 @@ local chamtransda2 = Visuals3:AddSlider({
 	end
 })
 
+viewclip = Visuals4:AddToggle({
+	Name = 'View Clip',
+	Value = false,
+	Flag = 'rdfgsgdygdf',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			speaker.DevCameraOcclusionMode = "Invisicam"
+		else
+			speaker.DevCameraOcclusionMode = "Zoom"
+		end
+	end
+})
+
 local proximitypromptslabel = Visuals4:CreateLabel({
 	Text = 'proximity prompts'
 })
@@ -2529,7 +2692,7 @@ spectateasd = Visuals5:AddTextbox({
 noclickdetectorlimits = Visuals5:AddButton({
 	Name = "Stop Spectating",
 	Callback = function()
-		game:GetService("Workspace").CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.HumanoidRootPart
+		game:GetService("Workspace").CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
 	end
 })
 
@@ -2894,6 +3057,73 @@ local Studio_Dummy_q34V3 = Funny2:AddButton({
 		else
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/animations/coffee/studiodummy.lua'))()
 		end
+	end
+})
+
+local cumball = Funny3:AddButton({
+	Name = "Become Ball",
+	Callback = function()
+		local UserInputService = game:GetService("UserInputService")
+		local RunService = game:GetService("RunService")
+		local Camera = workspace.CurrentCamera
+
+		local SPEED_MULTIPLIER = 30
+		local JUMP_POWER = 60
+		local JUMP_GAP = 0.3
+
+		local character = game.Players.LocalPlayer.Character
+
+		for i,v in ipairs(character:GetDescendants()) do
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+		end
+
+		local ball = character.HumanoidRootPart
+		ball.Shape = Enum.PartType.Ball
+		ball.Size = Vector3.new(5,5,5)
+		local humanoid = character:WaitForChild("Humanoid")
+		local params = RaycastParams.new()
+		params.FilterType = Enum.RaycastFilterType.Blacklist
+		params.FilterDescendantsInstances = {character}
+
+		local tc = RunService.RenderStepped:Connect(function(delta)
+			ball.CanCollide = true
+			humanoid.PlatformStand = true
+			if UserInputService:GetFocusedTextBox() then
+				return 
+			end
+			if UserInputService:IsKeyDown("W") then
+				ball.RotVelocity -= Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+			end
+			if UserInputService:IsKeyDown("A") then
+				ball.RotVelocity -= Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+			end
+			if UserInputService:IsKeyDown("S") then
+				ball.RotVelocity += Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+			end
+			if UserInputService:IsKeyDown("D") then
+				ball.RotVelocity += Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+			end
+		end)
+
+		UserInputService.JumpRequest:Connect(function()
+			local result = workspace:Raycast(
+			ball.Position,
+			Vector3.new(
+				0,
+				-((ball.Size.Y/2)+JUMP_GAP),
+				0
+			),
+			params
+			)
+			if result then
+				ball.Velocity = ball.Velocity + Vector3.new(0,JUMP_POWER,0)
+			end
+		end)
+
+		Camera.CameraSubject = ball
+		humanoid.Died:Connect(function() tc:Disconnect() end)	
 	end
 })
 
@@ -3450,48 +3680,47 @@ words = {
     ['dizzy'] = 'Offsite Links',
 }
 
-_G.AutoReport = false
-if getgenv().AutoReportableExecutor == true then
-	autoreportvape = Misc4:AddToggle({
-		Name = 'Auto report',
-		Value = false,
-		Flag = 'autoreportNOTSKIDDEDFROMVAPE',
-		Locked = false,
-		Callback = function( state )
-			if ( state ) then
-				_G.AutoReport = true
-				if not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents') or not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('OnMessageDoneFiltering') then return end
-				DCSCE = game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents')
-				local players = game:GetService("Players")
 
-				function handler(msg,speaker)
-					for i,v in next, words do
-						if string.match(string.lower(msg),i) then
-							if _G.AutoReport == true then
-								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
-								task.wait(1.5)
-								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
-								Library.Notify({
-									Text = "Auto Report Reported a player ",
-									Duration = 3
-								})
-							end
+_G.AutoReport = false
+autoreportvape = Misc4:AddToggle({
+	Name = 'Auto report',
+	Value = false,
+	Flag = 'autoreportNOTSKIDDEDFROMVAPE',
+	locked = getgenv().AutoReportLocked,
+	Callback = function( state )
+		if ( state ) then
+			_G.AutoReport = true
+			if not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents') or not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('OnMessageDoneFiltering') then return end
+			DCSCE = game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents')
+			local players = game:GetService("Players")
+
+			function handler(msg,speaker)
+				for i,v in next, words do
+					if string.match(string.lower(msg),i) then
+						if _G.AutoReport == true then
+							players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+							task.wait(1.5)
+							players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+							Library.Notify({
+								Text = "Auto Report Reported a player ",
+								Duration = 3
+							})
 						end
 					end
 				end
-
-				msg = DCSCE:FindFirstChild('OnMessageDoneFiltering')
-				msg.OnClientEvent:Connect(function(msgdata)
-					if tostring(msgdata.FromSpeaker) ~= players.LocalPlayer.Name then
-						handler(tostring(msgdata.Message),tostring(msgdata.FromSpeaker))
-					end
-				end)
-			else
-				_G.AutoReport = false
 			end
+
+			msg = DCSCE:FindFirstChild('OnMessageDoneFiltering')
+			msg.OnClientEvent:Connect(function(msgdata)
+				if tostring(msgdata.FromSpeaker) ~= players.LocalPlayer.Name then
+					handler(tostring(msgdata.Message),tostring(msgdata.FromSpeaker))
+				end
+			end)
+		else
+			_G.AutoReport = false
 		end
-	})
-end
+	end
+})
 
 local antikick = Misc4:AddButton({
 	Name = "Anti Client kick    ",
@@ -3681,7 +3910,7 @@ local hidechar = Misc8:AddToggle({
 		if ( state ) then
 			oldcf = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 			faggot = game.Players.LocalPlayer.Character.HumanoidRootPart
-			faggot.CFrame = CFrame.new(0, 99999999, 0)
+			faggot.CFrame = CFrame.new(0, -50, 0)
 			faggot.Anchored = true
 			faggotpart = Instance.new("Part")
 			faggotpart.Size = Vector3.new(getgenv().FaggotSizeX, getgenv().FaggotSizeY, getgenv().FaggotSizeZ)
@@ -3776,6 +4005,8 @@ hidechar26E = Misc8:AddColorPicker({
 	end
 })
 
+
+
 dev1 = Credits1:CreateLabel({
 	Text = 'Vo | Main Dev'
 })
@@ -3840,3 +4071,4 @@ Library.Notify({
 	Duration = 5
 })
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/extras.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/cmd_ob.lua"))()
