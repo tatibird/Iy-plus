@@ -122,7 +122,7 @@ local Funny3 = FunTab:CreateSection({
 	Side = 'Right'
 })
 local Funny4 = FunTab:CreateSection({
-	Name = 'bang',
+	Name = 'Fling',
 	Side = 'Left'
 })
 
@@ -154,6 +154,10 @@ local Misc8 = MiscTab:CreateSection({
 	Name = 'Hide',
 	Side = 'left'
 })
+local Misc9 = MiscTab:CreateSection({
+	Name = 'HitBox',
+	Side = 'Right'
+})
 
 local Credits1 = CreditsTab:CreateSection({
 	Name = 'Developer',
@@ -174,7 +178,7 @@ local Credits4 = CreditsTab:CreateSection({
 
 
 
-local Speed1 = Player0:AddTextbox({
+Speed1 = Player0:AddTextbox({
 	Name = 'Modify Speed',
 	Flag = "speed_walkspeed",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed,
@@ -184,7 +188,7 @@ local Speed1 = Player0:AddTextbox({
 	end
 })
 
-local jumpPower1 = Player0:AddTextbox({
+jumpPower1 = Player0:AddTextbox({
 	Name = 'Modify JumpPower',
 	Flag = "jumppower12",
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower,
@@ -194,7 +198,7 @@ local jumpPower1 = Player0:AddTextbox({
 	end
 })
 
-local garv = Player0:AddTextbox({
+garv = Player0:AddTextbox({
 	Name = 'Modify Gravity',
 	Flag = "garvityworkspace",
 	Value = game.Workspace.Gravity,
@@ -204,7 +208,7 @@ local garv = Player0:AddTextbox({
 	end
 })
 
-local maxslope = Player0:AddTextbox({
+maxslope = Player0:AddTextbox({
 	Name = 'Modify Max lope Angle',
 	Flag = "4rft65ytgo",
 	Value = speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle,
@@ -214,7 +218,7 @@ local maxslope = Player0:AddTextbox({
 	end
 })
 
-local hiphieghyt = Player0:AddTextbox({
+hiphieghyt = Player0:AddTextbox({
 	Name = 'Modify Hip height',
 	Flag = "65ythglkj",
 	Value = speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight,
@@ -224,7 +228,7 @@ local hiphieghyt = Player0:AddTextbox({
 	end
 })
 
-local fov1 = Player0:AddTextbox({
+fov1 = Player0:AddTextbox({
 	Name = 'Modify FOV',
 	Flag = "65y54trfgtj",
 	Value = workspace.CurrentCamera.FieldOfView,
@@ -234,7 +238,7 @@ local fov1 = Player0:AddTextbox({
 	end
 })
 
-local fpscapyes = Player0:AddTextbox({
+fpscapyes = Player0:AddTextbox({
 	Name = 'Modify FPS Cap',
 	Flag = "65yt4rfkj",
 	Value = 1e6,
@@ -508,6 +512,8 @@ local clicktp = Player1:AddToggle({
 			UIS.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.clickTp2 == true then
 					tp(Mouse.Hit.p + Vector3.new(0, 3, 0))
+					wait(1)
+					tp(Mouse.Hit.p + Vector3.new(0, 3, 0))
 				end
 			end)
 		else
@@ -577,6 +583,30 @@ local clicktp = Player1:AddToggle({
 		end
 	end
 })
+
+--[[_G.Fly = false
+local infjump = Player1:AddToggle({
+	Name = 'Fly',
+	Value = false,
+	Flag = 'iflyweeee',
+	Locked = false,
+	Keybind = {
+		Flag = 'kegfjFLYp',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.Fly = true
+			
+		else
+			_G.Fly = false
+		end
+	end
+})
+]]
+
+
 
 _G.flyiing = false
 local fly = Player1:AddToggle({
@@ -661,6 +691,7 @@ local fly = Player1:AddToggle({
 		end
 	end
 })
+
 
 _G.freecam = false
 local dfcam = Player1:AddToggle({
@@ -1350,14 +1381,14 @@ local nudesnaked = Player3:AddButton({
 })
 
 
-local animlable = Player3:CreateLabel({
+animlable = Player3:CreateLabel({
 	Text = 'States'
 })
 
 
 
-local tpplayer = Player4:AddTextbox({
-	Name = 'Go to Player',
+tpplayer = Player4:AddTextbox({
+	Name = 'Teleport to Player',
 	Flag = "tptoplayers",
 	Value = speaker.Name,
 	Callback = function( plrTar )
@@ -1370,7 +1401,25 @@ local tpplayer = Player4:AddTextbox({
 		end
 	end
 })
-local tpplayer = Player4:AddButton({
+vtpplayer = Player4:AddTextbox({
+	Name = 'Vehical to Player |semi broken',
+	Flag = "tptoplayersv",
+	Value = speaker.Name,
+	Callback = function( plrTar )
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(plrTar)
+		if plr2 then
+			if plr2 ~= plr1 then
+				local seat = speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart
+				local vehicleModel = seat:FindFirstAncestorWhichIsA("Model")
+
+				vehicleModel:MoveTo(plr2.HumanoidRootPart.Position)
+				plr1.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame + Vector3.new(3,1,0)
+			end
+		end
+	end
+})
+tpplayer = Player4:AddButton({
 	Name = "Go to Random Player",
 	Callback = function()
 		local randomPlayer = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
@@ -1384,6 +1433,7 @@ local tpplayer = Player4:AddButton({
 		)
 	end
 })
+
 
 function gmode()
 	game.Players.LocalPlayer.Character.Humanoid:Remove()
@@ -1440,6 +1490,7 @@ timer = Player4:AddToggle({
 
 	Callback = function( state )
 		if ( state ) then
+			_G.Timer = true
 			oldg = Workspace.Gravity
 			Workspace.Gravity = Workspace.Gravity * (getgenv().TimerSpeed / 10)
 			oldws = speaker.Character.Humanoid.WalkSpeed
@@ -3128,6 +3179,18 @@ local cumball = Funny3:AddButton({
 })
 
 
+local Studio_Dummy_q34V3 = Funny4:AddButton({
+	Name = "Invis Fling",
+	Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/invisfling.lua'))()
+		wait(3)
+		Library.Notify({
+			Text = "Click Z and wait 10 seconds ",
+			Duration = 6
+		})
+	end
+})
+
 --// propertites
 getgenv().WayPointTransparency = 1
 getgenv().WayPointCanCollide = false
@@ -3785,22 +3848,16 @@ local shiftlockyes = Misc4:AddButton({
 		})
 	end
 })
---local ancdiabled = Misc4:AddButton({
---	Name = "Gmode Ac Disabler",
---	Callback = function()
---		gmode()
---		wait(3)
---		workspace.CurrentCamera:remove()
---		wait(.1)
---		repeat wait() until speaker.Character ~= nil
---		workspace.CurrentCamera.CameraSubject = speaker.Character:FindFirstChildWhichIsA('Humanoid')
---		workspace.CurrentCamera.CameraType = "Custom"
---		speaker.CameraMinZoomDistance = 0.5
---		speaker.CameraMaxZoomDistance = 400
---		speaker.CameraMode = "Classic"
---		speaker.Character.Head.Anchored = false
---	end
---})
+local ancdiabled = Misc4:AddButton({
+	Name = "Godmode Anti Cheat Disabler",
+	Callback = function()
+		local plr = game:GetService("Players").LocalPlayer
+		local cha = plr.Character
+      cha.Parent = nil
+      cha.HumanoidRootPart:Destroy()
+      cha.Parent = workspace
+	end
+})
 
 getgenv().Message = "string"
 getgenv().Delay = 1
@@ -3946,10 +4003,6 @@ hidechar2 = Misc8:AddToggle({
 	Value = true,
 	Flag = 'njrfgd1',
 	Locked = false,
-	Keybind = {
-		Flag = '54irfvc',
-		Mode = 'Toggle',
-	},
 
 	Callback = function( state )
 		if ( state ) then
@@ -4006,6 +4059,48 @@ hidechar26E = Misc8:AddColorPicker({
 })
 
 
+getgenv().HitBoxSizeExpand = 10
+_G.ExpandHitbox = false
+expandhitbox = Misc9:AddToggle({
+	Name = 'Expand HitBoxes',
+	Value = false,
+	Flag = 'hitbox_big',
+	Locked = false,
+	Keybind = {
+		Flag = '54asddsf_bigvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.ExpandHitbox = true
+			for i,v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name == "Head" and v:IsA("MeshPart") then
+					if v ~= speaker.Character.Head then
+						v.Size = Vector3.new((getgenv().HitBoxSizeExpand / 10), (getgenv().HitBoxSizeExpand / 10), (getgenv().HitBoxSizeExpand / 10))
+					end
+				end
+			end
+		else
+			_G.ExpandHitbox = false
+			for i,v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name == "Head" and v:IsA("MeshPart") then
+					v.Size = Vector3.new(1, 1, 1)
+				end
+			end
+		end
+	end
+})
+
+
+expandhitboxsizr = Misc9:AddTextbox({
+	Name = 'Expand amount',
+	Flag = "ecnpandsizxe",
+	Value = 10,
+	Callback = function( x )
+		getgenv().HitBoxSizeExpand = x
+	end
+})
 
 dev1 = Credits1:CreateLabel({
 	Text = 'Vo | Main Dev'
