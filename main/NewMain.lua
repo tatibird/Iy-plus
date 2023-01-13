@@ -1741,6 +1741,31 @@ local antiafk = Player4:AddToggle({
 	end
 })
 
+_G.KeepPos = false
+local antiafk = Player4:AddToggle({
+	Name = 'Keep Position',
+	Value = false,
+	Flag = 'keeppos21',
+	Locked = false,
+	Keybind = {
+		Flag = 'keepsopos212',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.KeepPos = true
+			oldKeep = speaker.Character.HumanoidRootPart.CFrame
+			while _G.KeepPos == true do
+				task.wait()
+				speaker.Character.HumanoidRootPart.CFrame = oldKeep
+			end
+		else
+			_G.KeepPos = false
+		end
+	end
+})
+
 
 function CreateFloat()
 	local floaty2 = Instance.new("Part")
@@ -3853,9 +3878,9 @@ local ancdiabled = Misc4:AddButton({
 	Callback = function()
 		local plr = game:GetService("Players").LocalPlayer
 		local cha = plr.Character
-      cha.Parent = nil
-      cha.HumanoidRootPart:Destroy()
-      cha.Parent = workspace
+		cha.Parent = nil
+		cha.HumanoidRootPart:Destroy()
+		cha.Parent = workspace
 	end
 })
 
