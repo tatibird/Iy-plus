@@ -3817,7 +3817,6 @@ autoreportvape = Misc4:AddToggle({
 	Name = 'Auto report',
 	Value = false,
 	Flag = 'autoreportNOTSKIDDEDFROMVAPE',
-	locked = getgenv().AutoReportLocked,
 	Callback = function( state )
 		if ( state ) then
 			if syn then
