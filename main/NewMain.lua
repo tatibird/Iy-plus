@@ -3820,33 +3820,41 @@ autoreportvape = Misc4:AddToggle({
 	locked = getgenv().AutoReportLocked,
 	Callback = function( state )
 		if ( state ) then
-			_G.AutoReport = true
-			if not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents') or not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('OnMessageDoneFiltering') then return end
-			DCSCE = game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents')
-			local players = game:GetService("Players")
+			if syn then
+				autoreportvape:Set(false)
+				Library.Notify({
+					Text = "Auto Report Does not work on synapse. sry   ",
+					Duration = 6
+				})
+			else
+				_G.AutoReport = true
+				if not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents') or not game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('OnMessageDoneFiltering') then return end
+				DCSCE = game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents')
+				local players = game:GetService("Players")
 
-			function handler(msg,speaker)
-				for i,v in next, words do
-					if string.match(string.lower(msg),i) then
-						if _G.AutoReport == true then
-							players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
-							task.wait(1.5)
-							players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
-							Library.Notify({
-								Text = "Auto Report Reported a player ",
-								Duration = 3
-							})
+				function handler(msg,speaker)
+					for i,v in next, words do
+						if string.match(string.lower(msg),i) then
+							if _G.AutoReport == true then
+								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+								task.wait(1.5)
+								players:ReportAbuse(players[speaker],v,'He is breaking roblox TOS')
+								Library.Notify({
+									Text = "Auto Report Reported a player ",
+									Duration = 3
+								})
+							end
 						end
 					end
 				end
-			end
 
-			msg = DCSCE:FindFirstChild('OnMessageDoneFiltering')
-			msg.OnClientEvent:Connect(function(msgdata)
-				if tostring(msgdata.FromSpeaker) ~= players.LocalPlayer.Name then
-					handler(tostring(msgdata.Message),tostring(msgdata.FromSpeaker))
-				end
-			end)
+				msg = DCSCE:FindFirstChild('OnMessageDoneFiltering')
+				msg.OnClientEvent:Connect(function(msgdata)
+					if tostring(msgdata.FromSpeaker) ~= players.LocalPlayer.Name then
+						handler(tostring(msgdata.Message),tostring(msgdata.FromSpeaker))
+					end
+				end)
+			end
 		else
 			_G.AutoReport = false
 		end
