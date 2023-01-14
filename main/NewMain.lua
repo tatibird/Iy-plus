@@ -605,89 +605,127 @@ local infjump = Player1:AddToggle({
 	end
 })
 ]]
-
-
-
-_G.flyiing = false
-local fly = Player1:AddToggle({
-	Name = 'Fly | X to fly',
+lplr = game.Players.LocalPlayer
+_G.gjump = false
+local gfly = Player1:AddToggle({
+	Name = 'Gravity Air Boost',
 	Value = false,
-	Flag = 'flybypass',
+	Flag = 'fghighfhgpy',
 	Locked = false,
+	Keybind = {
+		Flag = 'kefuhg33dfg',
+		Mode = 'Toggle',
+	},
 
 	Callback = function( state )
 		if ( state ) then
-			_G.flyiing = true
-			_G.Speed = 150
-			_G.Key = Enum.KeyCode.X
-		
-			local UIS = game:GetService("UserInputService")
-			local OnRender = game:GetService("RunService").RenderStepped
-		
-			local Player = game:GetService("Players").LocalPlayer
-			local Character = Player.Character or Player.CharacterAdded:Wait()
-		
-			local Camera = workspace.CurrentCamera
-			local Root = Character:WaitForChild("HumanoidRootPart")
-		
-			local C1, C2, C3;
-			local penisNIggers1 = {Flying = false, Forward = false, Backward = false, Left = false, Right = false}
-			C1 = UIS.InputBegan:Connect(function(Input)
-				if Input.UserInputType == Enum.UserInputType.Keyboard then
-					if Input.KeyCode == _G.Key and _G.flyiing == true then
-						penisNIggers1.Flying = not penisNIggers1.Flying
-						Root.Anchored = penisNIggers1.Flying
-					elseif Input.KeyCode == Enum.KeyCode.W then
-						penisNIggers1.Forward = true
-					elseif Input.KeyCode == Enum.KeyCode.S then
-						penisNIggers1.Backward = true
-					elseif Input.KeyCode == Enum.KeyCode.A then
-						penisNIggers1.Left = true
-					elseif Input.KeyCode == Enum.KeyCode.D then
-						penisNIggers1.Right = true
-					end
-				end
-			end)
-		
-			C2 = UIS.InputEnded:Connect(function(Input)
-				if Input.UserInputType == Enum.UserInputType.Keyboard then
-					if Input.KeyCode == Enum.KeyCode.W then
-						penisNIggers1.Forward = false
-					elseif Input.KeyCode == Enum.KeyCode.S then
-						penisNIggers1.Backward = false
-					elseif Input.KeyCode == Enum.KeyCode.A then
-						penisNIggers1.Left = false
-					elseif Input.KeyCode == Enum.KeyCode.D then
-						penisNIggers1.Right = false
-					end
-				end
-			end)
-		
-			C3 = Camera:GetPropertyChangedSignal("CFrame"):Connect(function()
-				if penisNIggers1.Flying then
-					Root.CFrame = CFrame.new(Root.CFrame.Position, Root.CFrame.Position + Camera.CFrame.LookVector)
-				end
-			end)
-		
-			while _G.flyiing == true do 
-				local Delta = OnRender:Wait()
-				if penisNIggers1.Flying then
-					if penisNIggers1.Forward then
-						Root.CFrame = Root.CFrame + (Camera.CFrame.LookVector * (Delta * _G.Speed))
-					end
-					if penisNIggers1.Backward then
-						Root.CFrame = Root.CFrame + (-Camera.CFrame.LookVector * (Delta * _G.Speed))
-					end
-					if penisNIggers1.Left then
-						Root.CFrame = Root.CFrame + (-Camera.CFrame.RightVector * (Delta * _G.Speed))
-					end
-					if penisNIggers1.Right then
-						Root.CFrame = Root.CFrame + (Camera.CFrame.RightVector * (Delta * _G.Speed))
-					end
-				end
+			_G.gjump = true
+			task.spawn(function()
+                repeat
+                    task.wait(0.1)
+                    if _G.gjump == false then break end
+                    lplr.character.HumanoidRootPart.Velocity = lplr.character.HumanoidRootPart.Velocity + Vector3.new(0,35,0)
+                until _G.gjump == false
+            end)
+		else
+			_G.gjump = false
+		end
+	end
+})
+
+
+_G.gflyiing = false
+local gfly = Player1:AddToggle({
+	Name = 'Goofy Fly',
+	Value = false,
+	Flag = 'flybypassgoofy',
+	Locked = false,
+	Keybind = {
+		Flag = 'kefuhgdfg',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.gflyiing = true
+			while _G.gflyiing == true do
+				task.wait()
+				workspace.Gravity = 2
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Freefall")
+				wait(0.000000000000001)
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Running")
+				wait(0.000000000000001)
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Climbing")
+				wait(0.000000000000001)
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Swimming")
+				wait(0.000000000000001)
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Landed")
+				wait(0.000000000000001)
 			end
 		else
-			_G.flyiing = false
+			workspace.Gravity = 196.19999694824
+			_G.gflyiing = false
+		end
+	end
+})
+
+local RunLoops = {RenderStepTable = {}, StepTable = {}, HeartTable = {}}
+function RunLoops:BindToHeartbeat(name, num, func)
+	if RunLoops.HeartTable[name] == nil then
+		RunLoops.HeartTable[name] = game:GetService("RunService").Heartbeat:connect(func)
+	end
+end
+
+_G.fflyiing = false
+local gfly = Player1:AddToggle({
+	Name = 'Boost Air Jump ',
+	Value = false,
+	Flag = 'flsadybypasszr',
+	Locked = false,
+	Keybind = {
+		Flag = 'rg354',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.fflyiing = true
+			lplr.Character.Archivable = true
+			local clonethingy = lplr.Character:Clone()
+			clonethingy.Name = "clonethingy"
+			clonethingy:FindFirstChild("HumanoidRootPart").Transparency = 1
+			clonethingy.Parent = workspace
+			workspace.Camera.CameraSubject = clonethingy.Humanoid
+			partthingy = Instance.new("Part",workspace)
+			partthingy.Size = Vector3.new(2048,1,2048)
+			partthingy.CFrame = clonethingy.HumanoidRootPart.CFrame * CFrame.new(0,-4,0)
+			partthingy.Anchored = true
+			partthingy.Transparency = 1
+			partthingy.Name = "partthingy"
+
+
+			task.spawn(function()
+				repeat
+					task.wait(0.1)
+					if _G.fflyiing == false then break end
+					lplr.character.HumanoidRootPart.Velocity = lplr.character.HumanoidRootPart.Velocity + Vector3.new(0,35,0)
+				until _G.fflyiing == false
+			end)
+
+			repeat
+				task.wait(0.001)
+				if _G.fflyiing == false then break end
+				clonethingy.HumanoidRootPart.CFrame = CFrame.new(lplr.character.HumanoidRootPart.CFrame.X,clonethingy.HumanoidRootPart.CFrame.Y,lplr.character.HumanoidRootPart.CFrame.Z)
+			until testing == true
+		else
+			
+			_G.fflyiing = false
+			if workspace:FindFirstChild("clonethingy") or workspace:FindFirstChild("partthingy") then
+				workspace:FindFirstChild("clonethingy"):Destroy()
+				workspace:FindFirstChild("partthingy"):Destroy()
+				testing = true
+				workspace.Camera.CameraSubject = lplr.Character.Humanoid
+			end
 		end
 	end
 })
@@ -1436,9 +1474,24 @@ tpplayer = Player4:AddButton({
 
 
 function gmode()
-	game.Players.LocalPlayer.Character.Humanoid:Remove()
-    Instance.new('Humanoid', game.Players.LocalPlayer.Character)
-    game:GetService("Workspace")[game.Players.LocalPlayer.Name]:FindFirstChildOfClass('Humanoid').HipHeight = 2
+	local Cam = workspace.CurrentCamera
+	local Pos, Char = Cam.CFrame, speaker.Character
+	local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+	local nHuman = Human.Clone(Human)
+	nHuman.Parent, speaker.Character = Char, nil
+	nHuman.SetStateEnabled(nHuman, 15, false)
+	nHuman.SetStateEnabled(nHuman, 1, false)
+	nHuman.SetStateEnabled(nHuman, 0, false)
+	nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+	speaker.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+	nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+	local Script = Char.FindFirstChild(Char, "Animate")
+	if Script then
+		Script.Disabled = true
+		wait()
+		Script.Disabled = false
+	end
+	nHuman.Health = nHuman.MaxHealth
 end
 
 local godmode = Player4:AddButton({
@@ -1520,6 +1573,31 @@ timervalue = Player4:AddTextbox({
 		getgenv().TimerSpeed = x
 	end
 })
+
+function respawn(plr)
+	if invisRunning then TurnVisible() end
+	local char = plr.Character
+	if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+	char:ClearAllChildren()
+	local newChar = Instance.new("Model")
+	newChar.Parent = workspace
+	plr.Character = newChar
+	wait()
+	plr.Character = char
+	newChar:Destroy()
+end
+local refreshCmd = false
+function refresh(plr)
+	refreshCmd = true
+	local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+	local pos = Human and Human.RootPart and Human.RootPart.CFrame
+	local pos1 = workspace.CurrentCamera.CFrame
+	respawn(plr)
+	task.spawn(function()
+		plr.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
+		refreshCmd = false
+	end)
+end
 
 function invis1()
     invisRunning = false
@@ -1655,10 +1733,22 @@ function invis1()
 	})
 end
 
-local invis = Player4:AddButton({
-	Name = "Invisible",
-	Callback = function()
-		invis1()
+local invis = Player4:AddToggle({
+	Name = 'Invisible',
+	Value = false,
+	Flag = 'Invisible3rew',
+	Locked = false,
+	Keybind = {
+		Flag = 'niInvisiblefvc',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			invis1()
+		else
+			refresh(speaker)
+		end
 	end
 })
 
@@ -1674,31 +1764,6 @@ local triplol = Player4:AddButton({
 	end
 })
 
-
-function respawn(plr)
-	if invisRunning then TurnVisible() end
-	local char = plr.Character
-	if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
-	char:ClearAllChildren()
-	local newChar = Instance.new("Model")
-	newChar.Parent = workspace
-	plr.Character = newChar
-	wait()
-	plr.Character = char
-	newChar:Destroy()
-end
-local refreshCmd = false
-function refresh(plr)
-	refreshCmd = true
-	local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
-	local pos = Human and Human.RootPart and Human.RootPart.CFrame
-	local pos1 = workspace.CurrentCamera.CFrame
-	respawn(plr)
-	task.spawn(function()
-		plr.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
-		refreshCmd = false
-	end)
-end
 
 local Respawn = Player4:AddButton({
 	Name = "Respawn",
@@ -2050,7 +2115,7 @@ local lightyesyes = Player4:AddToggle({
 	end
 })
 
-getgenv().SpinSpeed = 20
+
 local funnyspin = Player4:AddToggle({
 	Name = 'Spin',
 	Value = false,
@@ -2259,7 +2324,6 @@ local invisparts = Visuals1:AddToggle({
 })
 
 
-getgenv().XrayTrans = 0.5
 local transparent = false
 function x(v)
 	if v then
@@ -2555,11 +2619,6 @@ local namespoofer = Visuals2:AddTextbox({
 		game.Players.LocalPlayer.Name = spefiyhg4sruhig2
 	end
 })
-
-getgenv().FillColor = Color3.new(1, 0.666667, 0)
-getgenv().FillTransparency = 0
-getgenv().OutlineColor = Color3.new(1, 0.333333, 1)
-getgenv().OutlineTransparency = 0
 
 local cvhamslable = Visuals3:CreateLabel({
 	Text = 'Chams'
@@ -3216,14 +3275,6 @@ local Studio_Dummy_q34V3 = Funny4:AddButton({
 	end
 })
 
---// propertites
-getgenv().WayPointTransparency = 1
-getgenv().WayPointCanCollide = false
-getgenv().WayPointAnchored = true
-
---// values
-getgenv().TweenModeIsActive = false
-getgenv().TweenDelay = 5
 
 local settingslabelwaypoint = Misc1:CreateLabel({
 	Text = 'Settings'
@@ -3511,14 +3562,6 @@ local goPoint3 = Misc1:AddButton({
 })
 
 _G.BreadCrumbs = false
-
---\\ settings
-getgenv().BallDelay = 0.001
-getgenv().BallSize = 0.4
-getgenv().BallTransparency = 0
-getgenv().BallShape = "Ball"
-getgenv().SmoothDestroy = false
-
 local breadcrumsbs = Misc2:AddToggle({
 	Name = 'BreadCrumbs',
 	Value = false,
@@ -4132,9 +4175,9 @@ dev1 = Credits1:CreateLabel({
 })
 
 
-Scripter1 = Credits2:CreateLabel({
-	Text = 'sx65 | Fly'
-})
+--Scripter1 = Credits2:CreateLabel({
+--	Text = 'sx65 | Fly'
+--})
 Scripter2 = Credits2:CreateLabel({
 	Text = 'zurewrath | Old CFrame Speed'
 })
