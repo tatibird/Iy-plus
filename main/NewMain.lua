@@ -39,6 +39,12 @@ function getRoot(char)
 	return rootPart
 end
 
+--[[
+local array = loadstring(game:HttpGet("https://raw.githubusercontent.com/AllahbloxLeaks/MemzwareAllahLeak/main/ArrayList.lua"))()
+shared["CometConfigs"] = {
+    Enabled = false
+}
+]]
 
 local Window = Library:CreateWindow({
 	Name = 'Unbounded Yeild',
@@ -248,6 +254,8 @@ fpscapyes = Player0:AddTextbox({
 	end
 })
 
+
+
 _G.noclip = false
 game:GetService("RunService").Stepped:Connect(function()
     if _G.noclip == true then
@@ -406,8 +414,8 @@ local infjump = Player1:AddToggle({
 		if ( state ) then
 			_G.infjump = true
 			function Action(Object, Function) if Object ~= nil then Function(Object); end end
-			local Player = game:GetService'Players'.LocalPlayer;
-			local UIS = game:GetService'UserInputService';
+			local Player = game:GetService'Players'.LocalPlayer
+			local UIS = game:GetService'UserInputService'
  
 			UIS.InputBegan:connect(function(UserInput)
     			if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space and _G.infjump == true then
@@ -665,6 +673,47 @@ local gfly = Player1:AddToggle({
 		else
 			workspace.Gravity = 196.19999694824
 			_G.gflyiing = false
+		end
+	end
+})
+
+
+Mode = "old"
+_G.funnifly = false
+funnifly = Player1:AddToggle({
+	Name = 'VClip Fly',
+	Value = false,
+	Flag = 'sofbfypsglyaoyFUNNI',
+	Locked = false,
+	Keybind = {
+		Flag = 'f54u8sdds',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			_G.funnifly = true
+			velo = Instance.new("BodyVelocity")
+			velo.MaxForce = Vector3.new(0,9e9,0)
+			velo.Parent = lplr.Character:FindFirstChild("HumanoidRootPart")
+
+			spawn(function()
+				repeat
+					if Mode == "old" then
+						velo.Velocity = Vector3.new(0,0,0)
+						task.wait()
+						velo.Velocity = Vector3.new(0,0,0)
+						task.wait()
+					end
+				until _G.funnifly == false
+			end)
+		else
+			for i,v in pairs(lplr.Character:FindFirstChild("HumanoidRootPart"):GetChildren()) do
+				if v:IsA("BodyVelocity") then
+					v:Destroy()
+				end
+			end
+			_G.funnifly = false
 		end
 	end
 })
@@ -1566,7 +1615,7 @@ timer = Player4:AddToggle({
 })
 
 timervalue = Player4:AddTextbox({
-	Name = 'Value',
+	Name = 'Timer Value',
 	Flag = "pdfsadrgtrdfro_flag",
 	Value = getgenv().TimerSpeed,
 	Callback = function( x )
@@ -2160,9 +2209,33 @@ local Slider = Player4:AddSlider({
 	end
 })
 
+--[[
+do
+	local arraylist = Visuals1:AddToggle({
+		Name = 'Array List',
+		Value = false,
+		Flag = 'd8h4iARRAQY',
+		Locked = false,
+
+		Callback = function( state )
+			if ( state ) then
+                shared["CometConfigs"] = {
+                	Enabled = true
+                }
+			else
+				shared["CometConfigs"] = {
+					Enabled = false
+				}
+			end
+		end
+	})
+end
+]]
+
 local lightstuff = Visuals1:CreateLabel({
 	Text = 'Lighting'
 })
+
 
 local fb1 = Visuals1:AddButton({
 	Name = "Full Bright",
@@ -2624,6 +2697,12 @@ local cvhamslable = Visuals3:CreateLabel({
 	Text = 'Chams'
 })
 
+
+getgenv().FillColor = Color3.new(1, 0.666667, 0)
+getgenv().FillTransparency = 0
+getgenv().OutlineColor = Color3.new(1, 0.333333, 1)
+getgenv().OutlineTransparency = 0
+
 local cgamesopCHAMS = Visuals3:AddToggle({
 	Name = 'Chams',
 	Value = false,
@@ -2696,6 +2775,12 @@ local chamtransda2 = Visuals3:AddSlider({
 		getgenv().OutlineTransparency = y
 	end
 })
+
+local nvmtagslable = Visuals3:CreateLabel({
+	Text = 'Name Tags'
+})
+
+
 
 viewclip = Visuals4:AddToggle({
 	Name = 'View Clip',
@@ -3275,6 +3360,12 @@ local Studio_Dummy_q34V3 = Funny4:AddButton({
 	end
 })
 
+getgenv().WayPointTransparency = 1
+getgenv().WayPointCanCollide = false
+getgenv().WayPointAnchored = true
+
+getgenv().TweenModeIsActive = false
+getgenv().TweenDelay = 5
 
 local settingslabelwaypoint = Misc1:CreateLabel({
 	Text = 'Settings'
@@ -3562,6 +3653,13 @@ local goPoint3 = Misc1:AddButton({
 })
 
 _G.BreadCrumbs = false
+
+getgenv().BallDelay = 0.001
+getgenv().BallSize = 0.4
+getgenv().BallTransparency = 0
+getgenv().BallShape = "Ball"
+getgenv().SmoothDestroy = false
+
 local breadcrumsbs = Misc2:AddToggle({
 	Name = 'BreadCrumbs',
 	Value = false,
@@ -3575,7 +3673,7 @@ local breadcrumsbs = Misc2:AddToggle({
 		if ( state ) then
 			_G.BreadCrumbs = true
 			while _G.BreadCrumbs == true do
-				wait(getgenv().BallDelay)
+				task.wait(getgenv().BallDelay)
 				local breadball = Instance.new("Part")
 				breadball.Shape = getgenv().BallShape
 				breadball.Parent = game.Workspace
