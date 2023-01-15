@@ -434,6 +434,8 @@ local infjump = Player1:AddToggle({
 	end
 })
 
+
+
 _G.clickTp = false
 local clicktp = Player1:AddToggle({
 	Name = 'CTRL + Click Tp',
@@ -717,6 +719,19 @@ funnifly = Player1:AddToggle({
 		end
 	end
 })
+
+local UIS = game:GetService("UserInputService")
+
+UIS.InputBegan:Connect(function(input)
+    if UIS:IsKeyDown(Enum.KeyCode.Space) and _G.funnifly == true then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+    end
+end)
+UIS.InputBegan:Connect(function(input)
+    if UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.funnifly == true then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, - 5, 0)
+    end
+end)
 
 local RunLoops = {RenderStepTable = {}, StepTable = {}, HeartTable = {}}
 function RunLoops:BindToHeartbeat(name, num, func)
@@ -1578,7 +1593,7 @@ local function skipFrame()
     return game:GetService("RunService").Heartbeat:Wait()
 end
 
-getgenv().TimerSpeed = 10
+getgenv().TimerSpeed = 50
 _G.Timer = false
 timer = Player4:AddToggle({
 	Name = 'Timer',
@@ -2703,7 +2718,7 @@ getgenv().FillTransparency = 0
 getgenv().OutlineColor = Color3.new(1, 0.333333, 1)
 getgenv().OutlineTransparency = 0
 
-local cgamesopCHAMS = Visuals3:AddToggle({
+cgamesopCHAMS = Visuals3:AddToggle({
 	Name = 'Chams',
 	Value = false,
 	Flag = 'rdiuygdf',
@@ -2739,21 +2754,21 @@ local cgamesopCHAMS = Visuals3:AddToggle({
 		end
 	end
 })
-local CockerChalorPimdfu = Visuals3:AddColorPicker({
+CockerChalorPimdfu = Visuals3:AddColorPicker({
 	Name = "Fill Color",
 	Value = getgenv().FillColor,
 	Callback = function( color )
 		getgenv().FillColor = color
 	end
 })
-local CeroChamdfkloru = Visuals3:AddColorPicker({
+CeroChamdfkloru = Visuals3:AddColorPicker({
 	Name = "Outline Color",
 	Value = getgenv().OutlineColor,
 	Callback = function( color )
 		getgenv().OutlineColor = color
 	end
 })
-local chamtransda1 = Visuals3:AddSlider({
+chamtransda1 = Visuals3:AddSlider({
 	Name = 'Fill Transparency',
 	Flag = "sli45tgdn_yoDMis",
 	Value = getgenv().FillTransparency,
@@ -2764,7 +2779,7 @@ local chamtransda1 = Visuals3:AddSlider({
 		getgenv().FillTransparency = y
 	end
 })
-local chamtransda2 = Visuals3:AddSlider({
+chamtransda2 = Visuals3:AddSlider({
 	Name = 'Outline Transparency',
 	Flag = "sl4tooi8ytrr_DMs",
 	Value = getgenv().OutlineTransparency,
@@ -2776,10 +2791,112 @@ local chamtransda2 = Visuals3:AddSlider({
 	end
 })
 
-local nvmtagslable = Visuals3:CreateLabel({
-	Text = 'Name Tags'
+i4rdgdhgdfgh = Visuals3:CreateLabel({
+	Text = 'Esp'
 })
 
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/EspLibrary.lua"))()
+ESPboxToggle4 = Visuals3:AddToggle({
+	Name = 'Boxes',
+	Value = false,
+	Flag = '54r',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.Boxes = true
+		else
+			ESP.Boxes = false
+		end
+	end
+})
+
+ESPboxToggle3 = Visuals3:AddToggle({
+	Name = 'Tracers',
+	Value = false,
+	Flag = 'rdvf',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.Tracers = true
+		else
+			ESP.Tracers = false
+		end
+	end
+})
+
+boxespfromyes = Visuals3:CreateLabel({
+	Text = 'settings'
+})
+
+ColorPicker = Visuals3:AddColorPicker({
+	Name = "Esp color",
+	Value = Color3.new(0.619607, 0.168627, 0.168627),
+	Callback = function( x )
+		ESP.Color = x
+	end
+})
+
+ESPboxToggleset1 = Visuals3:AddToggle({
+	Name = 'FaceCamera',
+	Value = false,
+	Flag = 'h6rhfgch',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.FaceCamera = true
+		else
+			ESP.FaceCamera = false
+		end
+	end
+})
+ESPboxToggleset1 = Visuals3:AddToggle({
+	Name = 'Names',
+	Value = false,
+	Flag = 'h6rhfgch1',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.Names = true
+		else
+			ESP.Names = false
+		end
+	end
+})
+
+
+local ESPboxToggleset1 = Visuals3:AddToggle({
+	Name = 'Use Team Color',
+	Value = false,
+	Flag = 'h6rhfgch2',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.TeamColor = true
+		else
+			ESP.TeamColor = false
+		end
+	end
+})
+
+local ESPboxToggleset1 = Visuals3:AddToggle({
+	Name = 'TeamMates',
+	Value = false,
+	Flag = 'h6rhfgch3',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.TeamMates = true
+		else
+			ESP.TeamMates = false
+		end
+	end
+})
 
 
 viewclip = Visuals4:AddToggle({
