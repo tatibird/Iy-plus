@@ -18,8 +18,8 @@ local ESP = {
 }
 
 --Declarations--
-local Workspace = Get.Workspace
-local Players = Get.Players
+local Workspace = game.Workspace
+local Players = game.Players
 local Player = Players.LocalPlayer
 local cam = Workspace.CurrentCamera
 local Players = game:GetService("Players")
