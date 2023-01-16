@@ -131,6 +131,10 @@ local Funny4 = FunTab:CreateSection({
 	Name = 'Fling',
 	Side = 'Left'
 })
+local Funny5 = FunTab:CreateSection({
+	Name = 'Misc',
+	Side = 'Left'
+})
 
 local Misc1 = MiscTab:CreateSection({
 	Name = 'Waypoints',
@@ -521,9 +525,10 @@ local clicktp = Player1:AddToggle({
 
 			UIS.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.clickTp2 == true then
-					tp(Mouse.Hit.p + Vector3.new(0, 3, 0))
-					wait(1)
-					tp(Mouse.Hit.p + Vector3.new(0, 3, 0))
+					v2target = Mouse.Hit.p
+					tp(v2target + Vector3.new(0, 3, 0))
+					task.wait(0.5)
+					tp(v2target + Vector3.new(0, 3, 0))
 				end
 			end)
 		else
@@ -724,14 +729,156 @@ local UIS = game:GetService("UserInputService")
 
 UIS.InputBegan:Connect(function(input)
     if UIS:IsKeyDown(Enum.KeyCode.Space) and _G.funnifly == true then
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 2, 0)
     end
 end)
 UIS.InputBegan:Connect(function(input)
     if UIS:IsKeyDown(Enum.KeyCode.LeftControl) and _G.funnifly == true then
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, - 5, 0)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, - 2, 0)
     end
 end)
+
+IYMouse = game.Players.LocalPlayer:GetMouse()
+Players = game:GetService("Players")
+FLYING = false
+QEfly = true
+iyflyspeed = 1
+vehicleflyspeed = 1
+function sFLY(vfly)
+	repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	repeat wait() until IYMouse
+	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+
+	local T = getRoot(Players.LocalPlayer.Character)
+	local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local SPEED = 0
+
+	local function FLY()
+		FLYING = true
+		local BG = Instance.new('BodyGyro')
+		local BV = Instance.new('BodyVelocity')
+		BG.P = 9e4
+		BG.Parent = T
+		BV.Parent = T
+		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		BG.cframe = T.CFrame
+		BV.velocity = Vector3.new(0, 0, 0)
+		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		task.spawn(function()
+			repeat wait()
+				if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+					Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+				end
+				if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+					SPEED = 50
+				elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+					SPEED = 0
+				end
+				if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+					lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+				elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+				else
+					BV.velocity = Vector3.new(0, 0, 0)
+				end
+				BG.cframe = workspace.CurrentCamera.CoordinateFrame
+			until not FLYING
+			CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			SPEED = 0
+			BG:Destroy()
+			BV:Destroy()
+			if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+				Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+			end
+		end)
+	end
+	flyKeyDown = IYMouse.KeyDown:Connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 's' then
+			CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = - (vfly and vehicleflyspeed or iyflyspeed)
+		elseif KEY:lower() == 'd' then 
+			CONTROL.R = (vfly and vehicleflyspeed or iyflyspeed)
+		elseif QEfly and KEY:lower() == 'e' then
+			CONTROL.Q = (vfly and vehicleflyspeed or iyflyspeed)*2
+		elseif QEfly and KEY:lower() == 'q' then
+			CONTROL.E = -(vfly and vehicleflyspeed or iyflyspeed)*2
+		end
+		pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+	end)
+	flyKeyUp = IYMouse.KeyUp:Connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = 0
+		elseif KEY:lower() == 's' then
+			CONTROL.B = 0
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = 0
+		elseif KEY:lower() == 'd' then
+			CONTROL.R = 0
+		elseif KEY:lower() == 'e' then
+			CONTROL.Q = 0
+		elseif KEY:lower() == 'q' then
+			CONTROL.E = 0
+		end
+	end)
+	FLY()
+end
+
+function NOFLY()
+	FLYING = false
+	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+	if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+		Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+	end
+	pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
+end
+
+local iyfly = Player1:AddToggle({
+	Name = 'Classic Fly',
+	Value = false,
+	Flag = '54trfgius',
+	Locked = false,
+	Keybind = {
+		Flag = 'cfe2aot21',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			NOFLY()
+			task.wait()
+			sFLY()
+		else
+			NOFLY()
+		end
+	end
+})
+
+local iyflyv2 = Player1:AddToggle({
+	Name = 'Vehical Fly',
+	Value = false,
+	Flag = '54trfgius2',
+	Locked = false,
+	Keybind = {
+		Flag = 'cfe2aot21vehi',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			NOFLY()
+			wait()
+			sFLY(true)
+		else
+			NOFLY()
+		end
+	end
+})
 
 local RunLoops = {RenderStepTable = {}, StepTable = {}, HeartTable = {}}
 function RunLoops:BindToHeartbeat(name, num, func)
@@ -1117,11 +1264,12 @@ local TextBox = Player1:AddTextbox({
 		getgenv().DownDely = x
 	end
 })
-
-local toollabel = Player2:CreateLabel({
-	Text = 'Tools'
-})
 ]]
+
+toollabel2 = Player2:CreateLabel({
+	Text = 'B-Tools'
+})
+
 local btools = Player2:AddButton({
 	Name = "Spawn BTools",
 	Callback = function()
@@ -1138,6 +1286,11 @@ local btoolsno = Player2:AddButton({
 		end
 	end
 })
+
+toollabel21 = Player2:CreateLabel({
+	Text = 'Tools'
+})
+
 local destroytools = Player2:AddButton({
 	Name = "Destroy All Tools",
 	Callback = function()
@@ -1504,7 +1657,7 @@ tpplayer = Player4:AddTextbox({
 	end
 })
 vtpplayer = Player4:AddTextbox({
-	Name = 'Vehical to Player |semi broken',
+	Name = 'Vehical to Player',
 	Flag = "tptoplayersv",
 	Value = speaker.Name,
 	Callback = function( plrTar )
@@ -1514,7 +1667,7 @@ vtpplayer = Player4:AddTextbox({
 			if plr2 ~= plr1 then
 				local seat = speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart
 				local vehicleModel = seat:FindFirstAncestorWhichIsA("Model")
-
+				
 				vehicleModel:MoveTo(plr2.HumanoidRootPart.Position)
 				plr1.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame + Vector3.new(3,1,0)
 			end
@@ -2826,6 +2979,21 @@ ESPboxToggle3 = Visuals3:AddToggle({
 	end
 })
 
+ESPboxToggleset1 = Visuals3:AddToggle({
+	Name = 'Names',
+	Value = false,
+	Flag = 'h6rhfgch1',
+	Locked = false,
+
+	Callback = function( state )
+		if ( state ) then
+			ESP.Names = true
+		else
+			ESP.Names = false
+		end
+	end
+})
+
 boxespfromyes = Visuals3:CreateLabel({
 	Text = 'settings'
 })
@@ -2852,20 +3020,7 @@ ESPboxToggleset1 = Visuals3:AddToggle({
 		end
 	end
 })
-ESPboxToggleset1 = Visuals3:AddToggle({
-	Name = 'Names',
-	Value = false,
-	Flag = 'h6rhfgch1',
-	Locked = false,
 
-	Callback = function( state )
-		if ( state ) then
-			ESP.Names = true
-		else
-			ESP.Names = false
-		end
-	end
-})
 
 
 local ESPboxToggleset1 = Visuals3:AddToggle({
@@ -3463,9 +3618,37 @@ local cumball = Funny3:AddButton({
 		humanoid.Died:Connect(function() tc:Disconnect() end)	
 	end
 })
+local hathub = Funny3:AddButton({
+	Name = "Hat hub",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/fe%20extentions/hat%20hub%20v2.lua'))()
+		end
+	end
+})
 
+local hathub1 = Funny3:CreateLabel({
+	Text = '.orbit (plr)'
+})
+local hathub2 = Funny3:CreateLabel({
+	Text = '.speed (number)'
+})
+local hathub3 = Funny3:CreateLabel({
+	Text = '.offest (number)'
+})
+local hathub4 = Funny3:CreateLabel({
+	Text = '.mode (number)'
+})
+local hathub5 = Funny3:CreateLabel({
+	Text = '.angular (number)'
+})
 
-local Studio_Dummy_q34V3 = Funny4:AddButton({
+local invisfling = Funny4:AddButton({
 	Name = "Invis Fling",
 	Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/invisfling.lua'))()
@@ -3474,6 +3657,103 @@ local Studio_Dummy_q34V3 = Funny4:AddButton({
 			Text = "Click Z and wait 10 seconds ",
 			Duration = 6
 		})
+	end
+})
+
+orbitaplayer = Funny5:AddTextbox({
+	Name = 'Orbit a Player',
+	Flag = "orbitaplayer",
+	Value = speaker.Name,
+	Callback = function( plrTar )
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(plrTar)
+		if plr2 then
+			if plr2 ~= plr1 then
+				oldcfORBIT = speaker.Character.HumanoidRootPart.CFrame
+				_G.OrbitTp = true
+				local P = Instance.new("Part",plr2)
+				P.Transparency = 1
+				P.Name = "ThePart"
+				P.Size = Vector3.new(1.7,1.7,1.7)
+				P.Massless = true
+				P.CanCollide = false
+				local W = Instance.new("Weld", P)
+				W.Part1 = plr2.HumanoidRootPart
+				W.Part0 = P
+				local sine = 0
+				local change = 1
+				local spin = 0
+				local spin2 = 0
+				local rp = Instance.new("RocketPropulsion")
+				rp.Parent = speaker.Character.HumanoidRootPart
+				rp.CartoonFactor = 1
+				rp.MaxThrust = 5000
+				rp.MaxSpeed = 100
+				rp.ThrustP = 5000
+				rp.Name = "OrbitalDestructionPart"
+				rp.Target = plr2.ThePart
+				rp:Fire()
+				speaker.Character.Humanoid.PlatformStand = true
+
+				while true do
+					game:GetService("RunService").RenderStepped:wait()
+					sine = sine + change
+					spin2 = spin2 + 0.6
+					spin = spin + 1
+					W.C0 = CFrame.new(7 * math.cos(20),-2 - 2 * math.sin(sine/10),7 * math.sin(20))*CFrame.Angles(math.rad(0),math.rad(spin),math.rad(0))
+				end
+			end
+		end
+	end
+})
+noorbit = Funny5:AddButton({
+	Name = "Stop Orbiting",
+	Callback = function()
+		if _G.OrbitTp == true then
+			speaker.Character.HumanoidRootPart.CFrame = oldcfORBIT
+		end
+		_G.OrbitTp = false
+		for i,v in pairs(speaker.Character:GetDescendants()) do
+			if v.Name == "OrbitalDestructionPart" or v.Name == "OrbitalDestruction" then
+				v:Destroy()
+			end
+		end
+		speaker.Character.Humanoid.PlatformStand = false
+		speaker.Character.Humanoid.Sit = false
+	end
+})
+local ff = false
+fuckaplayerface = Funny5:AddTextbox({
+	Name = 'Face fuck a Player',
+	Flag = "orbitaplay1er",
+	Value = "let them eat you out :3",
+	Callback = function( plrTar )
+		local plr1 = game.Players.LocalPlayer.Character
+		local plr2 = game.Workspace:FindFirstChild(plrTar)
+		if plr2 then
+			if plr2 ~= plr1 then
+				if ff == true then
+					ff = false
+					speaker.Character.Humanoid.Sit = false			
+				return
+
+				else ff = true
+					while ff do
+						speaker.Character.Humanoid.Sit = true
+						speaker.Character.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame * CFrame.Angles(0,math.rad(180),0)* CFrame.new(0,1.7,0.4)
+						speaker.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new()
+						wait()
+					end
+				end
+			end
+		end
+	end
+})
+fuckaplayerfaceNAH = Funny5:AddButton({
+	Name = "Stop face fucking",
+	Callback = function()
+		speaker.Character.Humanoid.Sit = false
+		ff = false
 	end
 })
 
@@ -3952,7 +4232,7 @@ local breadtrail3 = Misc3:AddTextbox({
 		getgenv().MaxLength = x
 	end
 })
-local breadtrail4 = Misc3:AddSlider({
+breadtrail4 = Misc3:AddSlider({
 	Name = 'MinLength',
 	Flag = "slide_in_your_DMsl3kjbvcx",
 	Value = 0,
@@ -3966,7 +4246,7 @@ local breadtrail4 = Misc3:AddSlider({
 })
 
 
-local enlerespawn = Misc4:AddToggle({
+enlerespawn = Misc4:AddToggle({
 	Name = 'Enable Respawn Button',
 	Value = true,
 	Flag = 'nilfrgr1',
@@ -3979,7 +4259,29 @@ local enlerespawn = Misc4:AddToggle({
 		end
 	end
 })
+enablechat = Misc4:AddToggle({
+	Name = 'Show Chat',
+	Value = true,
+	Flag = 'nilfrgr12',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			local Players = game:GetService("Players")
+			local player = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait() or Players.LocalPlayer
 
+			local chatFrame = player.PlayerGui.Chat.Frame
+			chatFrame.ChatChannelParentFrame.Visible = true
+			chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+		else
+			local Players = game:GetService("Players")
+			local player = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait() or Players.LocalPlayer
+
+			local chatFrame = player.PlayerGui.Chat.Frame
+			chatFrame.ChatChannelParentFrame.Visible = false
+			chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+		end
+	end
+})
 words = {
     ['gay'] = 'Bullying',
     ['lesbian'] = 'Bullying',
