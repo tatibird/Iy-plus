@@ -3553,7 +3553,7 @@ local Studio_Dummy_q34V3 = Funny2:AddButton({
 })
 
 local cumball = Funny3:AddButton({
-	Name = "Become Ball",
+	Name = "Become Ball",	
 	Callback = function()
 		local UserInputService = game:GetService("UserInputService")
 		local RunService = game:GetService("RunService")
@@ -3618,7 +3618,7 @@ local cumball = Funny3:AddButton({
 		humanoid.Died:Connect(function() tc:Disconnect() end)	
 	end
 })
-local hathub = Funny3:AddButton({
+hathub = Funny3:AddButton({
 	Name = "Hat hub",
 	Callback = function()
 		if r15(speaker) then
@@ -3632,20 +3632,34 @@ local hathub = Funny3:AddButton({
 	end
 })
 
-local hathub1 = Funny3:CreateLabel({
+hathub1 = Funny3:CreateLabel({
 	Text = '.orbit (plr)'
 })
-local hathub2 = Funny3:CreateLabel({
+hathub2 = Funny3:CreateLabel({
 	Text = '.speed (number)'
 })
-local hathub3 = Funny3:CreateLabel({
+hathub3 = Funny3:CreateLabel({
 	Text = '.offest (number)'
 })
-local hathub4 = Funny3:CreateLabel({
+hathub4 = Funny3:CreateLabel({
 	Text = '.mode (number)'
 })
-local hathub5 = Funny3:CreateLabel({
+hathub5 = Funny3:CreateLabel({
 	Text = '.angular (number)'
+})
+
+dafeet = Funny3:AddButton({
+	Name = "Da Feet",
+	Callback = function()
+		if r15(speaker) then
+			Library.Notify({
+				Text = "You Need to be In R6",
+				Duration = 6
+			})
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/fe%20extentions/da%20feet.lua'))()
+		end
+	end
 })
 
 local invisfling = Funny4:AddButton({
@@ -4452,7 +4466,7 @@ local ancdiabled = Misc4:AddButton({
 })
 
 getgenv().Message = "string"
-getgenv().Delay = 1
+getgenv().Delay = 0.001
 
 _G.ChatSpam = false
 local chatspamRwuygdf = Misc6:AddToggle({
@@ -4464,7 +4478,7 @@ local chatspamRwuygdf = Misc6:AddToggle({
 		if ( state ) then
 			_G.ChatSpam = true
 			while _G.ChatSpam == true do
-				wait()
+				task.wait()
 				game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(getgenv().Message, "All")
 				wait(getgenv().Delay)
 			end
@@ -4484,7 +4498,7 @@ local message = Misc6:AddTextbox({
 local meaggadrdelay = Misc6:AddSlider({
 	Name = 'Delay',
 	Flag = "slSYUSs",
-	Value = 1,
+	Value = 0.1,
 	Min = 0.1,
 	Max = 20,
 	Decimals = 2,
