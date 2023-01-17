@@ -1,8 +1,4 @@
-
-local Reanimates = loadstring(game:HttpGet((""), true))()
-
-
-
+local Reanimates = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/fe%20extentions/re%20animate.lua"), true))()
 
 --// SHORTCUTS \\--
 local RNG = (function()
