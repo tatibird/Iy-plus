@@ -860,7 +860,7 @@ local iyfly = Player1:AddToggle({
 })
 
 local iyflyv2 = Player1:AddToggle({
-	Name = 'Vehical Fly',
+	Name = 'Vehicle Fly',
 	Value = false,
 	Flag = '54trfgius2',
 	Locked = false,
