@@ -1636,30 +1636,6 @@ local nudesnaked = Player3:AddButton({
 	end
 })
 
-
-animlable = Player3:CreateLabel({
-	Text = 'States'
-})
-
-local antiragdol = Player3:AddToggle({
-	Name = 'Anti Ragdoll',
-	Value = false,
-	Flag = 'narglol',
-	Locked = false,
-	Keybind = {
-		Flag = 'noragdola',
-		Mode = 'Toggle',
-	},
-
-	Callback = function( state )
-		if ( state ) then
-			
-		else
-			
-		end
-	end
-})
-
 tpplayer = Player4:AddTextbox({
 	Name = 'Teleport to Player',
 	Flag = "tptoplayers",
