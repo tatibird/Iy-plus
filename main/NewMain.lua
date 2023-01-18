@@ -1,3 +1,7 @@
+repeat
+	task.wait()
+until game.Players.LocalPlayer.Character
+
 local executiontime = tick()
 --[[
 ▄▄▄▄▄▄▄▄░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░█
@@ -10,14 +14,11 @@ local executiontime = tick()
 █████████▀░░░░██░░░▀██▄▄█▀██░░░░▀██▄▄███░░░█░░░░░▀█▄░░░▀██▄▄██▀░░░░▀█████▀██░░░░▀██▄▄█]]
 
 local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
-local Libraryflags = Library.flags
-local Wait = Library.subs.Wait
-local player = Library.LP
+Libraryflags = Library.flags
 local speaker = game.Players.LocalPlayer
 local Lighting = game:GetService("Lighting")
 local Camera = workspace.CurrentCamera
 local ProximityPromptService = game:GetService("ProximityPromptService")
-getgenv().AutoReportableExecutor = false
 origsettings = {
 	abt = Lighting.Ambient,
 	oabt = Lighting.OutdoorAmbient,
@@ -1640,7 +1641,24 @@ animlable = Player3:CreateLabel({
 	Text = 'States'
 })
 
+local antiragdol = Player3:AddToggle({
+	Name = 'Anti Ragdoll',
+	Value = false,
+	Flag = 'narglol',
+	Locked = false,
+	Keybind = {
+		Flag = 'noragdola',
+		Mode = 'Toggle',
+	},
 
+	Callback = function( state )
+		if ( state ) then
+			
+		else
+			
+		end
+	end
+})
 
 tpplayer = Player4:AddTextbox({
 	Name = 'Teleport to Player',
@@ -2374,6 +2392,109 @@ local Slider = Player4:AddSlider({
 	Decimals = 1,
 	Callback = function( Spiin_speeed )
 		getgenv().SpinSpeed = Spiin_speeed
+	end
+})
+antitool = false
+antitool = Player4:AddToggle({
+	Name = 'Anti Tool',
+	Value = false,
+	Flag = 'antitools',
+	Locked = false,
+	Keybind = {
+		Flag = 'antitoolsg',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			antitool = true
+			speaker.Character.ChildAdded:Connect(function(rg)
+				if rg:IsA("Tool") and antitool == true then
+					wait()
+					rg:Destroy()
+				end
+			end)
+		else
+			antitool = false
+		end
+	end
+})
+antiragdoll = false
+antiragdoll = Player4:AddToggle({
+	Name = 'Anti Ragdoll',
+	Value = false,
+	Flag = 'antirag',
+	Locked = false,
+	Keybind = {
+		Flag = 'antiragyesyes',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			antiragdoll = true
+			while antiragdoll == true do
+				task.wait()
+				game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(8)
+			end
+		else
+			antiragdoll = false
+		end
+	end
+})
+antinetorkclaim = Player4:AddToggle({
+	Name = 'Anti Void',
+	Value = false,
+	Flag = 'antinetorkclaim',
+	Locked = false,
+	Keybind = {
+		Flag = 'antinetorkclaim2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			DHSaved = workspace.FallenPartsDestroyHeight
+			workspace.FallenPartsDestroyHeight = math.huge - math.huge
+		else
+			workspace.FallenPartsDestroyHeight = DHSaved
+		end
+	end
+})
+antirender = Player4:AddToggle({
+	Name = 'Anti Render',
+	Value = false,
+	Flag = 'antirender',
+	Locked = false,
+	Keybind = {
+		Flag = 'antirender2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			game.RunService:Set3dRenderingEnabled(false)
+		else
+			game.RunService:Set3dRenderingEnabled(true)
+		end
+	end
+})
+antirotation = Player4:AddToggle({
+	Name = 'Anti Rotate',
+	Value = false,
+	Flag = 'antirotation',
+	Locked = false,
+	Keybind = {
+		Flag = 'antirotation2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			speaker.Character:FindFirstChildOfClass('Humanoid').AutoRotate  = false
+		else
+			speaker.Character:FindFirstChildOfClass('Humanoid').AutoRotate  = true
+		end
 	end
 })
 
@@ -4348,6 +4469,10 @@ autoreportvape = Misc4:AddToggle({
 	Name = 'Auto report',
 	Value = false,
 	Flag = 'autoreportNOTSKIDDEDFROMVAPE',
+	Keybind = {
+		Flag = 'nilbr2eadcrumsbsl1',
+		Mode = 'Toggle',
+	},
 	Callback = function( state )
 		if ( state ) then
 			if syn then
@@ -4387,6 +4512,22 @@ autoreportvape = Misc4:AddToggle({
 			end
 		else
 			_G.AutoReport = false
+		end
+	end
+})
+fakelag = Misc4:AddToggle({
+	Name = 'Back Track',
+	Value = false,
+	Flag = 'fakelaggg',
+	Keybind = {
+		Flag = 'laggfeuash',
+		Mode = 'Toggle',
+	},
+	Callback = function( state )
+		if ( state ) then
+			settings():GetService("NetworkSettings").IncomingReplicationLag = 100
+		else
+			settings():GetService("NetworkSettings").IncomingReplicationLag = 0
 		end
 	end
 })
@@ -4548,6 +4689,30 @@ local rejoinyesyes = Misc7:AddToggle({
 			end)
 		else
 			_G.AutoRejoin = false
+		end
+	end
+})
+
+local keepui = Misc7:AddToggle({
+	Name = 'Keep Ui',
+	Value = false,
+	Flag = 'keepunbiunded',
+	Locked = false,
+	Callback = function( state )
+		if ( state ) then
+			if syn.queue_on_teleport then
+				if state == true then
+					syn.queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/NewMain.lua"))()')
+				end
+			else
+				keepui:Set(false)
+				Library.Notify({
+					Text = "Missing syn.queue_on_teleport",
+					Duration = 6
+				})
+			end
+		else
+			return
 		end
 	end
 })
