@@ -6904,7 +6904,7 @@ function library:CreateWindow(options, ...)
 		}}, {"AddSlider", "__Designer.Slider.ImageTransparency", backgroundsection, {
 			Name = "Image Transparency",
 			Flag = "__Designer.Background.ImageTransparency",
-			Value = 95,
+			Value = 100,
 			Min = 0,
 			Max = 100,
 			Format = "Image Transparency: %s%%",
@@ -6913,7 +6913,7 @@ function library:CreateWindow(options, ...)
 		}}, {"AddToggle", "__Designer.Toggle.UseBackgroundImage", backgroundsection, {
 			Name = "Use Background Image",
 			Flag = "__Designer.Background.UseBackgroundImage",
-			Value = true,
+			Value = false,
 			Callback = updatecolorsnotween
 		}}, {"AddPersistence", "__Designer.Persistence.ThemeFile", filessection, {
 			Name = "Theme Profile",
