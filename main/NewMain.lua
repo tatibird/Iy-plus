@@ -1,6 +1,6 @@
-repeat
-	task.wait()
-until game.Players.LocalPlayer.Character
+repeat 
+	task.wait() 
+until game:IsLoaded()
 
 local executiontime = tick()
 --[[
@@ -13,7 +13,7 @@ local executiontime = tick()
 ██░░░░░░▄██░░░██░░░██░░░░░██░░░▀█▄░░░░░░░░░█░░░▀█▄░░░░██░░░░░▄█▀░░░██░░░░░██░░░░██
 █████████▀░░░░██░░░▀██▄▄█▀██░░░░▀██▄▄███░░░█░░░░░▀█▄░░░▀██▄▄██▀░░░░▀█████▀██░░░░▀██▄▄█]]
 
-local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/repo/NewLib.lua"))()
 Libraryflags = Library.flags
 local speaker = game.Players.LocalPlayer
 local Lighting = game:GetService("Lighting")
@@ -29,7 +29,11 @@ origsettings = {
 	gs = Lighting.GlobalShadows
 }
 
-
+if syn then
+	function print(v)
+		printconsole(v)
+	end
+end
 function r15(plr)
 	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
 		return true
@@ -136,6 +140,10 @@ local Funny5 = FunTab:CreateSection({
 	Name = 'Misc',
 	Side = 'Left'
 })
+local Funny6 = FunTab:CreateSection({
+	Name = 'Cosmetics',
+	Side = 'Right'
+})
 
 local Misc1 = MiscTab:CreateSection({
 	Name = 'Waypoints',
@@ -170,24 +178,150 @@ local Misc9 = MiscTab:CreateSection({
 	Side = 'Right'
 })
 
-local Credits1 = CreditsTab:CreateSection({
+Credits1 = CreditsTab:CreateSection({
 	Name = 'Developer',
 	Side = 'Left'
 })
-local Credits2 = CreditsTab:CreateSection({
+Credits2 = CreditsTab:CreateSection({
 	Name = 'Best Scripter',
 	Side = 'Left'
 })
-local Credits3 = CreditsTab:CreateSection({
+Credits3 = CreditsTab:CreateSection({
 	Name = 'Cool people',
 	Side = 'Left'
 })
-local Credits4 = CreditsTab:CreateSection({
+Credits4 = CreditsTab:CreateSection({
 	Name = 'Discord',
 	Side = 'Right'
 })
 
 
+togglespeed = Player0:AddToggle({
+	Name = 'Toggle Speed',
+	Value = false,
+	Flag = 'togglespeed1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglespeed2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldspd = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed
+			wait()
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = getgenv().Speed_toggl	
+		else
+			task.wait()
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = oldspd
+		end
+	end
+})
+togglejp = Player0:AddToggle({
+	Name = 'Toggle Jump power',
+	Value = false,
+	Flag = 'togglehp1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglJHPd2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldjp = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower
+			wait()
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower = getgenv().jumppower_toggle	
+		else
+			task.wait()
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower = oldjp
+		end
+	end
+})
+togglegrav = Player0:AddToggle({
+	Name = 'Toggle Gravity',
+	Value = false,
+	Flag = 'togglegrav1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglgravity2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldgr = game:GetService("Workspace").Gravity
+			wait()
+			game:GetService("Workspace").Gravity = getgenv().gravity_toggle	
+		else
+			task.wait()
+			game:GetService("Workspace").Gravity = oldgr
+		end
+	end
+})
+togglemaxslopeangle = Player0:AddToggle({
+	Name = 'Toggle slope angle',
+	Value = false,
+	Flag = 'toggmss1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglgmLLKy2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldmsa = speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle
+			wait()
+			speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle = getgenv().maxSlopeAngle_toggle	
+		else
+			task.wait()
+			speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle = oldmsa
+		end
+	end
+})
+togglehipheight = Player0:AddToggle({
+	Name = 'Toggle Hip Height',
+	Value = false,
+	Flag = 'togglehh1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglghh2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldhh = speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight
+			wait()
+			speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = getgenv().hipHeigh_toggle	
+		else
+			task.wait()
+			speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = oldhh
+		end
+	end
+})
+togglefov = Player0:AddToggle({
+	Name = 'Toggle FOV',
+	Value = false,
+	Flag = 'togglefov1',
+	Locked = false,
+	Keybind = {
+		Flag = 'togglgfov2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			oldfov = workspace.CurrentCamera.FieldOfView
+			wait()
+			workspace.CurrentCamera.FieldOfView = getgenv().fov_toggle
+		else
+			task.wait()
+			workspace.CurrentCamera.FieldOfView = oldfov
+		end
+	end
+})
 
 Speed1 = Player0:AddTextbox({
 	Name = 'Modify Speed',
@@ -195,7 +329,7 @@ Speed1 = Player0:AddTextbox({
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed,
 	Multiline = true,
 	Callback = function(x)
-		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = x
+		getgenv().Speed_toggl = x
 	end
 })
 
@@ -205,7 +339,7 @@ jumpPower1 = Player0:AddTextbox({
 	Value = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower,
 	Multiline = true,
 	Callback = function(x)
-		game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').JumpPower = x
+		getgenv().jumppower_toggle = x
 	end
 })
 
@@ -215,7 +349,7 @@ garv = Player0:AddTextbox({
 	Value = game.Workspace.Gravity,
 	Multiline = true,
 	Callback = function(x)
-		game.Workspace.Gravity = x
+		getgenv().gravity_toggle = x
 	end
 })
 
@@ -225,7 +359,7 @@ maxslope = Player0:AddTextbox({
 	Value = speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle,
 	Multiline = true,
 	Callback = function( x )
-		speaker.Character:FindFirstChildOfClass('Humanoid').MaxSlopeAngle = x
+		getgenv().maxSlopeAngle_toggle = x
 	end
 })
 
@@ -235,7 +369,7 @@ hiphieghyt = Player0:AddTextbox({
 	Value = speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight,
 	Multiline = true,
 	Callback = function( x )
-		speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = x
+		getgenv().hipHeigh_toggle = x
 	end
 })
 
@@ -245,21 +379,9 @@ fov1 = Player0:AddTextbox({
 	Value = workspace.CurrentCamera.FieldOfView,
 	Multiline = true,
 	Callback = function( x )
-		workspace.CurrentCamera.FieldOfView = x
+		getgenv().fov_toggle = x
 	end
 })
-
-fpscapyes = Player0:AddTextbox({
-	Name = 'Modify FPS Cap',
-	Flag = "65yt4rfkj",
-	Value = 1e6,
-	Multiline = true,
-	Callback = function( x )
-		setfpscap( x )
-	end
-})
-
-
 
 _G.noclip = false
 game:GetService("RunService").Stepped:Connect(function()
@@ -290,6 +412,54 @@ local noclip = Player1:AddToggle({
 			_G.noclip = true
 		else
 			_G.noclip = false
+		end
+	end
+})
+
+step = false
+stepexploit = Player1:AddToggle({
+	Name = 'Step',
+	Value = false,
+	Flag = 'stepp',
+	Locked = false,
+	Keybind = {
+		Flag = '4tdrgsytsterp',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			step = true
+
+			repeat wait()
+				local currentTorso = nil
+				function findT()
+					if speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+						currentTorso = speaker.Character.UpperTorso
+					elseif speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+						currentTorso = speaker.Character.Torso
+					end
+				end
+				findT()
+				if currentTorso == nil then
+					findT()
+				end
+				currentTorso.Touched:Connect(function(hit)
+					if step == true then
+						local cmdlpHRP = speaker.Character.HumanoidRootPart
+						if hit:IsA("BasePart") and hit.Position.Y > cmdlpHRP.Position.Y - speaker.Character.Humanoid.HipHeight then
+							local findHRP = hit.Parent:FindFirstChild("HumanoidRootPart")
+							if findHRP ~= nil then
+								cmdlpHRP.CFrame = hit.CFrame * CFrame.new(cmdlpHRP.CFrame.lookVector.X,findHRP.Size.Z/2 + speaker.Character.Humanoid.HipHeight,cmdlpHRP.CFrame.lookVector.Z)
+							elseif findHRP == nil then
+								cmdlpHRP.CFrame = hit.CFrame * CFrame.new(cmdlpHRP.CFrame.lookVector.X,hit.Size.Y/2 + speaker.Character.Humanoid.HipHeight,cmdlpHRP.CFrame.lookVector.Z)
+							end
+						end
+					end
+				end)
+			until step == false
+		else
+			step = false
 		end
 	end
 })
@@ -936,13 +1106,13 @@ local gfly = Player1:AddToggle({
 				workspace:FindFirstChild("clonethingy"):Destroy()
 				workspace:FindFirstChild("partthingy"):Destroy()
 				testing = true
-				workspace.Camera.CameraSubject = lplr.Character.Humanoid
+				workspace.Camera.CameraSubject = lplr.Character
 			end
 		end
 	end
 })
 
-
+--[[
 _G.freecam = false
 local dfcam = Player1:AddToggle({
 	Name = 'Free Cam | C to Freecam',
@@ -1113,7 +1283,7 @@ local dfcam = Player1:AddToggle({
 		end
 	end
 })
-
+]]
 _G.tpwalking = false
 getgenv().CFrameSpeed = 2
 local hb = game:GetService("RunService").Heartbeat
@@ -1442,7 +1612,7 @@ local Disableanims = Player3:AddToggle({
 				false,
 				unpack(Enum.PlayerActions:GetEnumItems())
 			)
-			wait(1.5)
+			task.wait(0.5)
 			CAS:UnbindAction(FA)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 			wait()
@@ -1450,6 +1620,352 @@ local Disableanims = Player3:AddToggle({
 			game.Players.LocalPlayer.Character.Animate.Disabled = true
 		else
 			game.Players.LocalPlayer.Character.Animate.Disabled = false
+		end
+	end
+})
+
+Customanim = Player3:AddDropdown({
+	Name = 'Custom Animation',
+	Flag = "customani2",
+	List = {
+		"Default",
+		"toy",
+		"pirate",
+		"knight",
+		"astronaut",
+		"vampire",
+		"robot",
+		"levitation",
+		"bubbly",
+		"werewolf",
+		"stylish",
+		"mage",
+		"cartoony",
+		"zombie",
+		"superhero",
+		"ninja",
+		"elder",
+		"oldschool",
+		"popstar",
+		"patrol",
+		"princess",
+		"cowboy",
+		"toilet",
+		"sneaky"
+	},
+	Callback = function( animpack )
+		if animpack == "sneaky" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1132461372"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1132469004"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1132473842"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1132477671"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1132489853"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1132494274"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1132500520"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1132506407"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1132510133"
+		elseif animpack == "Default" then
+			Char = speaker.Character
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=387947158"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=387947464"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=387947975"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616092998"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616094091"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=382460631"
+		elseif animpack == "toy" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=782843869"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=782846423"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782845736"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=782847020"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=782842708"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=782844582"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=782845186"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=782843345"
+		elseif animpack == "pirate" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=750784579"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=750785176"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
+		elseif animpack == "knight" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=658360781"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=657600338"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=657595757"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=657568135"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=658409194"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=657564596"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=657560551"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=657557095"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=657552124"
+		elseif animpack == "astronaut" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=891609353"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=891617961"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=891621366"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=891633237"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=891627522"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=891636393"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=891639666"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=891663592"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=891636393"
+		elseif animpack == "vampire" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1083464683"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1083467779"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
+		elseif animpack == "robot" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616086039"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616087089"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616088211"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616089559"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616090535"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616091570"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616092998"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616094091"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616095330"
+		elseif animpack == "levitation" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616011509"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616012453"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+		elseif animpack == "bubbly" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=909997997"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=910001910"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=910004836"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=910009958"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=910016857"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=910025107"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=910028158"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=910030921"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=910034870"
+		elseif animpack == "werewolf" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083182000"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083189019"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083195517"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083214717"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083218792"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083216690"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1083222527"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1083225406"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083178339"
+		elseif animpack == "stylish" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616133594"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616134815"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616136790"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616138447"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616139451"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616140816"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616143378"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616144772"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616146177"
+		elseif animpack == "mage" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=707826056"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=707742142"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=707855907"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=707853694"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=707861613"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=707876443"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=707894699"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=707897309"
+		elseif animpack == "cartoony" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=742636889"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=742637151"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=742637544"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=742638445"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=742637942"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=742638842"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=742639220"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=742639812"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=742640026"
+		elseif animpack == "zombie" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616158929"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616160636"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616165109"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616166655"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616168032"
+		elseif animpack == "superhero" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616104706"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616108001"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616111295"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616113536"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616115533"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616117076"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616119360"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=616120861"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616122287"
+		elseif animpack == "ninja" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=656114359"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=656115606"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=656117400"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=656118341"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=656117878"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=656118852"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=656119721"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=656121397"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=656121766"
+		elseif animpack == "elder" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=845401742"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=845403127"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
+		elseif animpack == "oldschool" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=5319816685"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=5319839762"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=5319828216"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=5319831086"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=5319841935"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=5319844329"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=5319850266"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=5319852613"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=5319847204"
+		elseif animpack == "confident" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1069946257"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1069973677"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1069977950"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1069987858"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1069984524"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1070001516"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1070009914"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1070012133"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1070017263"
+		elseif animpack == "popstar" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1213044953"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1212900995"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1212900985"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1212900985"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1212954642"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1212980348"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1212852603"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1212998578"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1212980338"
+		elseif animpack == "patrol" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1148811837"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1148863382"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1149612882"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1150842221"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1150944216"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1150967949"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1151204998"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1151221899"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1151231493"
+		elseif animpack == "princess" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=940996062"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=941000007"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=941003647"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=941013098"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=941008832"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=941015281"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=941018893"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=941025398"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=941028902"
+		elseif animpack == "cowboy" then
+			Char = speaker.Character
+			Char.Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1014380606"
+			Char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1014384571"
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1014390418"
+			Char.Animate.idle.Animation1.Weight.Value = "9"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1014398616"
+			Char.Animate.idle.Animation2.Weight.Value = "1"
+			Char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1014394726"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1014401683"
+			Char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=1014406523"
+			Char.Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=1014411816"
+			Char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1014421541"
+		elseif animpack == "toilet" then
+			Char = speaker.Character
+			Char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=4417977954"
+			Char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=4417977954"
+			Char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=4417979645"
 		end
 	end
 })
@@ -2437,6 +2953,105 @@ antinetorkclaim = Player4:AddToggle({
 		end
 	end
 })
+antifing4 = false
+antifing = Player4:AddToggle({
+	Name = 'Anti Fling',
+	Value = false,
+	Flag = 'antifing1',
+	Locked = false,
+	Keybind = {
+		Flag = 'antifing2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			antifing4 = true
+			local Services = setmetatable({}, {__index = function(Self, Index)
+				local NewService = game.GetService(game, Index)
+				if NewService then
+					Self[Index] = NewService
+				end
+				return NewService
+			end})
+			
+			local LocalPlayer = Services.Players.LocalPlayer
+			
+			local function PlayerAdded(Player)
+				local Detected = false
+				local Character;
+				local PrimaryPart;
+			
+				local function CharacterAdded(NewCharacter)
+					Character = NewCharacter
+					repeat
+						wait()
+						PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+					until PrimaryPart
+					Detected = false
+				end
+			
+				CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+				Player.CharacterAdded:Connect(CharacterAdded)
+				Services.RunService.Heartbeat:Connect(function()
+			
+					if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+						if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+							if Detected == false and antifing4 == true then
+								Library.Notify({
+									Text = "Fling Exploit detected, Player: " .. tostring(Player),
+									Duration = 1
+								})
+								Detected = true
+								for i,v in ipairs(Character:GetDescendants()) do
+									if v:IsA("BasePart") then
+										v.CanCollide = false
+										v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+										v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+										v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+									end
+								end
+								PrimaryPart.CanCollide = false
+								PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+								PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+								PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+							end
+						end
+					end
+				end)
+			
+				for i,v in ipairs(Services.Players:GetPlayers()) do
+					if v ~= LocalPlayer then
+						PlayerAdded(v)
+					end
+				end
+			
+				Services.Players.PlayerAdded:Connect(PlayerAdded)
+			
+				local LastPosition = nil
+				Services.RunService.Heartbeat:Connect(function()
+					pcall(function()
+						local PrimaryPart = LocalPlayer.Character.PrimaryPart
+						if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 and antifing4 == true then
+							PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+							PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+							PrimaryPart.CFrame = LastPosition
+					
+							Library.Notify({
+								Text = "You were flung.. ",
+								Duration = 1
+							})
+						elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+							LastPosition = PrimaryPart.CFrame
+						end
+					end)
+				end)
+			end
+		else
+			antifing4 = false
+		end
+	end
+})
 antirender = Player4:AddToggle({
 	Name = 'Anti Render',
 	Value = false,
@@ -2566,6 +3181,70 @@ local night1 = Visuals1:AddButton({
 	end
 })
 
+
+
+femboymodeuwu = Visuals1:AddToggle({
+	Name = 'Femboy Mode',
+	Value = false,
+	Flag = 'femodeuwu2',
+	Locked = false,
+	Keybind = {
+		Flag = 'fembeuwu54',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local femsky = Instance.new("Sky")
+			local femblur = Instance.new("BlurEffect")
+			local femcc = Instance.new("ColorCorrectionEffect")
+			
+			femsky.Parent = game.Lighting
+			femsky.Name = "femboymode_out"
+			femsky.CelestialBodiesShown = true
+			femsky.MoonAngularSize = 11
+			femsky.SkyboxBk = "rbxassetid://5084575798"
+			femsky.SkyboxDn = "rbxassetid://5084575916"
+			femsky.SkyboxFt = "rbxassetid://5103949679"
+			femsky.SkyboxLf = "rbxassetid://5103948542"
+			femsky.SkyboxRt = "rbxassetid://5103948784"
+			femsky.SkyboxUp = "rbxassetid://5084576400"
+			femsky.StarCount = 3000
+			femsky.SunAngularSize = 21
+
+			femblur.Parent = game.Lighting
+			femblur.Name = "femblur_out"
+			femblur.Size = 4
+			femblur.Enabled = true
+
+			femcc.Parent = game.Lighting
+			femcc.Brightness = 0
+			femcc.Contrast = 0
+			femcc.Name = "femccolor_out"
+			femcc.Enabled = true
+			femcc.Saturation = 0.1
+			femcc.TintColor = Color3.fromRGB(217, 79, 255)
+		else
+			wait()
+			for _,v in pairs(game.Lighting:GetChildren()) do
+				if v.Name == "femboymode_out" and v:IsA("Sky") then
+					v:Destroy()
+				end
+			end
+			for _,v in pairs(game.Lighting:GetChildren()) do
+				if v.Name == "femblur_out" and v:IsA("BlurEffect") then
+					v:Destroy()
+				end
+			end
+			for _,v in pairs(game.Lighting:GetChildren()) do
+				if v.Name == "femccolor_out" and v:IsA("ColorCorrectionEffect") then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+
 function lesslag()
 	local Terrain = workspace:FindFirstChildOfClass('Terrain')
 	Terrain.WaterWaveSize = 0
@@ -2631,6 +3310,7 @@ local fixcam = Visuals1:AddButton({
 	end
 })
 
+
 local shownParts = {}
 local invisparts = Visuals1:AddToggle({
 	Name = 'Show invis Parts',
@@ -2661,7 +3341,7 @@ local invisparts = Visuals1:AddToggle({
 	end
 })
 
-
+getgenv().XrayTrans = 0.5
 local transparent = false
 function x(v)
 	if v then
@@ -2939,6 +3619,7 @@ local skybox = Visuals1:AddDropdown({
 	end
 })
 
+
 local nickspoofer = Visuals2:AddTextbox({
 	Name = 'Dislay Name',
 	Flag = "displayspfokf",
@@ -3165,6 +3846,7 @@ viewclip = Visuals4:AddToggle({
 		end
 	end
 })
+
 
 local proximitypromptslabel = Visuals4:CreateLabel({
 	Text = 'proximity prompts'
@@ -3868,6 +4550,85 @@ fuckaplayerfaceNAH = Funny5:AddButton({
 	end
 })
 
+fucktardSettings = {
+	Color = Color3.new(233, 152, 3);
+	Heat = 9;
+	SecondaryColor = Color3.new(139, 80, 55);
+	Size = 5;
+}
+
+headfire = Funny6:AddToggle({
+	Name = 'Head Fire',
+	Value = false,
+	Flag = 'headfire1',
+	Locked = false,
+	Keybind = {
+		Flag = 'headfire2',
+		Mode = 'Toggle',
+	},
+
+	Callback = function( state )
+		if ( state ) then
+			local fucktard = Instance.new("Fire")
+			fucktard.Parent = speaker.Character.Head
+			fucktard.Name = "fucktard"
+			fucktard.SecondaryColor = fucktardSettings.SecondaryColor
+			fucktard.Size = fucktardSettings.Size
+			fucktard.Heat = fucktardSettings.Heat
+			while state == true do
+				task.wait()
+				fucktard.Color = fucktardSettings.Color
+			end
+		else
+			for _,v in pairs(game.Players.LocalPlayer.Character.Head:GetChildren()) do
+				if v.Name == "fucktard" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+
+fucktardset1 = Funny6:AddColorPicker({
+	Name = "Primary Color",
+	Value = Color3.new(0.619607, 0.168627, 0.168627),
+	Callback = function( x )
+		fucktardSettings.Color = x
+	end
+})
+fucktardset2 = Funny6:AddColorPicker({
+	Name = "Secondary Color",
+	Value = Color3.new(0.619607, 0.168627, 0.168627),
+	Callback = function( x )
+		fucktardSettings.SecondaryColor = x
+	end
+})
+heatsajhafs = Funny6:AddSlider({
+	Name = 'Fire Heat',
+	Flag = "slidds",
+	Value = 13,
+	Min = 0,
+	Max = 1000,
+	Decimals = 2,
+	llegalInput = false,
+	Callback = function(x)
+		fucktardSettings.Heat = x
+	end
+})
+sizeugsdfsdfs = Funny6:AddSlider({
+	Name = 'Fire Size',
+	Flag = "s82",
+	Value = 5,
+	Min = 1,
+	Max = 30,
+	Decimals = 2,
+	llegalInput = false,
+	Callback = function( x )
+		fucktardSettings.Size = x
+	end
+})
+
+
 getgenv().WayPointTransparency = 1
 getgenv().WayPointCanCollide = false
 getgenv().WayPointAnchored = true
@@ -4508,6 +5269,28 @@ fakelag = Misc4:AddToggle({
 	end
 })
 
+chatcrsaher1 = flase
+chatcrasher = Misc4:AddToggle({
+	Name = 'Chat Crasher',
+	Value = false,
+	Flag = 'chatcrasher',
+	Keybind = {
+		Flag = 'crashololol',
+		Mode = 'Toggle',
+	},
+	Callback = function( state )
+		if ( state ) then
+			chatcrsaher1 = true
+			while chatcrsaher1 == true do
+				task.wait()
+				game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼", "All")
+			end
+		else
+			chatcrsaher1 = flase
+		end
+	end
+})
+
 local antikick = Misc4:AddButton({
 	Name = "Anti Client kick    ",
 	Callback = function()
@@ -4678,7 +5461,11 @@ local keepui = Misc7:AddToggle({
 		if ( state ) then
 			if syn.queue_on_teleport then
 				if state == true then
-					syn.queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/NewMain.lua"))()')
+					syn.queue_on_teleport([[
+						game:GetService('ReplicatedFirst'):RemoveDefaultLoadingScreen()
+						repeat wait(.1) until game:GetService('Players').LocalPlayer
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/NewMain.lua"))()
+					]])
 				end
 			else
 				keepui:Set(false)
@@ -4891,8 +5678,6 @@ Cool6 = Credits3:CreateLabel({
 	Text = 'Azura'
 })
 
-
-
 copydc = Credits4:AddButton({
 	Name = "Copy Discord Invite",
 	Callback = function()
@@ -4910,7 +5695,6 @@ copydc = Credits4:AddButton({
 
 Library.Notify({
 	Text = "loaded in "..tick() - executiontime .. " seconds   ",
-	Duration = 5
+	Duration = 1
 })
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/others/extras.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Iratethisname10/Iy-plus/main/main/cmd_ob.lua"))()
