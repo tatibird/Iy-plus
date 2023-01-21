@@ -33,13 +33,13 @@ Environment.Settings = {
 	Enabled = false,
 	TeamCheck = false,
 	AliveCheck = true,
-	WallCheck = false, -- Laggy
-	Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
-	ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
-	ThirdPersonSensitivity = 3, -- Boundary: 0.1 - 5
+	WallCheck = false,
+	Sensitivity = 0,
+	ThirdPerson = false,
+	ThirdPersonSensitivity = 0.7,
 	TriggerKey = "MouseButton2",
 	Toggle = false,
-	LockPart = "Head" -- Body part to lock on
+	LockPart = "Head"
 }
 
 Environment.FOVSettings = {
