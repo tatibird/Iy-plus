@@ -518,7 +518,6 @@ function library.unload()
 			shared.libraries = nil
 		end
 	end
-	warn("Unloaded")
 end
 library.Unload = library.unload
 local Instance_new = (syn and syn.protect_gui and function(...)
